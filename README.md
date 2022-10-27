@@ -1,6 +1,5 @@
-# Project Name
-Put here a short paragraph describing your project. 
-Adding an screenshot or a mockup of your application in action would be nice.  
+# Lemonade Stand
+"Lemonade Stand" is an application that allows the user to play a lemonade stand game that simulates owning a lemonade stand and maximizing your profit. The user will be able to buy inventory, set lemonade recipe, and price per cup. The goal is to see how much profit you can make in a certain amount of days without going bankrupt.
 
 ![This is a screenshot.](images.png)
 # How to run
