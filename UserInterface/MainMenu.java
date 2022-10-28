@@ -65,27 +65,27 @@ public class MainMenu {
                 frame.dispose();
                 JLabel label = new JLabel("How to play");
                 JLabel label1 = new JLabel("""
-                    Weather:\n
-                    Keep an eye on the forecast. This will help you estimate supplies you will need, how to formulate your lemonade and how much to charge.\n
-    
-                    Pricing:\n
-                    On hotter days, customers will pay more. On colder days, lower your prices to attract customers. You can adjust your price at any time during the day.\n
-                    
-                    Inventory:\n
-                    Stock up on cups when the price is low. Keep lemons and sugar stocks fairly low as they can go bad. Ice melts at the end of every day, so buy ice only according to your daily needs.\n
-                    
-                    Quality:\n
-                    On colder days, add additional lemons and sugar to your pitchers to entice customers, and reduce ice to save money. On hot days, decrease your lemons and sugar to the default, and increase ice cubes.\n
-                    
-                    Customers:\n
-                    Keep an eye on passing customers. Symbols or words appear over their heads indicating whether they like or dislike your lemonade, or if they think your prices are fair. Always try to please the customers.""");
+                    <html>Weather:<br/>
+                    Keep an eye on the forecast. This will help you estimate supplies you will need, how to formulate your lemonade and how much to charge.<br/>
+                    <br/>
+                    Pricing:<br/>
+                    On hotter days, customers will pay more. On colder days, lower your prices to attract customers. You can adjust your price at any time during the day.<br/>
+                    <br/>
+                    Inventory:<br/>
+                    Stock up on cups when the price is low. Keep lemons and sugar stocks fairly low as they can go bad. Ice melts at the end of every day, so buy ice only according to your daily needs.<br/>
+                    <br/>
+                    Quality:<br/>
+                    On colder days, add additional lemons and sugar to your pitchers to entice customers, and reduce ice to save money. On hot days, decrease your lemons and sugar to the default, and increase ice cubes.<br/>
+                    <br/>
+                    Customers:<br/>
+                    Keep an eye on passing customers. Symbols or words appear over their heads indicating whether they like or dislike your lemonade, or if they think your prices are fair. Always try to please the customers.</html>""");
                 JFrame frame = new JFrame();
-                JPanel panel = new JPanel();
+                JPanel panel = new JPanel(new BorderLayout());
 
                 panel.setBorder(BorderFactory.createEmptyBorder(200, 200, 200, 200));
                 panel.setLayout(new GridLayout(0, 1));
-                panel.add(label);
-                panel.add(label1);
+                panel.add(label, BorderLayout.PAGE_START);
+                panel.add(label1, BorderLayout.CENTER);
 
                 frame.add(panel, BorderLayout.CENTER);
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
