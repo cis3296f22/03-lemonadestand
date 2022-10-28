@@ -78,8 +78,52 @@ public class LemonadeStand {
     }
 
     // ACTIONS
-    public void sellCup(){
 
+    // set recipe (ice, cups, price)
+    public void setRecipe(double l, double i, double p){
+        lemonsPer = l;
+        icePer = i;
+        pricePer = p;
     }
+
+    // add lemons, such as after purchasing more from the store
+    public void addLemons(double l){
+        lemons += l;
+    }
+
+    // add ice, such as after purchasing more from the store
+    public void addIce(double i){
+        ice += i;
+    }
+
+    // add cups, such as after purchasing more from the store
+    public void addCups(double c){
+        cups += c;
+    }
+
+    // subtract lemons based on recipe
+    public void subtractLemons(){
+        lemons -= lemonsPer;
+    }
+
+    // subtract ice based on recipe
+    public void subtractIce(){
+        ice -= icePer;
+    }
+
+    // subtract cups based on recipe (always 1 cup per cup of lemonade)
+    public void subtractCups(){
+        cups -= 1;
+    }
+
+
+    // sell cup of lemonade based on recipe
+    public void sellCup(){
+        money += pricePer;
+        subtractCups();
+        subtractIce();
+        subtractLemons();
+    }
+
 
 }
