@@ -63,8 +63,7 @@ public class MainMenu {
         buttoninstruct.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 frame.dispose();
-                JLabel label = new JLabel("How to play");
-                JLabel label1 = new JLabel("""
+                JLabel label = new JLabel("""
                     <html>Weather:<br/>
                     Keep an eye on the forecast. This will help you estimate supplies you will need, how to formulate your lemonade and how much to charge.<br/>
                     <br/>
@@ -82,10 +81,9 @@ public class MainMenu {
                 JFrame frame = new JFrame();
                 JPanel panel = new JPanel(new BorderLayout());
 
-                panel.setBorder(BorderFactory.createEmptyBorder(200, 200, 200, 200));
+                panel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
                 panel.setLayout(new GridLayout(0, 1));
-                panel.add(label, BorderLayout.PAGE_START);
-                panel.add(label1, BorderLayout.CENTER);
+                panel.add(label, BorderLayout.CENTER);
 
                 frame.add(panel, BorderLayout.CENTER);
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
