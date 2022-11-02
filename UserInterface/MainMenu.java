@@ -17,8 +17,8 @@ public class MainMenu {
     JButton button30 = new JButton("30 Days");
     JButton buttonEnd = new JButton("Endless");
     JButton buttonBack = new JButton("Back");
-    JButton button = new JButton("New Game");
-    JButton buttoninstruct = new JButton("Instructions");
+    JButton buttonGame = new JButton("New Game");
+    JButton buttonInstruct = new JButton("Instructions");
     JButton buttonExit = new JButton("Exit");
 
     ImageIcon image = new ImageIcon("UserInterface/LemonIcon.png");
@@ -30,23 +30,27 @@ public class MainMenu {
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
 
-        panel.setBorder(BorderFactory.createEmptyBorder(100, 50, 100, 50));
+        panel.setBorder(BorderFactory.createEmptyBorder(100, 25, 100, 25));
         panel1.setBorder(BorderFactory.createEmptyBorder(100, 600, 100, 600));
-        panel1.setLayout(new GridLayout(0,1));;
+        panel1.setLayout(new GridLayout(0,1, 15, 15));;
         panel.setBackground(new Color(0x123456));
         panel1.setBackground(new Color(0x123456));
 
+        label.setFont(new Font("MV Boli", Font.BOLD, 80));
         label.setForeground(Color.YELLOW);
         label.setHorizontalTextPosition(JLabel.CENTER);
-        label.setFont(new Font("MV Boli", Font.BOLD, 80));
+
+        customButton(buttonGame, 25, Color.darkGray);
+        customButton(buttonInstruct, 25, Color.darkGray);
+        customButton(buttonExit, 25, Color.darkGray);
 
         panel.add(label, BorderLayout.NORTH);
-        panel1.add(button, BorderLayout.CENTER);
-        panel1.add(buttoninstruct, BorderLayout.CENTER);
+        panel1.add(buttonGame, BorderLayout.CENTER);
+        panel1.add(buttonInstruct, BorderLayout.CENTER);
         panel1.add(buttonExit, BorderLayout.CENTER);
         
-        buttonAction();
-        buttoninstruction();
+        newGameAction();
+        instructAction();
         exitAction();
 
         frame.add(panel, BorderLayout.NORTH);
@@ -54,28 +58,33 @@ public class MainMenu {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Lemonade Stand");
         frame.setIconImage(image.getImage());
-        frame.setUndecorated(false);
+        frame.setUndecorated(true);
         frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
         device.setFullScreenWindow(frame);
     }
 
-    public void buttonAction(){
-        button.addActionListener(new ActionListener() {
+    public void newGameAction(){
+        buttonGame.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                JLabel label = new JLabel("How Many Days?");
+            public void actionPerformed(ActionEvent e){
+                JLabel label = new JLabel("How long would you like to play?");
                 JPanel panel = new JPanel();
 
                 panel.setBorder(BorderFactory.createEmptyBorder(200, 600, 200, 600));
-                panel.setLayout(new GridLayout(0,1));
+                panel.setLayout(new GridLayout(0,1, 10, 10));
                 panel.setBackground(new Color(0x123456));
 
+                label.setFont(new Font("MV Boli", Font.BOLD, 20));
                 label.setForeground(Color.YELLOW);
                 label.setHorizontalTextPosition(JLabel.CENTER);
-                label.setFont(new Font("MV Boli", Font.BOLD, 35));
+
+                customButton(button7, 25, Color.green);
+                customButton(button14, 25, Color.orange);
+                customButton(button30, 25, Color.red);
+                customButton(buttonEnd, 25, Color.black);
+                customButton(buttonBack, 25, Color.darkGray);
 
                 panel.add(label);
                 panel.add(button7);
@@ -90,19 +99,19 @@ public class MainMenu {
                 frame1.setTitle("New Game");
                 frame1.setIconImage(image.getImage());
                 frame1.getContentPane().setBackground(new Color(0x123456));
-                frame1.setUndecorated(false);
+                frame1.setUndecorated(true);
                 frame1.setResizable(false);
                 frame1.pack();
                 frame1.setVisible(true);
                 device.setFullScreenWindow(frame1);
+                frame.dispose();
             }
         });
     }
 
-    public void buttoninstruction(){
-        buttoninstruct.addActionListener(new ActionListener() {
+    public void instructAction(){
+        buttonInstruct.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                frame.dispose();
                 JLabel label = new JLabel("How to play");
                 JLabel label1 = new JLabel("""
                     <html>Weather:<br/>
@@ -118,12 +127,15 @@ public class MainMenu {
                     On colder days, add additional lemons and sugar to your pitchers to entice customers, and reduce ice to save money. On hot days, decrease your lemons and sugar to the default, and increase ice cubes.<br/>
                     <br/>
                     Customers:<br/>
-                    Keep an eye on passing customers. Symbols or words appear over their heads indicating whether they like or dislike your lemonade, or if they think your prices are fair. Always try to please the customers.</html>""");
+                    Keep an eye on passing customers. Symbols or words appear over their heads indicating whether they like or dislike your lemonade, or if they think your prices are fair. Always try to please the customers.</html>"""
+                );
                 
-                label.setForeground(Color.YELLOW);
-                label1.setForeground(Color.GREEN);
-                label.setHorizontalTextPosition(JLabel.CENTER);
                 label.setFont(new Font("MV Boli", Font.BOLD, 35));
+                label1.setFont(new Font("Consolas", Font.BOLD, 16));  
+                label.setForeground(Color.yellow);
+                label1.setForeground(Color.white);
+                label.setHorizontalTextPosition(JLabel.CENTER);
+
                 JPanel panel = new JPanel(new BorderLayout());
                 JPanel panel1 = new JPanel();
 
@@ -131,11 +143,11 @@ public class MainMenu {
                 panel1.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
                 panel.setBackground(new Color(0x123456));
                 panel1.setBackground(new Color(0x123456));
+                customButton(buttonBack, 20, Color.darkGray);
 
                 panel.add(label, BorderLayout.PAGE_START);
                 panel.add(label1, BorderLayout.CENTER);
                 panel1.add(buttonBack, BorderLayout.PAGE_END);
-                buttonBack.setSize(250, 100);
                 backAction(frame2);
 
                 frame2.add(panel, BorderLayout.CENTER);
@@ -143,11 +155,12 @@ public class MainMenu {
                 frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame2.setTitle("How To Play");
                 frame2.setIconImage(image.getImage());
-                frame2.setUndecorated(false);
+                frame2.setUndecorated(true);
                 frame2.setResizable(false);
                 frame2.pack();
                 frame2.setVisible(true);
                 device.setFullScreenWindow(frame2);
+                frame.dispose();
             }
         });
     }
@@ -155,9 +168,9 @@ public class MainMenu {
     public void backAction(JFrame backFrame){
         buttonBack.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                backFrame.dispose();
+            public void actionPerformed(ActionEvent e){
                 new MainMenu();
+                backFrame.dispose();
             }
         });  
     }
@@ -165,10 +178,18 @@ public class MainMenu {
     public void exitAction(){
         buttonExit.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e){
                 frame.dispose();
                 System.exit(1);
             }
         });  
+    }
+
+    public void customButton(JButton button, int size, Color color){
+        button.setFont(new Font("Comic Sans", Font.BOLD, size));
+        button.setForeground(Color.white);
+        button.setBackground(color);
+        button.setFocusable(false);
+        button.setBorder(BorderFactory.createEtchedBorder());
     }
 }
