@@ -4,13 +4,14 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class MainMenu {
-    public static void main(String [] args){
+    public static void main(String[] args){
         new MainMenu();
     }
 
     JFrame frame = new JFrame();
     JFrame frame1 = new JFrame();
-    JPanel panel = new JPanel();
+    JFrame frame2 = new JFrame();
+
     JButton button7 = new JButton("7 Days");
     JButton button14 = new JButton("14 Days");
     JButton button30 = new JButton("30 Days");
@@ -20,23 +21,44 @@ public class MainMenu {
     JButton buttoninstruct = new JButton("Instructions");
     JButton buttonExit = new JButton("Exit");
 
+    ImageIcon image = new ImageIcon("UserInterface/LemonIcon.png");
+    GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
+    GraphicsDevice device = graphics.getDefaultScreenDevice();
+
     public MainMenu(){
-        panel.setBorder(BorderFactory.createEmptyBorder(200, 200, 200, 200));
-        panel.setLayout(new GridLayout(0, 1));
-        panel.add(button);
-        panel.add(buttoninstruct);
-        panel.add(buttonExit);
-        button.setBounds(200, 100, 100, 50);
+        JLabel label = new JLabel("Lemonade Stand");
+        JPanel panel = new JPanel();
+        JPanel panel1 = new JPanel();
+
+        panel.setBorder(BorderFactory.createEmptyBorder(100, 50, 100, 50));
+        panel1.setBorder(BorderFactory.createEmptyBorder(100, 600, 100, 600));
+        panel1.setLayout(new GridLayout(0,1));;
+        panel.setBackground(new Color(0x123456));
+        panel1.setBackground(new Color(0x123456));
+
+        label.setForeground(Color.YELLOW);
+        label.setHorizontalTextPosition(JLabel.CENTER);
+        label.setFont(new Font("MV Boli", Font.BOLD, 80));
+
+        panel.add(label, BorderLayout.NORTH);
+        panel1.add(button, BorderLayout.CENTER);
+        panel1.add(buttoninstruct, BorderLayout.CENTER);
+        panel1.add(buttonExit, BorderLayout.CENTER);
+        
         buttonAction();
         buttoninstruction();
         exitAction();
 
-        frame.add(panel, BorderLayout.CENTER);
+        frame.add(panel, BorderLayout.NORTH);
+        frame.add(panel1, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationByPlatform(true);
-        frame.setTitle("Lemonade Stand Game");
+        frame.setTitle("Lemonade Stand");
+        frame.setIconImage(image.getImage());
+        frame.setUndecorated(false);
+        frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
+        device.setFullScreenWindow(frame);
     }
 
     public void buttonAction(){
@@ -44,28 +66,35 @@ public class MainMenu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                JLabel label = new JLabel("How many days?");
+                JLabel label = new JLabel("How Many Days?");
                 JPanel panel = new JPanel();
-                JButton button7 = new JButton("7 Days");
-                JButton button14 = new JButton("14 Days");
-                JButton button30 = new JButton("30 Days");
-                
-                panel.setBorder(BorderFactory.createEmptyBorder(200, 200, 200, 200));
-                panel.setLayout(new GridLayout(0, 1));
+
+                panel.setBorder(BorderFactory.createEmptyBorder(200, 600, 200, 600));
+                panel.setLayout(new GridLayout(0,1));
+                panel.setBackground(new Color(0x123456));
+
+                label.setForeground(Color.YELLOW);
+                label.setHorizontalTextPosition(JLabel.CENTER);
+                label.setFont(new Font("MV Boli", Font.BOLD, 35));
+
                 panel.add(label);
                 panel.add(button7);
                 panel.add(button14);
                 panel.add(button30);
                 panel.add(buttonEnd);
                 panel.add(buttonBack);
-                backAction();
+                backAction(frame1);
 
                 frame1.add(panel, BorderLayout.CENTER);
                 frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame1.setLocationByPlatform(true);
                 frame1.setTitle("New Game");
+                frame1.setIconImage(image.getImage());
+                frame1.getContentPane().setBackground(new Color(0x123456));
+                frame1.setUndecorated(false);
+                frame1.setResizable(false);
                 frame1.pack();
                 frame1.setVisible(true);
+                device.setFullScreenWindow(frame1);
             }
         });
     }
@@ -90,29 +119,44 @@ public class MainMenu {
                     <br/>
                     Customers:<br/>
                     Keep an eye on passing customers. Symbols or words appear over their heads indicating whether they like or dislike your lemonade, or if they think your prices are fair. Always try to please the customers.</html>""");
-                JFrame frame = new JFrame();
+                
+                label.setForeground(Color.YELLOW);
+                label1.setForeground(Color.GREEN);
+                label.setHorizontalTextPosition(JLabel.CENTER);
+                label.setFont(new Font("MV Boli", Font.BOLD, 35));
                 JPanel panel = new JPanel(new BorderLayout());
+                JPanel panel1 = new JPanel();
 
-                panel.setBorder(BorderFactory.createEmptyBorder(200, 200, 200, 200));
-                panel.setLayout(new GridLayout(0, 1));
+                panel.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
+                panel1.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
+                panel.setBackground(new Color(0x123456));
+                panel1.setBackground(new Color(0x123456));
+
                 panel.add(label, BorderLayout.PAGE_START);
                 panel.add(label1, BorderLayout.CENTER);
+                panel1.add(buttonBack, BorderLayout.PAGE_END);
+                buttonBack.setSize(250, 100);
+                backAction(frame2);
 
-                frame.add(panel, BorderLayout.CENTER);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setLocationByPlatform(true);
-                frame.setTitle("How To Play");
-                frame.pack();
-                frame.setVisible(true);
+                frame2.add(panel, BorderLayout.CENTER);
+                frame2.add(panel1, BorderLayout.SOUTH);
+                frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame2.setTitle("How To Play");
+                frame2.setIconImage(image.getImage());
+                frame2.setUndecorated(false);
+                frame2.setResizable(false);
+                frame2.pack();
+                frame2.setVisible(true);
+                device.setFullScreenWindow(frame2);
             }
         });
     }
 
-    public void backAction(){
+    public void backAction(JFrame backFrame){
         buttonBack.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame1.dispose();
+                backFrame.dispose();
                 new MainMenu();
             }
         });  
