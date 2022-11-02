@@ -30,14 +30,14 @@ public class MainMenu {
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
 
-        panel.setBorder(BorderFactory.createEmptyBorder(100, 25, 100, 25));
-        panel1.setBorder(BorderFactory.createEmptyBorder(100, 600, 100, 600));
-        panel1.setLayout(new GridLayout(0,1, 15, 15));;
+        panel.setBorder(BorderFactory.createEmptyBorder(75, 25, 75, 25));
+        panel1.setBorder(BorderFactory.createEmptyBorder(120, 600, 120, 600));
+        panel1.setLayout(new GridLayout(0,1, 20, 20));;
         panel.setBackground(new Color(0x123456));
         panel1.setBackground(new Color(0x123456));
 
         label.setFont(new Font("MV Boli", Font.BOLD, 80));
-        label.setForeground(Color.YELLOW);
+        label.setForeground(Color.yellow);
         label.setHorizontalTextPosition(JLabel.CENTER);
 
         customButton(buttonGame, 25, Color.darkGray);
@@ -58,7 +58,7 @@ public class MainMenu {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Lemonade Stand");
         frame.setIconImage(image.getImage());
-        frame.setUndecorated(true);
+        frame.setUndecorated(false);
         frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
@@ -69,37 +69,48 @@ public class MainMenu {
         buttonGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                JLabel label = new JLabel("How long would you like to play?");
+                JLabel label = new JLabel("Lemonade Stand Game");
+                JLabel label1 = new JLabel("How long would you like to play?");
                 JPanel panel = new JPanel();
+                JPanel panel1 = new JPanel();
 
-                panel.setBorder(BorderFactory.createEmptyBorder(200, 600, 200, 600));
-                panel.setLayout(new GridLayout(0,1, 10, 10));
+                panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
                 panel.setBackground(new Color(0x123456));
 
-                label.setFont(new Font("MV Boli", Font.BOLD, 20));
-                label.setForeground(Color.YELLOW);
+                panel1.setBorder(BorderFactory.createEmptyBorder(100, 600, 100, 600));
+                panel1.setLayout(new GridLayout(0,1, 10, 10));
+                panel1.setBackground(new Color(0x123456));
+
+                label.setFont(new Font("Comic Sans", Font.BOLD, 40));
+                label.setForeground(Color.white);
                 label.setHorizontalTextPosition(JLabel.CENTER);
+
+                label1.setFont(new Font("MV Boli", Font.BOLD, 19));
+                label1.setForeground(Color.yellow);
+                label1.setHorizontalTextPosition(JLabel.CENTER);
 
                 customButton(button7, 25, Color.green);
                 customButton(button14, 25, Color.orange);
                 customButton(button30, 25, Color.red);
                 customButton(buttonEnd, 25, Color.black);
                 customButton(buttonBack, 25, Color.darkGray);
-
+                
                 panel.add(label);
-                panel.add(button7);
-                panel.add(button14);
-                panel.add(button30);
-                panel.add(buttonEnd);
-                panel.add(buttonBack);
+                panel1.add(label1);
+                panel1.add(button7);
+                panel1.add(button14);
+                panel1.add(button30);
+                panel1.add(buttonEnd);
+                panel1.add(buttonBack);
                 backAction(frame1);
-
-                frame1.add(panel, BorderLayout.CENTER);
+                
+                frame1.add(panel, BorderLayout.NORTH);
+                frame1.add(panel1, BorderLayout.CENTER);
                 frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame1.setTitle("New Game");
                 frame1.setIconImage(image.getImage());
                 frame1.getContentPane().setBackground(new Color(0x123456));
-                frame1.setUndecorated(true);
+                frame1.setUndecorated(false);
                 frame1.setResizable(false);
                 frame1.pack();
                 frame1.setVisible(true);
@@ -155,7 +166,7 @@ public class MainMenu {
                 frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame2.setTitle("How To Play");
                 frame2.setIconImage(image.getImage());
-                frame2.setUndecorated(true);
+                frame2.setUndecorated(false);
                 frame2.setResizable(false);
                 frame2.pack();
                 frame2.setVisible(true);
