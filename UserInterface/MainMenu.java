@@ -9,18 +9,27 @@ public class MainMenu {
     }
 
     JFrame frame = new JFrame();
+    JFrame frame1 = new JFrame();
     JPanel panel = new JPanel();
+    JButton button7 = new JButton("7 Days");
+    JButton button14 = new JButton("14 Days");
+    JButton button30 = new JButton("30 Days");
+    JButton buttonEnd = new JButton("Endless");
+    JButton buttonBack = new JButton("Back");
     JButton button = new JButton("New Game");
     JButton buttoninstruct = new JButton("Instructions");
+    JButton buttonExit = new JButton("Exit");
 
     public MainMenu(){
         panel.setBorder(BorderFactory.createEmptyBorder(200, 200, 200, 200));
         panel.setLayout(new GridLayout(0, 1));
         panel.add(button);
         panel.add(buttoninstruct);
+        panel.add(buttonExit);
         button.setBounds(200, 100, 100, 50);
         buttonAction();
         buttoninstruction();
+        exitAction();
 
         frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,7 +45,6 @@ public class MainMenu {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
                 JLabel label = new JLabel("How many days?");
-                JFrame frame = new JFrame();
                 JPanel panel = new JPanel();
                 JButton button7 = new JButton("7 Days");
                 JButton button14 = new JButton("14 Days");
@@ -48,13 +56,16 @@ public class MainMenu {
                 panel.add(button7);
                 panel.add(button14);
                 panel.add(button30);
+                panel.add(buttonEnd);
+                panel.add(buttonBack);
+                backAction();
 
-                frame.add(panel, BorderLayout.CENTER);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setLocationByPlatform(true);
-                frame.setTitle("New Game");
-                frame.pack();
-                frame.setVisible(true);
+                frame1.add(panel, BorderLayout.CENTER);
+                frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame1.setLocationByPlatform(true);
+                frame1.setTitle("New Game");
+                frame1.pack();
+                frame1.setVisible(true);
             }
         });
     }
@@ -93,5 +104,25 @@ public class MainMenu {
                 frame.setVisible(true);
             }
         });
+    }
+
+    public void backAction(){
+        buttonBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame1.dispose();
+                new MainMenu();
+            }
+        });  
+    }
+
+    public void exitAction(){
+        buttonExit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                System.exit(1);
+            }
+        });  
     }
 }
