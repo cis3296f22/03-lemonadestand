@@ -20,6 +20,14 @@ public class GameView extends JFrame {
     JLabel inventory = new JLabel();
     Button testButton = new Button();
     int money = 0;
+    int lemons = 0;
+    int sugar = 0;
+    int cups = 0;
+    int ice = 0;
+    int temperature = 0;
+    String weather = "Sunny";
+    int currentDay = 1;
+    String totalDays = "7";
 
     private JPanel panel1;
 
@@ -35,38 +43,10 @@ public class GameView extends JFrame {
             System.out.println(money);
         });
 
-        //text display game information
-        gameText.setText("<html>Day 1 of 7<br />Money: $" + money + "</html>"); // add variable
-        gameText.setBounds(15,440,200,50); // sets text position
-        gameText.setFont(new Font("Georgia", Font.BOLD, 20));
+        //WILL PASS IN PARAMS WHEN INITIALIZED
+        loadGameText(); //sets up initial game display,
 
-        weatherText.setText("<html>Temperature: 80&#8457<br />Weather: Sunny</html>"); //add variables
-        weatherText.setBounds(400, 440, 200, 50);
-        weatherText.setFont(new Font("Georgia", Font.BOLD, 20));
-
-        inventory.setText("<html><pre> Cups: 0  Ice: 0  Lemons: 0  Sugar: 0 </pre></html>");
-        inventory.setBounds(150, 375, 460, 25);
-        inventory.setFont(new Font("Georgia", Font.BOLD, 20));
-        inventory.setBackground(new Color(0xDEE3E3));
-        inventory.setOpaque(true);
-        Border invBorder = BorderFactory.createLineBorder(Color.BLACK, 2, true);
-        inventory.setBorder(invBorder);
-
-
-        //Setting image
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File("UserInterface/frontYardNoStand.jpg"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        ImageIcon backgroundImage = new ImageIcon(img);
-        background.setIcon(backgroundImage);
-
-
-        //sets position of label
-        background.setVerticalAlignment(JLabel.TOP);
-        background.setBounds(15,15, 600,400);
+        loadBackground(); //loading in background image for game
 
         //using a layered pane to order z-index of components
         layeredPane.setBounds(0,0, 800,800);
@@ -92,6 +72,42 @@ public class GameView extends JFrame {
 
     public static void main(String[] args) {
         new GameView();
+    }
+
+    public void loadBackground(){
+        //Setting image
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File("UserInterface/frontYardNoStand.jpg")); //Can change depending on weather
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ImageIcon backgroundImage = new ImageIcon(img);
+        background.setIcon(backgroundImage);
+
+
+        //sets position of label
+        background.setVerticalAlignment(JLabel.TOP);
+        background.setBounds(15,15, 600,400);
+    }
+
+    private void loadGameText(){
+        //text display game information
+        gameText.setText("<html>Day " + currentDay + " of " + totalDays + "7<br />Money: $" + money + "</html>"); // add variables
+        gameText.setBounds(15,440,200,50); // sets text position
+        gameText.setFont(new Font("Georgia", Font.BOLD, 20));
+
+        weatherText.setText("<html>Temperature: " + temperature + "&#8457<br />Weather: " + weather + "</html>"); //add variables
+        weatherText.setBounds(400, 440, 200, 50);
+        weatherText.setFont(new Font("Georgia", Font.BOLD, 20));
+
+        inventory.setText("<html><pre> Cups: " + cups + "  Ice: " + ice + "  Lemons: " + lemons + "  Sugar: " + sugar + " </pre></html>");
+        inventory.setBounds(150, 375, 460, 25);
+        inventory.setFont(new Font("Georgia", Font.BOLD, 20));
+        inventory.setBackground(new Color(0xDEE3E3));
+        inventory.setOpaque(true);
+        Border invBorder = BorderFactory.createLineBorder(Color.BLACK, 2, true);
+        inventory.setBorder(invBorder);
     }
 
     private void increaseMoney(){
