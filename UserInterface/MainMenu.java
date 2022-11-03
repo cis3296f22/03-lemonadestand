@@ -102,6 +102,11 @@ public class MainMenu {
                 panel1.add(button30);
                 panel1.add(buttonEnd);
                 panel1.add(buttonBack);
+                
+                gameAction(button7);
+                gameAction(button14);
+                gameAction(button30);
+                gameAction(buttonEnd);
                 backAction(frame1);
                 
                 frame1.add(panel, BorderLayout.NORTH);
@@ -173,6 +178,15 @@ public class MainMenu {
                 frame.dispose();
             }
         });
+    }
+
+    public void gameAction(JButton button){
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                new GameView();
+            }
+        });  
     }
 
     public void backAction(JFrame backFrame){
