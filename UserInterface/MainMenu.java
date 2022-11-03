@@ -4,9 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class MainMenu {
-    public static void main(String[] args){
-        new MainMenu();
-    }
 
     JFrame frame = new JFrame();
     JFrame frame1 = new JFrame();
