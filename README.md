@@ -5,9 +5,8 @@
 # How to run
 Provide here instructions on how to use your application.   
 - Download the latest Lemonade Stand .jar file from the Release section on the right on GitHub.  
-- Find .jar file in explorer, double-click to run
-- You will see Hello World! on your terminal. 
-
+- Find .jar file in explorer, double-click to run.
+- This should open up the main menu in a new window.
 # How to contribute
 Follow this project board to know the latest status of the project: [Project Board](https://github.com/orgs/cis3296f22/projects/105/views/1)  
 
