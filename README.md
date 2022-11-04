@@ -3,7 +3,6 @@
 
 ![image](https://user-images.githubusercontent.com/78782966/200008462-f94bdb31-a914-4cc0-9cb9-4bd15c820255.png)
 # How to run
-Provide here instructions on how to use your application.   
 - Download the latest Lemonade Stand .jar file from the Release section on the right on GitHub.  
 - Find .jar file in explorer, double-click to run.
 - This should open up the main menu in a new window.
