@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class MainMenu {
-
     JFrame frame = new JFrame();
     JFrame frame1 = new JFrame();
     JFrame frame2 = new JFrame();
@@ -29,22 +28,21 @@ public class MainMenu {
 
         panel.setBorder(BorderFactory.createEmptyBorder(75, 25, 75, 25));
         panel1.setBorder(BorderFactory.createEmptyBorder(120, 600, 120, 600));
-        panel1.setLayout(new GridLayout(0,1, 20, 20));;
+        panel1.setLayout(new GridLayout(0,1, 20, 20));
         panel.setBackground(new Color(0xF1E592));
         panel1.setBackground(new Color(0xF1E592));
 
         label.setFont(new Font("MV Boli", Font.BOLD, 80));
         label.setForeground(new Color(0x123456));
-        label.setHorizontalTextPosition(JLabel.CENTER);
 
         customButton(buttonGame, 25, Color.darkGray);
         customButton(buttonInstruct, 25, Color.darkGray);
         customButton(buttonExit, 25, Color.darkGray);
 
-        panel.add(label, BorderLayout.NORTH);
-        panel1.add(buttonGame, BorderLayout.CENTER);
-        panel1.add(buttonInstruct, BorderLayout.CENTER);
-        panel1.add(buttonExit, BorderLayout.CENTER);
+        panel.add(label);
+        panel1.add(buttonGame);
+        panel1.add(buttonInstruct);
+        panel1.add(buttonExit);
         
         newGameAction();
         instructAction();
@@ -71,7 +69,7 @@ public class MainMenu {
                 JPanel panel = new JPanel();
                 JPanel panel1 = new JPanel();
 
-                panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
+                panel.setBorder(BorderFactory.createEmptyBorder(75, 30, 30, 30));
                 panel.setBackground(new Color(0xF1E592));
 
                 panel1.setBorder(BorderFactory.createEmptyBorder(100, 600, 100, 600));
