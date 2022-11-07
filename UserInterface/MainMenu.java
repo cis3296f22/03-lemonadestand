@@ -4,10 +4,9 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class MainMenu {
-
-    JFrame frame = new JFrame();
-    JFrame frame1 = new JFrame();
-    JFrame frame2 = new JFrame();
+    JFrame mainFrame = new JFrame();
+    JFrame gameFrame = new JFrame();
+    JFrame instructFrame = new JFrame();
 
     JButton button7 = new JButton("7 Days");
     JButton button14 = new JButton("14 Days");
@@ -16,107 +15,111 @@ public class MainMenu {
     JButton buttonBack = new JButton("Back");
     JButton buttonGame = new JButton("New Game");
     JButton buttonInstruct = new JButton("Instructions");
-    JButton buttonExit = new JButton("Exit");
+    JButton buttonExit = new JButton("Quit");
 
     ImageIcon image = new ImageIcon("UserInterface/LemonIcon.png");
     GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
     GraphicsDevice device = graphics.getDefaultScreenDevice();
 
     public MainMenu(){
-        JLabel label = new JLabel("Lemonade Stand");
+        JLabel headLabel = new JLabel("Lemonade Stand");
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
 
-        panel.setBorder(BorderFactory.createEmptyBorder(75, 25, 75, 25));
-        panel1.setBorder(BorderFactory.createEmptyBorder(120, 600, 120, 600));
-        panel1.setLayout(new GridLayout(0,1, 20, 20));;
+        panel.setBorder(BorderFactory.createEmptyBorder(100, 25, 75, 25));
+        panel1.setBorder(BorderFactory.createEmptyBorder(75, 650, 150, 650));
+        panel1.setLayout(new GridLayout(0,1, 0, 30));
         panel.setBackground(new Color(0xF1E592));
         panel1.setBackground(new Color(0xF1E592));
 
-        label.setFont(new Font("MV Boli", Font.BOLD, 80));
-        label.setForeground(new Color(0x123456));
-        label.setHorizontalTextPosition(JLabel.CENTER);
+        headLabel.setFont(new Font("MV Boli", Font.BOLD, 80));
+        headLabel.setForeground(Color.black);
 
-        customButton(buttonGame, 25, Color.darkGray);
-        customButton(buttonInstruct, 25, Color.darkGray);
-        customButton(buttonExit, 25, Color.darkGray);
+        customButton(buttonGame, 25, new Color(0,204,0), Color.white);
+        customButton(buttonInstruct, 25, Color.orange, Color.white);
+        customButton(buttonExit, 25, Color.red, Color.white);
 
-        panel.add(label, BorderLayout.NORTH);
-        panel1.add(buttonGame, BorderLayout.CENTER);
-        panel1.add(buttonInstruct, BorderLayout.CENTER);
-        panel1.add(buttonExit, BorderLayout.CENTER);
+        panel.add(headLabel);
+        panel1.add(buttonGame);
+        panel1.add(buttonInstruct);
+        panel1.add(buttonExit);
         
         newGameAction();
         instructAction();
-        exitAction();
+        quitAction();
 
-        frame.add(panel, BorderLayout.NORTH);
-        frame.add(panel1, BorderLayout.CENTER);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Lemonade Stand");
-        frame.setIconImage(image.getImage());
-        frame.setUndecorated(false);
-        frame.setResizable(false);
-        frame.pack();
-        frame.setVisible(true);
-        device.setFullScreenWindow(frame);
+        mainFrame.add(panel, BorderLayout.NORTH);
+        mainFrame.add(panel1, BorderLayout.CENTER);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setTitle("Lemonade Stand");
+        mainFrame.setIconImage(image.getImage());
+        mainFrame.setUndecorated(false);
+        mainFrame.setResizable(false);
+        mainFrame.pack();
+        mainFrame.setVisible(true);
+        device.setFullScreenWindow(mainFrame);
     }
 
     public void newGameAction(){
         buttonGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                JLabel label = new JLabel("Lemonade Stand");
-                JLabel label1 = new JLabel("How long would you like to play?");
+                JLabel headLabel = new JLabel("Lemonade Stand");
+                JLabel playLabel = new JLabel("How long would you like to play?");
                 JPanel panel = new JPanel();
                 JPanel panel1 = new JPanel();
+                JPanel panel2 = new JPanel();
 
-                panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
+                panel.setBorder(BorderFactory.createEmptyBorder(75, 30, 30, 30));
                 panel.setBackground(new Color(0xF1E592));
 
-                panel1.setBorder(BorderFactory.createEmptyBorder(100, 600, 100, 600));
-                panel1.setLayout(new GridLayout(0,1, 10, 10));
+                panel1.setBorder(BorderFactory.createEmptyBorder(100, 100, 0, 100));
                 panel1.setBackground(new Color(0xF1E592));
 
-                label.setFont(new Font("Comic Sans", Font.BOLD, 55));
-                label.setForeground(Color.red);
-                label.setHorizontalTextPosition(JLabel.CENTER);
+                panel2.setBorder(BorderFactory.createEmptyBorder(0, 675, 75, 675));
+                panel2.setLayout(new GridLayout(0,1, 0, 20));
+                panel2.setBackground(new Color(0xF1E592));
 
-                label1.setFont(new Font("MV Boli", Font.BOLD, 19));
-                label1.setForeground(new Color(0x123456));
-                label1.setHorizontalTextPosition(JLabel.CENTER);
+                headLabel.setFont(new Font("Comic Sans", Font.BOLD, 55));
+                headLabel.setForeground(Color.black);
+                headLabel.setHorizontalTextPosition(JLabel.CENTER);
 
-                customButton(button7, 25, Color.green);
-                customButton(button14, 25, Color.orange);
-                customButton(button30, 25, Color.red);
-                customButton(buttonEnd, 25, Color.black);
-                customButton(buttonBack, 25, Color.darkGray);
+                playLabel.setFont(new Font("MV Boli", Font.BOLD, 35));
+                playLabel.setForeground(Color.black);
+                playLabel.setHorizontalTextPosition(JLabel.CENTER);
+
+                customButton(button7, 35, new Color(0,204,0), Color.white);
+                customButton(button14, 35, Color.orange, Color.white);
+                customButton(button30, 35, Color.red, Color.white);
+                customButton(buttonEnd, 35, Color.black, Color.white);
+                customButton(buttonBack, 35, Color.darkGray, Color.white);
                 
-                panel.add(label);
-                panel1.add(label1);
-                panel1.add(button7);
-                panel1.add(button14);
-                panel1.add(button30);
-                panel1.add(buttonEnd);
-                panel1.add(buttonBack);
+                panel.add(headLabel);
+                panel1.add(playLabel);
+                panel2.add(button7);
+                panel2.add(button14);
+                panel2.add(button30);
+                panel2.add(buttonEnd);
+                panel2.add(buttonBack);
                 
                 gameAction(button7);
                 gameAction(button14);
                 gameAction(button30);
                 gameAction(buttonEnd);
-                backAction(frame1);
+                backAction(gameFrame);
                 
-                frame1.add(panel, BorderLayout.NORTH);
-                frame1.add(panel1, BorderLayout.CENTER);
-                frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame1.setTitle("Lemonade Stand");
-                frame1.setIconImage(image.getImage());
-                frame1.setUndecorated(false);
-                frame1.setResizable(false);
-                frame1.pack();
-                frame1.setVisible(true);
-                device.setFullScreenWindow(frame1);
-                frame.dispose();
+                gameFrame.add(panel, BorderLayout.NORTH);
+                gameFrame.add(panel1, BorderLayout.CENTER);
+                gameFrame.add(panel2, BorderLayout.SOUTH);
+                gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                gameFrame.setTitle("Lemonade Stand");
+                gameFrame.setIconImage(image.getImage());
+                gameFrame.setUndecorated(false);
+                gameFrame.setResizable(false);
+                gameFrame.pack();
+                gameFrame.setVisible(true);
+                device.setFullScreenWindow(gameFrame);
+                mainFrame.dispose();
             }
         });
     }
@@ -124,8 +127,8 @@ public class MainMenu {
     public void instructAction(){
         buttonInstruct.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                JLabel label = new JLabel("How to play");
-                JLabel label1 = new JLabel("""
+                JLabel headLabel = new JLabel("How to play");
+                JLabel instructLabel = new JLabel("""
                     <html>Weather:<br/>
                     Keep an eye on the forecast. This will help you estimate supplies you will need, how to formulate your lemonade and how much to charge.<br/>
                     <br/>
@@ -142,11 +145,11 @@ public class MainMenu {
                     Keep an eye on passing customers. Symbols or words appear over their heads indicating whether they like or dislike your lemonade, or if they think your prices are fair. Always try to please the customers.</html>"""
                 );
                 
-                label.setFont(new Font("MV Boli", Font.BOLD, 35));
-                label1.setFont(new Font("Consolas", Font.BOLD, 16));
-                label.setForeground(Color.red);
-                label1.setForeground(new Color(0x123456));
-                label.setHorizontalTextPosition(JLabel.CENTER);
+                headLabel.setFont(new Font("MV Boli", Font.BOLD, 35));
+                instructLabel.setFont(new Font("Consolas", Font.BOLD, 16));
+                headLabel.setForeground(Color.red);
+                instructLabel.setForeground(Color.black);
+                headLabel.setHorizontalTextPosition(JLabel.CENTER);
 
                 JPanel panel = new JPanel(new BorderLayout());
                 JPanel panel1 = new JPanel();
@@ -155,24 +158,24 @@ public class MainMenu {
                 panel1.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
                 panel.setBackground(new Color(0xF1E592));
                 panel1.setBackground(new Color(0xF1E592));
-                customButton(buttonBack, 20, Color.darkGray);
+                customButton(buttonBack, 20, Color.white, Color.black);
 
-                panel.add(label, BorderLayout.PAGE_START);
-                panel.add(label1, BorderLayout.CENTER);
-                panel1.add(buttonBack, BorderLayout.PAGE_END);
-                backAction(frame2);
+                panel.add(headLabel, BorderLayout.PAGE_START);
+                panel.add(instructLabel);
+                panel1.add(buttonBack);
+                backAction(instructFrame);
 
-                frame2.add(panel, BorderLayout.CENTER);
-                frame2.add(panel1, BorderLayout.SOUTH);
-                frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame2.setTitle("Lemonade Stand");
-                frame2.setIconImage(image.getImage());
-                frame2.setUndecorated(false);
-                frame2.setResizable(false);
-                frame2.pack();
-                frame2.setVisible(true);
-                device.setFullScreenWindow(frame2);
-                frame.dispose();
+                instructFrame.add(panel, BorderLayout.CENTER);
+                instructFrame.add(panel1, BorderLayout.SOUTH);
+                instructFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                instructFrame.setTitle("Lemonade Stand");
+                instructFrame.setIconImage(image.getImage());
+                instructFrame.setUndecorated(false);
+                instructFrame.setResizable(false);
+                instructFrame.pack();
+                instructFrame.setVisible(true);
+                device.setFullScreenWindow(instructFrame);
+                mainFrame.dispose();
             }
         });
     }
@@ -181,7 +184,8 @@ public class MainMenu {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new GameView();
+                new Purchase();
+                gameFrame.dispose();
             }
         });  
     }
@@ -196,20 +200,20 @@ public class MainMenu {
         });  
     }
 
-    public void exitAction(){
+    public void quitAction(){
         buttonExit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                frame.dispose();
+                mainFrame.dispose();
                 System.exit(1);
             }
         });  
     }
 
-    public void customButton(JButton button, int size, Color color){
+    public void customButton(JButton button, int size, Color color, Color color1){
         button.setFont(new Font("Comic Sans", Font.BOLD, size));
-        button.setForeground(Color.white);
         button.setBackground(color);
+        button.setForeground(color1);
         button.setFocusable(false);
         button.setBorder(BorderFactory.createEtchedBorder());
     }
