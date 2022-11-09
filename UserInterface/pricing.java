@@ -92,29 +92,29 @@ public class pricing extends JFrame{
         grid.gridy = 0;
         panel1.add(ppc2, grid);
 
-        //grid.gridx = 2;
-        //panel1.add(buttonCup, grid);
+        grid.gridx = 2;
+        panel1.add(ppc, grid);
 
         grid.gridx = 0;
         grid.gridy = 1;
         panel1.add(lems, grid);
 
-        //grid.gridx = 2;
-        //panel1.add(buttonLemon, grid);
+        grid.gridx = 2;
+        panel1.add(amtlemon, grid);
 
         grid.gridx = 0;
         grid.gridy = 2;
         panel1.add(sugs, grid);
 
-        //grid.gridx = 2;
-        //panel1.add(buttonSugar, grid);
+        grid.gridx = 2;
+        panel1.add(amtsugar, grid);
 
         grid.gridx = 0;
         grid.gridy = 3;
         panel1.add(icee, grid);
 
-        //grid.gridx = 2;
-        //panel1.add(buttonIce, grid);
+        grid.gridx = 2;
+        panel1.add(amtice, grid);
 
         grid.gridx = 0;
         grid.gridy = 6;
