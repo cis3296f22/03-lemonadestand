@@ -21,19 +21,19 @@ public class pricing extends JFrame{
     JButton buttonBankrupt = new JButton("Bankrupt!");
     JButton buttonStart = new JButton("OK");
     JButton buttonHelp = new JButton("Help");
-    JButton buttonBack = new JButton("Back");
+    JButton buttonBack = new JButton("Back to Store");
     //buttons to increase
     JFrame inventoryFrame = new JFrame();
     JFrame helpFrame = new JFrame();
     Button increase = new Button();
     Button decrease = new Button();
     //labels that show the amount
-    JLabel ppc = new JLabel();
-    JLabel amtlemon = new JLabel();
-    JLabel amtsugar = new JLabel();
-    JLabel amtice = new JLabel();
+    JLabel ppc = new JLabel(" " + price_per_cup);
+    JLabel amtlemon = new JLabel(" " + lemons);
+    JLabel amtsugar = new JLabel(" " + sugar);
+    JLabel amtice = new JLabel(" " + ice);
 
-    JLabel headLabel = new JLabel("Inventory/Purchase", SwingConstants.CENTER);
+    JLabel headLabel = new JLabel("Price/Quality Control", SwingConstants.CENTER);
     JLabel ppc2 = new JLabel("Price per Cup: ");
     JLabel lems = new JLabel("Lemons per Pitcher: ");
     JLabel sugs = new JLabel("Sugar per Pitcher: ");
@@ -82,6 +82,7 @@ public class pricing extends JFrame{
         
         customButton(buttonBankrupt, 18, Color.red, Color.white);
         customButton(buttonStart, 25, new Color(0, 204, 0), Color.white);
+        customButton(buttonBack, 25, Color.white, Color.black);
         customButton(buttonHelp, 20, Color.orange, Color.white);
 
         panel.add(headLabel);
@@ -116,14 +117,19 @@ public class pricing extends JFrame{
         //panel1.add(buttonIce, grid);
 
         grid.gridx = 0;
-        grid.gridy = 4;
+        grid.gridy = 6;
         panel1.add(buttonBankrupt, grid);
 
         grid.insets = new Insets(5, 60, 5, 20);
         grid.gridx = 1;
         panel1.add(buttonStart, grid);
 
+        grid.gridx = 1;
+        grid.gridy = 5;
+        panel1.add(buttonBack, grid);
+
         grid.gridx = 2;
+        grid.gridy = 6;
         panel1.add(buttonHelp, grid);
 
         panel2.add(dayLabel);
@@ -162,6 +168,16 @@ public class pricing extends JFrame{
             public void actionPerformed(ActionEvent e){
                 //new GameView();
                 //inventoryFrame.dispose();
+            }
+        });
+    }
+
+    public void goBack(){
+        buttonBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                //new Purchase();
+                inventoryFrame.dispose();
             }
         });
     }
@@ -226,7 +242,7 @@ public class pricing extends JFrame{
         buttonBack.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                //new Purchase();
+                new pricing();
                 backFrame.dispose();
             }
         });  
