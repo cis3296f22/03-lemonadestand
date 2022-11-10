@@ -18,6 +18,7 @@ public class Purchase {
 
     JFrame inventoryFrame = new JFrame();
     JFrame helpFrame = new JFrame();
+    JFrame acquisitionFrame = new JFrame();
     JButton buttonCup = new JButton("Buy More Cups");
     JButton buttonLemon = new JButton("Buy More Lemons");
     JButton buttonSugar = new JButton("Buy More Sugar");
@@ -26,6 +27,10 @@ public class Purchase {
     JButton buttonStart = new JButton("OK");
     JButton buttonHelp = new JButton("Help");
     JButton buttonBack = new JButton("Back");
+    JButton buttonBuy1 = new JButton("Buy It!");
+    JButton buttonBuy2 = new JButton("Buy It!");
+    JButton buttonBuy3 = new JButton("Buy It!");
+    JButton buttonOK = new JButton("OK");
 
     JLabel headLabel = new JLabel("Inventory/Purchase", SwingConstants.CENTER);
     JLabel moneyLabel = new JLabel("You have $" + df.format(money) + " and:", SwingConstants.CENTER);
@@ -148,8 +153,8 @@ public class Purchase {
         buttonCup.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                //new pricing();
-                //inventoryFrame.dispose();
+                acquisition("Paper Cups", cup, 25, 50, 100, .78, 1.66, 2.99);
+                inventoryFrame.dispose();
             }
         });  
     }
@@ -158,8 +163,8 @@ public class Purchase {
         buttonLemon.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                //new pricing();
-                //inventoryFrame.dispose();
+                acquisition("Lemons", lemon, 10, 30, 75, .62, 2.41, 4.06);
+                inventoryFrame.dispose();
             }
         });
     }
@@ -168,8 +173,8 @@ public class Purchase {
         buttonSugar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                //new pricing();
-                //inventoryFrame.dispose();
+                acquisition("Cups of Sugar", sugar, 8, 20, 48, .59, 1.61, 3.44);
+                inventoryFrame.dispose();
             }
         });
     }
@@ -178,8 +183,191 @@ public class Purchase {
         buttonIce.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                //new pricing();
-                //inventoryFrame.dispose();
+                acquisition("Ice Cubes", ice, 100, 250, 500, .83, 2.15, 3.88);
+                inventoryFrame.dispose();
+            }
+        });
+    }
+
+    public void acquisition(String ingredient, int item, int q1, int q2, int q3, double p1, double p2, double p3){
+        JLabel acquisitionLabel = new JLabel("Acquisition: " + ingredient, SwingConstants.CENTER);
+        JLabel ownLabel = new JLabel("You have " + item + " " + ingredient + " and $" + df.format(money), SwingConstants.CENTER);
+        JLabel buyLabel = new JLabel("You can buy:");
+        JLabel qp1Label = new JLabel(q1 + " " + ingredient + " for $" + df.format(p1));
+        JLabel qp2Label = new JLabel(q2 + " " + ingredient + " for $" + df.format(p2));
+        JLabel qp3Label = new JLabel(q3 + " " + ingredient + " for $" + df.format(p3));
+
+        JPanel panel = new JPanel(new GridLayout(0,1, 100, 100));
+        JPanel panel1 = new JPanel(new GridBagLayout());
+        JPanel panel2 = new JPanel(new GridLayout(1,0, 100, 0));
+
+        panel.setBorder(BorderFactory.createEmptyBorder(75, 75, 0, 75));
+        panel1.setBorder(BorderFactory.createEmptyBorder(25, 450, 25, 450));
+        panel2.setBorder(BorderFactory.createEmptyBorder(50, 200, 75, 200));
+        panel.setBackground(new Color(0xF1E592));
+        panel1.setBackground(new Color(0xF1E592));
+        panel2.setBackground(new Color(0xF1E592));
+
+        GridBagConstraints grid = new GridBagConstraints();
+        grid.fill = GridBagConstraints.HORIZONTAL;
+        grid.insets = new Insets(5, 50, 5, 50);
+        grid.ipadx = 60;
+        grid.ipady = 30;
+
+        customLabel(acquisitionLabel, "Comic Sans", Color.red, 35);
+        customLabel(ownLabel, "Comic Sans", Color.black, 35);
+        customLabel(buyLabel, "Comic Sans", Color.black, 24);
+        customLabel(qp1Label, "Comic Sans", Color.black, 20);
+        customLabel(qp2Label, "Comic Sans", Color.black, 20);
+        customLabel(qp3Label, "Comic Sans", Color.black, 20);
+
+        customButton(buttonBuy1, 25, Color.white, Color.black);
+        customButton(buttonBuy2, 25, Color.white, Color.black);
+        customButton(buttonBuy3, 25, Color.white, Color.black);
+        customButton(buttonOK, 35, new Color(0, 204, 0), Color.white);
+
+        panel.add(acquisitionLabel);
+        panel.add(ownLabel);
+
+        grid.gridx = 0;
+        grid.gridy = 0;
+        panel1.add(buyLabel, grid);
+
+        grid.gridy = 1;
+        panel1.add(qp1Label, grid);
+
+        grid.gridy = 2;
+        panel1.add(qp2Label, grid);
+
+        grid.gridy = 3;
+        panel1.add(qp3Label, grid);
+
+        grid.gridx = 2;
+        grid.gridy = 1;
+        panel1.add(buttonBuy1, grid);
+
+        grid.gridy = 2;
+        panel1.add(buttonBuy2, grid);
+
+        grid.gridy = 3;
+        panel1.add(buttonBuy3, grid);
+
+        grid.gridx = 1;
+        grid.gridy = 4;
+        grid.insets = new Insets(5, 5, 5, 100);
+        panel1.add(buttonOK, grid);
+
+        panel2.add(dayLabel);
+        panel2.add(weatherLabel);
+
+        buyAction(buttonBuy1, ownLabel, qp1Label, ingredient, q1, p1, buttonBuy2, buttonBuy3, qp2Label, qp3Label, p2, p3);
+        buyAction(buttonBuy2, ownLabel, qp2Label, ingredient, q2, p2, buttonBuy1, buttonBuy3, qp1Label, qp3Label, p1, p3);
+        buyAction(buttonBuy3, ownLabel, qp3Label, ingredient, q3, p3, buttonBuy1, buttonBuy2, qp1Label, qp2Label, p1, p2);
+        okAction();
+
+        acquisitionFrame.add(panel, BorderLayout.NORTH);
+        acquisitionFrame.add(panel1, BorderLayout.CENTER);
+        acquisitionFrame.add(panel2, BorderLayout.SOUTH);
+        acquisitionFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        acquisitionFrame.setTitle("Lemonade Stand");
+        acquisitionFrame.setIconImage(image.getImage());
+        acquisitionFrame.setUndecorated(false);
+        acquisitionFrame.setResizable(false);
+        acquisitionFrame.pack();
+        acquisitionFrame.setVisible(true);
+        device.setFullScreenWindow(acquisitionFrame);
+        inventoryFrame.dispose();
+    }
+
+    public void buyAction(JButton buttonBuy, JLabel haveLabel, JLabel qpLabel, String component, int quantity, double price, JButton buttonClose1, JButton buttonClose2, JLabel closeLabel1, JLabel closeLabel2, double cost1, double cost2){
+        buttonBuy.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                if(money > price){
+                    money -= price;
+                    if(component.equals("Paper Cups")){
+                        cup += quantity;
+                        haveLabel.setText("You have " + cup + " " + component + " and $" + df.format(money));
+                    }
+
+                    else if(component.equals("Lemons")){
+                        lemon += quantity;
+                        haveLabel.setText("You have " + lemon + " " + component + " and $" + df.format(money));
+                    }
+
+                    else if(component.equals("Cups of Sugar")){
+                        sugar += quantity;
+                        haveLabel.setText("You have " + sugar + " " + component + " and $" + df.format(money));
+                    }
+
+                    else if(component.equals("Ice Cubes")){
+                        ice += quantity;
+                        haveLabel.setText("You have " + ice + " " + component + " and $" + df.format(money));
+                    }
+                    dayLabel.setText("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(money) + "</html>");
+                }
+
+                if(money - price < price){
+                    money -= price;
+                    if(component.equals("Paper Cups")){
+                        cup += quantity;
+                        if(money < 0){
+                            money += price;
+                            cup -= quantity;
+                        }
+                        haveLabel.setText("You have " + cup + " " + component + " and $" + df.format(money));
+                    }
+
+                    else if(component.equals("Lemons")){
+                        lemon += quantity;
+                        if(money < 0){
+                            money += price;
+                            lemon -= quantity;
+                        }
+                        haveLabel.setText("You have " + lemon + " " + component + " and $" + df.format(money));
+                    }
+
+                    else if(component.equals("Cups of Sugar")){
+                        sugar += quantity;
+                        if(money < 0){
+                            money += price;
+                            sugar -= quantity;
+                        }
+                        haveLabel.setText("You have " + sugar + " " + component + " and $" + df.format(money));
+                    }
+
+                    else if(component.equals("Ice Cubes")){
+                        ice += quantity;
+                        if(money < 0){
+                            money += price;
+                            ice -= quantity;
+                        }
+                        haveLabel.setText("You have " + ice + " " + component + " and $" + df.format(money));
+                    }
+                    dayLabel.setText("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(money) + "</html>");
+                    
+                    if(money - cost1 < 0){
+                        buttonClose1.setEnabled(false);
+                        customLabel(closeLabel1 , "Comic Sans", Color.lightGray, 20);
+                    }
+
+                    if(money - cost2 < 0){
+                        buttonClose2.setEnabled(false);
+                        customLabel(closeLabel2 , "Comic Sans", Color.lightGray, 20);
+                    }
+                    buttonBuy.setEnabled(false);
+                    customLabel(qpLabel , "Comic Sans", Color.lightGray, 20);
+                }
+            }
+        });
+    }
+
+    public void okAction(){
+        buttonOK.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                new Purchase();
+                acquisitionFrame.dispose();
             }
         });
     }
@@ -198,8 +386,8 @@ public class Purchase {
         buttonStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                //new GameView();
-                //inventoryFrame.dispose();
+                //new pricing();
+                inventoryFrame.dispose();
             }
         });
     }
