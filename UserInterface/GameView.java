@@ -19,11 +19,13 @@ public class GameView extends JFrame {
     JLabel weatherText = new JLabel();
     JLabel inventory = new JLabel();
     Button testButton = new Button();
-    int money = 0;
-    int lemons = 0;
-    int sugar = 0;
-    int cups = 0;
-    int ice = 0;
+
+    LemonadeStandModel ls = new LemonadeStandModel();
+    /*int money;
+    int lemons;
+    int sugar;
+    int cups;
+    int ice;*/
     int temperature = 0;
     String weather = "Sunny";
     int currentDay = 1;
@@ -35,12 +37,20 @@ public class GameView extends JFrame {
 
     public GameView() {
 
+        // set up dummy lemonade stand
+        ls = new LemonadeStandModel();
+        ls.setInventory(100, 100, 50, 50);
+        ls.setRecipe(2, 4, 2, 1);
+
+        
+
         //REMOVE
         testButton.setBounds(200,440,40,25);
         testButton.addActionListener(e -> {
-            money += 1;
-            gameText.setText("<html>Day 1 of 7<br />Money: $" + money + "</html>"); // add variable
-            System.out.println(money);
+            ls.sellCup();
+            gameText.setText("<html>Day 1 of 7<br />Money: $" + ls.getMoney() + "</html>"); // add variable
+            inventory.setText("<html><pre> Cups: " + ls.getCups() + "  Ice: " + ls.getIce() + "  Lemons: " + ls.getLemons() + "  Sugar: " + ls.getSugar() + " </pre></html>");
+            System.out.println(ls.getMoney());
         });
 
         //WILL PASS IN PARAMS WHEN INITIALIZED
@@ -93,7 +103,7 @@ public class GameView extends JFrame {
 
     private void loadGameText(){
         //text display game information
-        gameText.setText("<html>Day " + currentDay + " of " + totalDays + "7<br />Money: $" + money + "</html>"); // add variables
+        gameText.setText("<html>Day " + currentDay + " of " + totalDays + "7<br />Money: $" + ls.getMoney() + "</html>"); // add variables
         gameText.setBounds(15,440,200,50); // sets text position
         gameText.setFont(new Font("Georgia", Font.BOLD, 20));
 
@@ -101,7 +111,7 @@ public class GameView extends JFrame {
         weatherText.setBounds(400, 440, 200, 50);
         weatherText.setFont(new Font("Georgia", Font.BOLD, 20));
 
-        inventory.setText("<html><pre> Cups: " + cups + "  Ice: " + ice + "  Lemons: " + lemons + "  Sugar: " + sugar + " </pre></html>");
+        inventory.setText("<html><pre> Cups: " + ls.getCups() + "  Ice: " + ls.getIce() + "  Lemons: " + ls.getLemons() + "  Sugar: " + ls.getSugar() + " </pre></html>");
         inventory.setBounds(150, 375, 460, 25);
         inventory.setFont(new Font("Georgia", Font.BOLD, 20));
         inventory.setBackground(new Color(0xDEE3E3));
@@ -111,8 +121,8 @@ public class GameView extends JFrame {
     }
 
     private void increaseMoney(){
-        money += 1;
-        System.out.println(money);
+        //money += 1;
+        //System.out.println(money);
     }
 
 }
