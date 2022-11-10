@@ -85,13 +85,18 @@ public class GameView extends JFrame {
     }
 
     public void loadBackground(){
+
+        String path = System.getProperty("user.dir");
+        System.out.println(path + File.separator + "UserInterface" + File.separator + "frontYardNoStand.jpg");
+
         //Setting image
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File("UserInterface/frontYardNoStand.jpg")); //Can change depending on weather
+            img = ImageIO.read(new File(path + File.separator + "UserInterface" + File.separator + "frontYardNoStand.jpg")); //Can change depending on weather
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         ImageIcon backgroundImage = new ImageIcon(img);
         background.setIcon(backgroundImage);
 
