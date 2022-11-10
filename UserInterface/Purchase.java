@@ -386,7 +386,7 @@ public class Purchase {
         buttonStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                //new pricing();
+                new pricing();
                 inventoryFrame.dispose();
             }
         });
