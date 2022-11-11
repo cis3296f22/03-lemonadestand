@@ -23,7 +23,7 @@ public class pricing extends JFrame{
     JButton buttonHelp = new JButton("Help");
     JButton buttonBack = new JButton("Back to Store");
     //buttons to increase
-    JFrame inventoryFrame = new JFrame();
+    JFrame priceFrame = new JFrame();
     JFrame helpFrame = new JFrame();
     Button increase = new Button();
     Button decrease = new Button();
@@ -138,18 +138,19 @@ public class pricing extends JFrame{
         bankruptAction();
         startAction();
         instructAction();
+        goBack();
 
-        inventoryFrame.add(panel, BorderLayout.NORTH);
-        inventoryFrame.add(panel1, BorderLayout.CENTER);
-        inventoryFrame.add(panel2, BorderLayout.SOUTH);
-        inventoryFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        inventoryFrame.setTitle("Lemonade Stand");
-        inventoryFrame.setIconImage(image.getImage());
-        inventoryFrame.setUndecorated(false);
-        inventoryFrame.setResizable(false);
-        inventoryFrame.pack();
-        inventoryFrame.setVisible(true);
-        device.setFullScreenWindow(inventoryFrame);
+        priceFrame.add(panel, BorderLayout.NORTH);
+        priceFrame.add(panel1, BorderLayout.CENTER);
+        priceFrame.add(panel2, BorderLayout.SOUTH);
+        priceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        priceFrame.setTitle("Lemonade Stand");
+        priceFrame.setIconImage(image.getImage());
+        priceFrame.setUndecorated(false);
+        priceFrame.setResizable(false);
+        priceFrame.pack();
+        priceFrame.setVisible(true);
+        device.setFullScreenWindow(priceFrame);
     }
 
     public void bankruptAction(){
@@ -157,7 +158,7 @@ public class pricing extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e){
                 new MainMenu();
-                inventoryFrame.dispose();
+                priceFrame.dispose();
             }
         });
     }
@@ -166,8 +167,8 @@ public class pricing extends JFrame{
         buttonStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                //new GameView();
-                //inventoryFrame.dispose();
+                new GameView();
+                priceFrame.dispose();
             }
         });
     }
@@ -176,8 +177,8 @@ public class pricing extends JFrame{
         buttonBack.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                //new Purchase();
-                inventoryFrame.dispose();
+                new Purchase();
+                priceFrame.dispose();
             }
         });
     }
@@ -233,7 +234,7 @@ public class pricing extends JFrame{
                 helpFrame.pack();
                 helpFrame.setVisible(true);
                 device.setFullScreenWindow(helpFrame);
-                inventoryFrame.dispose();
+                priceFrame.dispose();
             }
         });
     }
