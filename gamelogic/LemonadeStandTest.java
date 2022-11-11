@@ -1,3 +1,5 @@
+import org.testng.annotations.Test;
+
 public class LemonadeStandTest {
     public static void main(String[] args){
         LemonadeStand L = new LemonadeStand();
@@ -6,6 +8,10 @@ public class LemonadeStandTest {
         L.sellCup();
         update(L);
         printInventory(L);
+
+        customers(L);
+        WeatherForecast R = new WeatherForecast();
+        temperature(R);
     }
 
     // HELPER FUNCTIONS
@@ -19,4 +25,12 @@ public class LemonadeStandTest {
     }
 
     // print inventory
+    public static void customers(LemonadeStand L){
+        System.out.println("Amount of Customers2 " + L.CustomerLogic());
+    }
+
+    public static void temperature(WeatherForecast R){
+        //System.out.println("Amount of customers " + R.getTemperature());
+        System.out.println("Test Temperature" + R.temperature);
+    }
 }
