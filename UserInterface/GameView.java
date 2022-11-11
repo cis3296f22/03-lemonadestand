@@ -1,6 +1,7 @@
 package UserInterface;
 
 import javax.imageio.ImageIO;
+import javax.management.ConstructorParameters;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
@@ -10,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.InterruptedException;
 
 public class GameView extends JFrame {
 
@@ -18,6 +20,10 @@ public class GameView extends JFrame {
     JLabel gameText = new JLabel();
     JLabel weatherText = new JLabel();
     JLabel inventory = new JLabel();
+
+    // label for in-game messages
+    JLabel customerMessage = new JLabel();
+
     Button testButton = new Button();
 
     LemonadeStandModel ls = new LemonadeStandModel();
@@ -35,14 +41,12 @@ public class GameView extends JFrame {
 
     JLayeredPane layeredPane = new JLayeredPane();
 
-    public GameView() {
+    public GameView() throws InterruptedException {
 
         // set up dummy lemonade stand
         ls = new LemonadeStandModel();
         ls.setInventory(100, 100, 50, 50);
         ls.setRecipe(2, 4, 2, 1);
-
-        
 
         //REMOVE
         testButton.setBounds(200,440,40,25);
@@ -50,7 +54,7 @@ public class GameView extends JFrame {
             ls.sellCup();
             gameText.setText("<html>Day 1 of 7<br />Money: $" + ls.getMoney() + "</html>"); // add variable
             inventory.setText("<html><pre> Cups: " + ls.getCups() + "  Ice: " + ls.getIce() + "  Lemons: " + ls.getLemons() + "  Sugar: " + ls.getSugar() + " </pre></html>");
-            System.out.println(ls.getMoney());
+            // System.out.println(ls.getMoney());
         });
 
         //WILL PASS IN PARAMS WHEN INITIALIZED
@@ -65,6 +69,7 @@ public class GameView extends JFrame {
         layeredPane.add(weatherText, Integer.valueOf(1));
         layeredPane.add(inventory, Integer.valueOf(1));
         layeredPane.add(testButton, Integer.valueOf(1));
+        layeredPane.add(customerMessage, Integer.valueOf(1));
 
         //adding info to frame
         frame.setTitle("Lemonade Stand");
@@ -78,9 +83,47 @@ public class GameView extends JFrame {
         //frame.pack();
 
 
+        int customers = 0;
+        while(customers < 20){
+            int rnd = (int) ( Math.random() * 2 + 1);
+
+            // purhcase cup
+            if(rnd == 1) {
+                ls.sellCup();
+                gameText.setText("<html>Day 1 of 7<br />Money: $" + ls.getMoney() + "</html>"); // add variable
+                inventory.setText("<html><pre> Cups: " + ls.getCups() + "  Ice: " + ls.getIce() + "  Lemons: " + ls.getLemons() + "  Sugar: " + ls.getSugar() + " </pre></html>");
+                customerMessage.setText("<html>Cup Sold!</html>");
+                System.out.println("Current Money: " + ls.getMoney());
+            } else {
+                System.out.println("Ew! I dont want that lemonade...");
+                customerMessage.setText("<html>Ew! I dont want that lemonade..." + "</html>");
+            }
+
+            try {
+                Thread.sleep(3000);
+
+                // trying to get message to fade after it shows up
+                /*double faded = 1.0;
+                while(faded > 0.2){
+                    faded = faded - 0.1;
+                    customerMessage.setForeground(new Color(0, 0, 0, (float)faded));
+                    Thread.sleep(100);
+                    System.out.println("Fade is now " + (float)faded);
+                }*/
+
+                // for now, just set to empty message  
+                customerMessage.setText("<html></html>");
+                Thread.sleep(1000);
+            } catch(InterruptedException e) {
+                System.out.println("Interruption Exception thrown");
+            }
+
+            customers++;
+        }
+
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         new GameView();
     }
 
@@ -121,6 +164,13 @@ public class GameView extends JFrame {
         inventory.setFont(new Font("Georgia", Font.BOLD, 20));
         inventory.setBackground(new Color(0xDEE3E3));
         inventory.setOpaque(true);
+
+        // customer message on cup sold / not sold
+        customerMessage.setText("<html>Message: </html>");
+        customerMessage.setBounds(200, 225, 500, 25);
+        customerMessage.setFont(new Font("Georgia", Font.BOLD, 20));
+
+
         Border invBorder = BorderFactory.createLineBorder(Color.BLACK, 2, true);
         inventory.setBorder(invBorder);
     }
