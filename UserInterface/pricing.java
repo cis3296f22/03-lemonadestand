@@ -156,7 +156,7 @@ public class pricing extends JFrame{
         buttonBankrupt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new MainMenu();
+                new gameover();
                 inventoryFrame.dispose();
             }
         });
@@ -166,8 +166,8 @@ public class pricing extends JFrame{
         buttonStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                //new GameView();
-                //inventoryFrame.dispose();
+                new GameView();
+                inventoryFrame.dispose();
             }
         });
     }
@@ -176,7 +176,7 @@ public class pricing extends JFrame{
         buttonBack.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                //new Purchase();
+                new Purchase();
                 inventoryFrame.dispose();
             }
         });

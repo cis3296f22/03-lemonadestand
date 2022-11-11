@@ -376,7 +376,7 @@ public class Purchase {
         buttonBankrupt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new MainMenu();
+                new gameover();
                 inventoryFrame.dispose();
             }
         });
