@@ -7,10 +7,17 @@ import java.text.DecimalFormat;
 public class pricing extends JFrame{
     //values for the lemonade
     double money = 20.00;
-    double price_per_cup = 0.00;
-    int lemons = 0;
-    int sugar = 0;
-    int ice = 0;
+    double price_per_cup = 1.00;
+    int lemons = 4;
+    int sugar = 4;
+    int ice = 4;
+
+    double monmax = 5.00;
+    double monmin = 0.01;
+    double monstep = .01;
+    int max = 99;
+    int min = 1;
+    int step = 1;
     //values for the bottom itesm
     int temperature = 0;
     int currentDay = 1;
@@ -38,6 +45,10 @@ public class pricing extends JFrame{
     JLabel lems = new JLabel("Lemons per Pitcher: ");
     JLabel sugs = new JLabel("Sugar per Pitcher: ");
     JLabel icee = new JLabel("Ice per Cup: ");
+
+    //spinner
+    SpinnerModel model1 = new SpinnerNumberModel(price_per_cup, monmin, monmax, monstep);
+    JSpinner spinner1 = new JSpinner(model1);
     //bottom items
     JLabel dayLabel = new JLabel("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(money) + "</html>", SwingConstants.LEFT);
     JLabel weatherLabel = new JLabel("<html>Temperature: " + temperature + "&#8457<br />Weather: " + weather + "</html>", SwingConstants.RIGHT);
@@ -91,6 +102,9 @@ public class pricing extends JFrame{
         grid.gridx = 0;
         grid.gridy = 0;
         panel1.add(ppc2, grid);
+
+        grid.gridx = 1;
+        panel1.add(spinner1, grid);
 
         grid.gridx = 2;
         panel1.add(ppc, grid);
