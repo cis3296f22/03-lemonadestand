@@ -13,6 +13,7 @@ public class LemonadeStand {
     private double icePer;
     private double pricePer;
 
+
     // constructor
     public LemonadeStand(){
         ice = 0.0;
@@ -217,4 +218,33 @@ public class LemonadeStand {
     }
 
 
+    public int CustomerLogic(){
+        WeatherForecast obj = new WeatherForecast();
+        int customers2 = obj.getTemperature();
+        int temperature = obj.temperature;
+
+        System.out.println("LemonadeStand Temperature " + temperature);
+        System.out.println("Customers2 unmodified "+ customers2);//Test for modifying
+
+        if (pricePer > 2) {
+            customers2 = customers2 - (customers2 * 10 / 100);//reduce customers by 10%
+        }
+        else if (pricePer < 0.50) {
+            customers2 = customers2 + (customers2 * 10 / 100);//Increase Customers by 10%
+        }
+        if (lemonsPer > 3 || lemonsPer < 2) {
+            customers2 = customers2 - (customers2 * 10 / 100);
+        }
+        if (sugarPer > 4 || sugarPer < 2) {
+            customers2 = customers2 - (customers2 * 10 / 100);
+        }
+        if(temperature > 80)
+            if (icePer > 3) {
+                customers2 = customers2 + (customers2 * 10 / 100);
+            }
+            else if(icePer == 0){
+                customers2 = customers2 - (customers2 * 10 / 100);
+            }
+        return customers2;
+    }
 }
