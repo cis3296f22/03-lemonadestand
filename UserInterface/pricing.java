@@ -157,7 +157,7 @@ public class pricing extends JFrame{
         buttonBankrupt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new MainMenu();
+                new gameover();
                 priceFrame.dispose();
             }
         });
