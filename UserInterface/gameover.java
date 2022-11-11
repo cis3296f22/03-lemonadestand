@@ -31,6 +31,11 @@ public class gameover extends JFrame{
     JLabel liq = new JLabel("Liquidated Inventory Value: ");
     JLabel line = new JLabel("---------------------------------------------------------");
     JLabel prof = new JLabel("Net Profit/Loss: ");
+    //labels that show the amount
+    JLabel income = new JLabel(" " + money);
+    JLabel expense = new JLabel(" " + expenses);
+    JLabel liquid = new JLabel(" " + invalue);
+    JLabel nets = new JLabel(" " + net);
     //bottom items
     JLabel dayLabel = new JLabel("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(money) + "</html>", SwingConstants.LEFT);
     JLabel weatherLabel = new JLabel("<html>Temperature: " + temperature + "&#8457<br />Weather: " + weather + "</html>", SwingConstants.RIGHT);
@@ -81,22 +86,22 @@ public class gameover extends JFrame{
         grid.gridy = 0;
         panel1.add(inco, grid);
 
-        //grid.gridx = 2;
-        //panel1.add(money, grid);
+        grid.gridx = 2;
+        panel1.add(income, grid);
 
         grid.gridx = 0;
         grid.gridy = 1;
         panel1.add(exp, grid);
 
-        //grid.gridx = 2;
-        //panel1.add(expenses, grid);
+        grid.gridx = 2;
+        panel1.add(expense, grid);
 
         grid.gridx = 0;
         grid.gridy = 2;
         panel1.add(liq, grid);
 
-        //grid.gridx = 2;
-        //panel1.add(invalue, grid);
+        grid.gridx = 2;
+        panel1.add(liquid, grid);
 
         grid.gridx = 0;
         grid.gridy = 3;
@@ -106,8 +111,8 @@ public class gameover extends JFrame{
         grid.gridy = 4;
         panel1.add(prof, grid);
 
-        //grid.gridx = 2;
-        //panel1.add(net, grid);
+        grid.gridx = 2;
+        panel1.add(nets, grid);
 
         grid.gridx = 0;
         grid.gridy = 5;
