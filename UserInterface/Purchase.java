@@ -40,20 +40,17 @@ public class Purchase {
     JLabel iceLabel = new JLabel(ice + " Ice Cubes");
     JLabel dayLabel = new JLabel("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(money) + "</html>", SwingConstants.LEFT);
     JLabel weatherLabel = new JLabel("<html>Temperature: " + temperature + "&#8457<br />Weather: " + weather + "</html>", SwingConstants.RIGHT);
-
     ImageIcon image = new ImageIcon("UserInterface/LemonIcon.png");
-    GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
-    GraphicsDevice device = graphics.getDefaultScreenDevice();
 
     public Purchase(){
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
 
-        panel.setBorder(BorderFactory.createEmptyBorder(75, 75, 0, 75));
-        panel1.setBorder(BorderFactory.createEmptyBorder(25, 450, 25, 450));
-        panel2.setBorder(BorderFactory.createEmptyBorder(50, 200, 75, 200));
-        panel.setLayout(new GridLayout(0,1, 100, 100));
+        panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 10, 25));
+        panel1.setBorder(BorderFactory.createEmptyBorder(10, 100, 10, 100));
+        panel2.setBorder(BorderFactory.createEmptyBorder(10, 25, 10, 25));
+        panel.setLayout(new GridLayout(0,1, 0, 20));
         panel1.setLayout(new GridBagLayout());
         panel2.setLayout(new GridLayout(1,0, 100, 0));
         panel.setBackground(new Color(0xF1E592));
@@ -62,26 +59,26 @@ public class Purchase {
 
         GridBagConstraints grid = new GridBagConstraints();
         grid.fill = GridBagConstraints.HORIZONTAL;
-        grid.insets = new Insets(5, 5, 5, 5);
+        grid.insets = new Insets(5, 0, 0, 5);
         grid.ipadx = 60;
         grid.ipady = 30;
 
-        customLabel(headLabel, "Comic Sans", Color.red, 35);
-        customLabel(moneyLabel, "Comic Sans", Color.black, 35);
-        customLabel(cupLabel, "Comic Sans", Color.black, 20);
-        customLabel(lemonLabel, "Comic Sans", Color.black, 20);
-        customLabel(sugarLabel, "Comic Sans", Color.black, 20);
-        customLabel(iceLabel, "Comic Sans", Color.black, 20);
+        customLabel(headLabel, "Comic Sans", new Color(204, 0, 0), 25);
+        customLabel(moneyLabel, "Comic Sans", Color.black, 25);
+        customLabel(cupLabel, "Comic Sans", Color.black, 15);
+        customLabel(lemonLabel, "Comic Sans", Color.black, 15);
+        customLabel(sugarLabel, "Comic Sans", Color.black, 15);
+        customLabel(iceLabel, "Comic Sans", Color.black, 15);
         customLabel(dayLabel,"Georgia", Color.black, 20);
         customLabel(weatherLabel, "Georgia", Color.black, 20);
 
-        customButton(buttonCup, 25, Color.white, Color.black);
-        customButton(buttonLemon, 25, Color.white, Color.black);
-        customButton(buttonSugar, 25, Color.white, Color.black);
-        customButton(buttonIce, 25, Color.white, Color.black);
-        customButton(buttonBankrupt, 18, Color.red, Color.white);
-        customButton(buttonStart, 25, new Color(0, 204, 0), Color.white);
-        customButton(buttonHelp, 20, Color.orange, Color.white);
+        customButton(buttonCup, 16, Color.white, Color.black);
+        customButton(buttonLemon, 16, Color.white, Color.black);
+        customButton(buttonSugar, 16, Color.white, Color.black);
+        customButton(buttonIce, 16, Color.white, Color.black);
+        customButton(buttonBankrupt, 12, new Color(204, 0, 0), Color.white);
+        customButton(buttonStart, 16, new Color(0, 204, 0), Color.white);
+        customButton(buttonHelp, 14, new Color(255, 153, 0), Color.white);
 
         panel.add(headLabel);
         panel.add(moneyLabel);
@@ -142,11 +139,11 @@ public class Purchase {
         inventoryFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         inventoryFrame.setTitle("Lemonade Stand");
         inventoryFrame.setIconImage(image.getImage());
+        inventoryFrame.setPreferredSize(new Dimension(650, 550));
         inventoryFrame.setUndecorated(false);
         inventoryFrame.setResizable(false);
         inventoryFrame.pack();
         inventoryFrame.setVisible(true);
-        device.setFullScreenWindow(inventoryFrame);
     }
 
     public void cupAction(){
@@ -197,34 +194,34 @@ public class Purchase {
         JLabel qp2Label = new JLabel(q2 + " " + ingredient + " for $" + df.format(p2));
         JLabel qp3Label = new JLabel(q3 + " " + ingredient + " for $" + df.format(p3));
 
-        JPanel panel = new JPanel(new GridLayout(0,1, 100, 100));
+        JPanel panel = new JPanel(new GridLayout(0,1, 0, 20));
         JPanel panel1 = new JPanel(new GridBagLayout());
         JPanel panel2 = new JPanel(new GridLayout(1,0, 100, 0));
 
-        panel.setBorder(BorderFactory.createEmptyBorder(75, 75, 0, 75));
-        panel1.setBorder(BorderFactory.createEmptyBorder(25, 450, 25, 450));
-        panel2.setBorder(BorderFactory.createEmptyBorder(50, 200, 75, 200));
+        panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 10, 25));
+        panel1.setBorder(BorderFactory.createEmptyBorder(10, 100, 10, 100));
+        panel2.setBorder(BorderFactory.createEmptyBorder(10, 25, 5, 25));
         panel.setBackground(new Color(0xF1E592));
         panel1.setBackground(new Color(0xF1E592));
         panel2.setBackground(new Color(0xF1E592));
 
         GridBagConstraints grid = new GridBagConstraints();
         grid.fill = GridBagConstraints.HORIZONTAL;
-        grid.insets = new Insets(5, 50, 5, 50);
+        grid.insets = new Insets(5, 0, 5, 0);
         grid.ipadx = 60;
         grid.ipady = 30;
 
-        customLabel(acquisitionLabel, "Comic Sans", Color.red, 35);
-        customLabel(ownLabel, "Comic Sans", Color.black, 35);
-        customLabel(buyLabel, "Comic Sans", Color.black, 24);
-        customLabel(qp1Label, "Comic Sans", Color.black, 20);
-        customLabel(qp2Label, "Comic Sans", Color.black, 20);
-        customLabel(qp3Label, "Comic Sans", Color.black, 20);
+        customLabel(acquisitionLabel, "Comic Sans", new Color(204, 0, 0), 25);
+        customLabel(ownLabel, "Comic Sans", Color.black, 25);
+        customLabel(buyLabel, "Comic Sans", Color.black, 20);
+        customLabel(qp1Label, "Comic Sans", Color.black, 15);
+        customLabel(qp2Label, "Comic Sans", Color.black, 15);
+        customLabel(qp3Label, "Comic Sans", Color.black, 15);
 
-        customButton(buttonBuy1, 25, Color.white, Color.black);
-        customButton(buttonBuy2, 25, Color.white, Color.black);
-        customButton(buttonBuy3, 25, Color.white, Color.black);
-        customButton(buttonOK, 35, new Color(0, 204, 0), Color.white);
+        customButton(buttonBuy1, 18, Color.white, Color.black);
+        customButton(buttonBuy2, 18, Color.white, Color.black);
+        customButton(buttonBuy3, 18, Color.white, Color.black);
+        customButton(buttonOK, 20, new Color(0, 204, 0), Color.white);
 
         panel.add(acquisitionLabel);
         panel.add(ownLabel);
@@ -254,7 +251,7 @@ public class Purchase {
 
         grid.gridx = 1;
         grid.gridy = 4;
-        grid.insets = new Insets(5, 5, 5, 100);
+        grid.insets = new Insets(5, 0, 5, 100);
         panel1.add(buttonOK, grid);
 
         panel2.add(dayLabel);
@@ -271,11 +268,11 @@ public class Purchase {
         acquisitionFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         acquisitionFrame.setTitle("Lemonade Stand");
         acquisitionFrame.setIconImage(image.getImage());
+        acquisitionFrame.setPreferredSize(new Dimension(650, 550));
         acquisitionFrame.setUndecorated(false);
         acquisitionFrame.setResizable(false);
         acquisitionFrame.pack();
         acquisitionFrame.setVisible(true);
-        device.setFullScreenWindow(acquisitionFrame);
         inventoryFrame.dispose();
     }
 
@@ -348,15 +345,15 @@ public class Purchase {
                     
                     if(money - cost1 < 0){
                         buttonClose1.setEnabled(false);
-                        customLabel(closeLabel1 , "Comic Sans", Color.lightGray, 20);
+                        customLabel(closeLabel1 , "Comic Sans", Color.lightGray, 15);
                     }
 
                     if(money - cost2 < 0){
                         buttonClose2.setEnabled(false);
-                        customLabel(closeLabel2 , "Comic Sans", Color.lightGray, 20);
+                        customLabel(closeLabel2 , "Comic Sans", Color.lightGray, 15);
                     }
                     buttonBuy.setEnabled(false);
-                    customLabel(qpLabel , "Comic Sans", Color.lightGray, 20);
+                    customLabel(qpLabel , "Comic Sans", Color.lightGray, 15);
                 }
             }
         });
@@ -412,25 +409,24 @@ public class Purchase {
                     Customers:<br/>
                     Keep an eye on passing customers. Symbols or words appear over their heads indicating whether they like or dislike your lemonade, or if they think your prices are fair. Always try to please the customers.</html>"""
                 );
-                
-                headLabel.setFont(new Font("MV Boli", Font.BOLD, 35));
-                instructLabel.setFont(new Font("Consolas", Font.BOLD, 16));
-                headLabel.setForeground(Color.red);
-                instructLabel.setForeground(Color.black);
-                headLabel.setHorizontalTextPosition(JLabel.CENTER);
 
                 JPanel panel = new JPanel(new BorderLayout());
                 JPanel panel1 = new JPanel();
 
-                panel.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
-                panel1.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
+                panel.setBorder(BorderFactory.createEmptyBorder(50, 25, 10, 25));
+                panel1.setBorder(BorderFactory.createEmptyBorder(10, 25, 25, 25));
                 panel.setBackground(new Color(0xF1E592));
                 panel1.setBackground(new Color(0xF1E592));
+
+                customLabel(headLabel, "MV Boli", new Color(204,0,0), 30);
+                customLabel(instructLabel, "Consolas", Color.black, 12);
+
                 customButton(buttonBack, 20, Color.white, Color.black);
 
                 panel.add(headLabel, BorderLayout.PAGE_START);
                 panel.add(instructLabel);
                 panel1.add(buttonBack);
+
                 backAction(helpFrame);
 
                 helpFrame.add(panel, BorderLayout.CENTER);
@@ -438,11 +434,11 @@ public class Purchase {
                 helpFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 helpFrame.setTitle("Lemonade Stand");
                 helpFrame.setIconImage(image.getImage());
+                helpFrame.setPreferredSize(new Dimension(650, 550));
                 helpFrame.setUndecorated(false);
                 helpFrame.setResizable(false);
                 helpFrame.pack();
                 helpFrame.setVisible(true);
-                device.setFullScreenWindow(helpFrame);
                 inventoryFrame.dispose();
             }
         });
