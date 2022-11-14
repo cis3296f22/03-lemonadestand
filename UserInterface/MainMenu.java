@@ -16,28 +16,24 @@ public class MainMenu {
     JButton buttonGame = new JButton("New Game");
     JButton buttonInstruct = new JButton("Instructions");
     JButton buttonExit = new JButton("Quit");
-
     ImageIcon image = new ImageIcon("UserInterface/LemonIcon.png");
-    GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
-    GraphicsDevice device = graphics.getDefaultScreenDevice();
 
     public MainMenu(){
         JLabel headLabel = new JLabel("Lemonade Stand");
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
 
-        panel.setBorder(BorderFactory.createEmptyBorder(100, 25, 75, 25));
-        panel1.setBorder(BorderFactory.createEmptyBorder(75, 650, 150, 650));
-        panel1.setLayout(new GridLayout(0,1, 0, 30));
+        panel.setBorder(BorderFactory.createEmptyBorder(60, 25, 50, 25));
+        panel1.setBorder(BorderFactory.createEmptyBorder(50, 225, 50, 225));
+        panel1.setLayout(new GridLayout(0,1, 0, 20));
         panel.setBackground(new Color(0xF1E592));
         panel1.setBackground(new Color(0xF1E592));
 
-        headLabel.setFont(new Font("MV Boli", Font.BOLD, 80));
-        headLabel.setForeground(Color.black);
-
+        customLabel(headLabel, "MV Boli", Color.black, 45);
+        
         customButton(buttonGame, 25, new Color(0,204,0), Color.white);
-        customButton(buttonInstruct, 25, Color.orange, Color.white);
-        customButton(buttonExit, 25, Color.red, Color.white);
+        customButton(buttonInstruct, 25, new Color(255,153,0), Color.white);
+        customButton(buttonExit, 25, new Color(204, 0, 0), Color.white);
 
         panel.add(headLabel);
         panel1.add(buttonGame);
@@ -53,11 +49,11 @@ public class MainMenu {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setTitle("Lemonade Stand");
         mainFrame.setIconImage(image.getImage());
+        mainFrame.setPreferredSize(new Dimension(650, 550));
         mainFrame.setUndecorated(false);
         mainFrame.setResizable(false);
         mainFrame.pack();
         mainFrame.setVisible(true);
-        device.setFullScreenWindow(mainFrame);
     }
 
     public void newGameAction(){
@@ -70,29 +66,22 @@ public class MainMenu {
                 JPanel panel1 = new JPanel();
                 JPanel panel2 = new JPanel();
 
-                panel.setBorder(BorderFactory.createEmptyBorder(75, 30, 30, 30));
+                panel.setBorder(BorderFactory.createEmptyBorder(50, 30, 25, 30));
+                panel1.setBorder(BorderFactory.createEmptyBorder(25, 100, 10, 100));
+                panel2.setBorder(BorderFactory.createEmptyBorder(10, 250, 30, 250));
+                panel2.setLayout(new GridLayout(0,1, 0, 15));
                 panel.setBackground(new Color(0xF1E592));
-
-                panel1.setBorder(BorderFactory.createEmptyBorder(100, 100, 0, 100));
                 panel1.setBackground(new Color(0xF1E592));
-
-                panel2.setBorder(BorderFactory.createEmptyBorder(0, 675, 75, 675));
-                panel2.setLayout(new GridLayout(0,1, 0, 20));
                 panel2.setBackground(new Color(0xF1E592));
 
-                headLabel.setFont(new Font("Comic Sans", Font.BOLD, 55));
-                headLabel.setForeground(Color.black);
-                headLabel.setHorizontalTextPosition(JLabel.CENTER);
+                customLabel(headLabel, "Comic Sans", new Color(204, 0, 0), 35);
+                customLabel(playLabel, "MV Boli", Color.black, 25);
 
-                playLabel.setFont(new Font("MV Boli", Font.BOLD, 35));
-                playLabel.setForeground(Color.black);
-                playLabel.setHorizontalTextPosition(JLabel.CENTER);
-
-                customButton(button7, 35, new Color(0,204,0), Color.white);
-                customButton(button14, 35, Color.orange, Color.white);
-                customButton(button30, 35, Color.red, Color.white);
-                customButton(buttonEnd, 35, Color.black, Color.white);
-                customButton(buttonBack, 35, Color.darkGray, Color.white);
+                customButton(button7, 25, new Color(0,204,0), Color.white);
+                customButton(button14, 25, new Color(255,153,0), Color.white);
+                customButton(button30, 25, new Color(204, 0, 0), Color.white);
+                customButton(buttonEnd, 25, Color.black, Color.white);
+                customButton(buttonBack, 25, Color.darkGray, Color.white);
                 
                 panel.add(headLabel);
                 panel1.add(playLabel);
@@ -114,11 +103,11 @@ public class MainMenu {
                 gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 gameFrame.setTitle("Lemonade Stand");
                 gameFrame.setIconImage(image.getImage());
+                gameFrame.setPreferredSize(new Dimension(650, 550));
                 gameFrame.setUndecorated(false);
                 gameFrame.setResizable(false);
                 gameFrame.pack();
                 gameFrame.setVisible(true);
-                device.setFullScreenWindow(gameFrame);
                 mainFrame.dispose();
             }
         });
@@ -144,25 +133,24 @@ public class MainMenu {
                     Customers:<br/>
                     Keep an eye on passing customers. Symbols or words appear over their heads indicating whether they like or dislike your lemonade, or if they think your prices are fair. Always try to please the customers.</html>"""
                 );
-                
-                headLabel.setFont(new Font("MV Boli", Font.BOLD, 35));
-                instructLabel.setFont(new Font("Consolas", Font.BOLD, 16));
-                headLabel.setForeground(Color.red);
-                instructLabel.setForeground(Color.black);
-                headLabel.setHorizontalTextPosition(JLabel.CENTER);
 
                 JPanel panel = new JPanel(new BorderLayout());
                 JPanel panel1 = new JPanel();
 
-                panel.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
-                panel1.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
+                panel.setBorder(BorderFactory.createEmptyBorder(50, 25, 10, 25));
+                panel1.setBorder(BorderFactory.createEmptyBorder(10, 25, 25, 25));
                 panel.setBackground(new Color(0xF1E592));
                 panel1.setBackground(new Color(0xF1E592));
+
+                customLabel(headLabel, "MV Boli", new Color(204, 0, 0), 30);
+                customLabel(instructLabel, "Consolas", Color.black, 12);
+
                 customButton(buttonBack, 20, Color.white, Color.black);
 
                 panel.add(headLabel, BorderLayout.PAGE_START);
                 panel.add(instructLabel);
                 panel1.add(buttonBack);
+
                 backAction(instructFrame);
 
                 instructFrame.add(panel, BorderLayout.CENTER);
@@ -170,11 +158,11 @@ public class MainMenu {
                 instructFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 instructFrame.setTitle("Lemonade Stand");
                 instructFrame.setIconImage(image.getImage());
+                instructFrame.setPreferredSize(new Dimension(650, 550));
                 instructFrame.setUndecorated(false);
                 instructFrame.setResizable(false);
                 instructFrame.pack();
                 instructFrame.setVisible(true);
-                device.setFullScreenWindow(instructFrame);
                 mainFrame.dispose();
             }
         });
@@ -208,6 +196,11 @@ public class MainMenu {
                 System.exit(1);
             }
         });  
+    }
+
+    public void customLabel(JLabel label, String font, Color color, int size){
+        label.setFont(new Font(font, Font.BOLD, size));
+        label.setForeground(color);
     }
 
     public void customButton(JButton button, int size, Color color, Color color1){

@@ -1,10 +1,8 @@
 package UserInterface;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
-
 
 public class gameover extends JFrame{
     double money = 20.00;
@@ -22,7 +20,7 @@ public class gameover extends JFrame{
     String weather = "Sunny";
     DecimalFormat df = new DecimalFormat("0.00");
     //buttons to go back
-    JFrame inventoryFrame = new JFrame();
+    JFrame gameOverFrame = new JFrame();
     JButton buttonBack = new JButton("Play Again?");
     //label for items
     JLabel headLabel = new JLabel("End of Season Report", SwingConstants.CENTER);
@@ -32,17 +30,14 @@ public class gameover extends JFrame{
     JLabel line = new JLabel("---------------------------------------------------------");
     JLabel prof = new JLabel("Net Profit/Loss: ");
     //labels that show the amount
-    JLabel income = new JLabel(" " + money);
-    JLabel expense = new JLabel(" " + expenses);
-    JLabel liquid = new JLabel(" " + invalue);
-    JLabel nets = new JLabel(" " + net);
+    JLabel income = new JLabel(" " + df.format(money));
+    JLabel expense = new JLabel(" " + df.format(expenses));
+    JLabel liquid = new JLabel(" " + df.format(invalue));
     //bottom items
     JLabel dayLabel = new JLabel("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(money) + "</html>", SwingConstants.LEFT);
     JLabel weatherLabel = new JLabel("<html>Temperature: " + temperature + "&#8457<br />Weather: " + weather + "</html>", SwingConstants.RIGHT);
     //makes it look good
     ImageIcon image = new ImageIcon("UserInterface/LemonIcon.png");
-    GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
-    GraphicsDevice device = graphics.getDefaultScreenDevice();
 
     public static void main(String[] args) {
         new gameover();
@@ -53,32 +48,47 @@ public class gameover extends JFrame{
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
 
-        panel.setBorder(BorderFactory.createEmptyBorder(75, 75, 0, 75));
-        panel1.setBorder(BorderFactory.createEmptyBorder(25, 450, 25, 450));
-        panel2.setBorder(BorderFactory.createEmptyBorder(50, 200, 75, 200));
-        panel.setLayout(new GridLayout(0,1, 100, 100));
+        panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 10, 25));
+        panel1.setBorder(BorderFactory.createEmptyBorder(20, 100, 20, 100));
+        panel2.setBorder(BorderFactory.createEmptyBorder(20, 25, 20, 25));
+        panel.setLayout(new GridLayout(0,1, 0, 20));
         panel1.setLayout(new GridBagLayout());
         panel2.setLayout(new GridLayout(1,0, 100, 0));
         panel.setBackground(new Color(0xF1E592));
         panel1.setBackground(new Color(0xF1E592));
         panel2.setBackground(new Color(0xF1E592));
+        
+        net = ((money + invalue) - expenses);
+        JLabel nets = new JLabel(" " + df.format(net));
+        if(net > 0){
+            customLabel(nets, "Comic Sans", new Color(0, 204, 0), 15);
+        }
+        else if(net < 0){
+            customLabel(nets, "Comic Sans", new Color(204, 0, 0), 15);
+        }
+        else{
+            customLabel(nets, "Comic Sans", Color.black, 15);
+        }
 
         GridBagConstraints grid = new GridBagConstraints();
         grid.fill = GridBagConstraints.HORIZONTAL;
-        grid.insets = new Insets(5, 5, 5, 5);
+        grid.insets = new Insets(5, 40, 5, 5);
         grid.ipadx = 60;
         grid.ipady = 30;
 
-        customLabel(headLabel, "Comic Sans", Color.red, 35);
-        customLabel(inco, "Comic Sans", Color.black, 20);
-        customLabel(exp, "Comic Sans", Color.black, 20);
-        customLabel(liq, "Comic Sans", Color.black, 20);
-        customLabel(line, "Comic Sans", Color.black, 20);
-        customLabel(prof, "Comic Sans", Color.black, 20);
+        customLabel(headLabel, "Comic Sans", new Color(204, 0, 0), 30);
+        customLabel(inco, "Comic Sans", Color.black, 15);
+        customLabel(exp, "Comic Sans", Color.black, 15);
+        customLabel(liq, "Comic Sans", Color.black, 15);
+        customLabel(line, "Comic Sans", Color.black, 15);
+        customLabel(prof, "Comic Sans", Color.black, 15);
+        customLabel(income, "Comic Sans", new Color(0, 204, 0), 15);
+        customLabel(expense, "Comic Sans", new Color(204, 0, 0), 15);
+        customLabel(liquid, "Comic Sans", new Color(0, 204, 0), 15);
         customLabel(dayLabel,"Georgia", Color.black, 20);
         customLabel(weatherLabel, "Georgia", Color.black, 20);
 
-        customButton(buttonBack, 25, Color.white, Color.black);
+        customButton(buttonBack, 20, Color.white, Color.black);
 
         panel.add(headLabel);
 
@@ -116,6 +126,7 @@ public class gameover extends JFrame{
 
         grid.gridx = 0;
         grid.gridy = 5;
+        grid.insets = new Insets(5, 100, 5, 5);
         panel1.add(buttonBack, grid);
 
         panel2.add(dayLabel);
@@ -123,17 +134,17 @@ public class gameover extends JFrame{
 
         backAction();
 
-        inventoryFrame.add(panel, BorderLayout.NORTH);
-        inventoryFrame.add(panel1, BorderLayout.CENTER);
-        inventoryFrame.add(panel2, BorderLayout.SOUTH);
-        inventoryFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        inventoryFrame.setTitle("Lemonade Stand");
-        inventoryFrame.setIconImage(image.getImage());
-        inventoryFrame.setUndecorated(false);
-        inventoryFrame.setResizable(false);
-        inventoryFrame.pack();
-        inventoryFrame.setVisible(true);
-        device.setFullScreenWindow(inventoryFrame);
+        gameOverFrame.add(panel, BorderLayout.NORTH);
+        gameOverFrame.add(panel1, BorderLayout.CENTER);
+        gameOverFrame.add(panel2, BorderLayout.SOUTH);
+        gameOverFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gameOverFrame.setTitle("Lemonade Stand");
+        gameOverFrame.setIconImage(image.getImage());
+        gameOverFrame.setPreferredSize(new Dimension(650, 550));
+        gameOverFrame.setUndecorated(false);
+        gameOverFrame.setResizable(false);
+        gameOverFrame.pack();
+        gameOverFrame.setVisible(true);
     }
 
 
@@ -142,7 +153,7 @@ public class gameover extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e){
                 new MainMenu();
-                inventoryFrame.dispose();
+                gameOverFrame.dispose();
             }
         });
     }
