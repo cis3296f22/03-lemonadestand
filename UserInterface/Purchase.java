@@ -302,7 +302,7 @@ public class Purchase {
                     }
 
                     else if(component.equals("Cups of Sugar")){
-                        temp.addSugar(cost2);
+                        temp.addSugar(quantity);
                         haveLabel.setText("You have " + temp.getSugar() + " " + component + " and $" + df.format(temp.getMoney()));
                     }
 
