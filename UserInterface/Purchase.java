@@ -5,11 +5,12 @@ import java.awt.event.*;
 import java.text.DecimalFormat;
 
 public class Purchase {
-    double money = 20;
+    LemonadeStandModel ls;
+    /*double money = 20;
     int cup = 0;
     int lemon = 0;
     int sugar = 0;
-    int ice = 0;
+    int ice = 0;*/
     int temperature = 0;
     int currentDay = 1;
     int totalDay = 7;
@@ -33,16 +34,24 @@ public class Purchase {
     JButton buttonOK = new JButton("OK");
 
     JLabel headLabel = new JLabel("Inventory/Purchase", SwingConstants.CENTER);
-    JLabel moneyLabel = new JLabel("You have $" + df.format(money) + " and:", SwingConstants.CENTER);
-    JLabel cupLabel = new JLabel(cup + " Paper Cups");
-    JLabel lemonLabel = new JLabel(lemon + " Lemons");
-    JLabel sugarLabel = new JLabel(sugar + " Cups of Sugar");
-    JLabel iceLabel = new JLabel(ice + " Ice Cubes");
-    JLabel dayLabel = new JLabel("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(money) + "</html>", SwingConstants.LEFT);
+    JLabel moneyLabel = new JLabel("", SwingConstants.CENTER);
+    JLabel cupLabel = new JLabel("");
+    JLabel lemonLabel = new JLabel("");
+    JLabel sugarLabel = new JLabel("");
+    JLabel iceLabel = new JLabel("");
+    JLabel dayLabel = new JLabel("", SwingConstants.LEFT);
     JLabel weatherLabel = new JLabel("<html>Temperature: " + temperature + "&#8457<br />Weather: " + weather + "</html>", SwingConstants.RIGHT);
     ImageIcon image = new ImageIcon("UserInterface/LemonIcon.png");
 
-    public Purchase(){
+    public Purchase(LemonadeStandModel ls){
+        moneyLabel.setText("You have $" + df.format(ls.getMoney()) + " and:");
+        cupLabel.setText(ls.getCups() + " Paper Cups");
+        lemonLabel.setText(ls.getLemons() + " Lemons");
+        sugarLabel.setText(ls.getSugar() + " Cups of Sugar");
+        iceLabel.setText(ls.getIce() + " Ice Cubes");
+
+        dayLabel.setText("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
+
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
@@ -125,12 +134,12 @@ public class Purchase {
         panel2.add(dayLabel);
         panel2.add(weatherLabel);
 
-        cupAction();
-        lemonAction();
-        sugarAction();
-        iceAction();
+        cupAction(ls);
+        lemonAction(ls);
+        sugarAction(ls);
+        iceAction(ls);
         bankruptAction();
-        startAction();
+        startAction(ls);
         instructAction();
 
         inventoryFrame.add(panel, BorderLayout.NORTH);
@@ -146,49 +155,49 @@ public class Purchase {
         inventoryFrame.setVisible(true);
     }
 
-    public void cupAction(){
+    public void cupAction(LemonadeStandModel temp){
         buttonCup.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                acquisition("Paper Cups", cup, 25, 50, 100, .78, 1.66, 2.99);
+                acquisition("Paper Cups", temp.getCups(), 25, 50, 100, .78, 1.66, 2.99, temp);
                 inventoryFrame.dispose();
             }
         });  
     }
 
-    public void lemonAction(){
+    public void lemonAction(LemonadeStandModel temp){
         buttonLemon.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                acquisition("Lemons", lemon, 10, 30, 75, .62, 2.41, 4.06);
+                acquisition("Lemons", temp.getLemons(), 10, 30, 75, .62, 2.41, 4.06, temp);
                 inventoryFrame.dispose();
             }
         });
     }
 
-    public void sugarAction(){
+    public void sugarAction(LemonadeStandModel temp){
         buttonSugar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                acquisition("Cups of Sugar", sugar, 8, 20, 48, .59, 1.61, 3.44);
+                acquisition("Cups of Sugar", temp.getSugar(), 8, 20, 48, .59, 1.61, 3.44, temp);
                 inventoryFrame.dispose();
             }
         });
     }
 
-    public void iceAction(){
+    public void iceAction(LemonadeStandModel temp){
         buttonIce.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                acquisition("Ice Cubes", ice, 100, 250, 500, .83, 2.15, 3.88);
+                acquisition("Ice Cubes", temp.getIce(), 100, 250, 500, .83, 2.15, 3.88, temp);
                 inventoryFrame.dispose();
             }
         });
     }
 
-    public void acquisition(String ingredient, int item, int q1, int q2, int q3, double p1, double p2, double p3){
+    public void acquisition(String ingredient, double item, int q1, int q2, int q3, double p1, double p2, double p3, LemonadeStandModel temp){
         JLabel acquisitionLabel = new JLabel("Acquisition: " + ingredient, SwingConstants.CENTER);
-        JLabel ownLabel = new JLabel("You have " + item + " " + ingredient + " and $" + df.format(money), SwingConstants.CENTER);
+        JLabel ownLabel = new JLabel("You have " + item + " " + ingredient + " and $" + df.format(temp.getMoney()), SwingConstants.CENTER);
         JLabel buyLabel = new JLabel("You can buy:");
         JLabel qp1Label = new JLabel(q1 + " " + ingredient + " for $" + df.format(p1));
         JLabel qp2Label = new JLabel(q2 + " " + ingredient + " for $" + df.format(p2));
@@ -257,10 +266,10 @@ public class Purchase {
         panel2.add(dayLabel);
         panel2.add(weatherLabel);
 
-        buyAction(buttonBuy1, ownLabel, qp1Label, ingredient, q1, p1, buttonBuy2, buttonBuy3, qp2Label, qp3Label, p2, p3);
-        buyAction(buttonBuy2, ownLabel, qp2Label, ingredient, q2, p2, buttonBuy1, buttonBuy3, qp1Label, qp3Label, p1, p3);
-        buyAction(buttonBuy3, ownLabel, qp3Label, ingredient, q3, p3, buttonBuy1, buttonBuy2, qp1Label, qp2Label, p1, p2);
-        okAction();
+        buyAction(buttonBuy1, ownLabel, qp1Label, ingredient, q1, p1, buttonBuy2, buttonBuy3, qp2Label, qp3Label, p2, p3, temp);
+        buyAction(buttonBuy2, ownLabel, qp2Label, ingredient, q2, p2, buttonBuy1, buttonBuy3, qp1Label, qp3Label, p1, p3, temp);
+        buyAction(buttonBuy3, ownLabel, qp3Label, ingredient, q3, p3, buttonBuy1, buttonBuy2, qp1Label, qp2Label, p1, p2, temp);
+        okAction(temp);
 
         acquisitionFrame.add(panel, BorderLayout.NORTH);
         acquisitionFrame.add(panel1, BorderLayout.CENTER);
@@ -276,79 +285,79 @@ public class Purchase {
         inventoryFrame.dispose();
     }
 
-    public void buyAction(JButton buttonBuy, JLabel haveLabel, JLabel qpLabel, String component, int quantity, double price, JButton buttonClose1, JButton buttonClose2, JLabel closeLabel1, JLabel closeLabel2, double cost1, double cost2){
+    public void buyAction(JButton buttonBuy, JLabel haveLabel, JLabel qpLabel, String component, int quantity, double price, JButton buttonClose1, JButton buttonClose2, JLabel closeLabel1, JLabel closeLabel2, double cost1, double cost2, LemonadeStandModel temp){
         buttonBuy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                if(money > price){
-                    money -= price;
+                if(temp.getMoney() > price){
+                    temp.setMoney(temp.getMoney() - price);
                     if(component.equals("Paper Cups")){
-                        cup += quantity;
-                        haveLabel.setText("You have " + cup + " " + component + " and $" + df.format(money));
+                        temp.addCups(quantity);
+                        haveLabel.setText("You have " + temp.getCups() + " " + component + " and $" + df.format(temp.getMoney()));
                     }
 
                     else if(component.equals("Lemons")){
-                        lemon += quantity;
-                        haveLabel.setText("You have " + lemon + " " + component + " and $" + df.format(money));
+                        temp.addLemons(quantity);
+                        haveLabel.setText("You have " + temp.getLemons() + " " + component + " and $" + df.format(temp.getMoney()));
                     }
 
                     else if(component.equals("Cups of Sugar")){
-                        sugar += quantity;
-                        haveLabel.setText("You have " + sugar + " " + component + " and $" + df.format(money));
+                        temp.addSugar(quantity);
+                        haveLabel.setText("You have " + temp.getSugar() + " " + component + " and $" + df.format(temp.getMoney()));
                     }
 
                     else if(component.equals("Ice Cubes")){
-                        ice += quantity;
-                        haveLabel.setText("You have " + ice + " " + component + " and $" + df.format(money));
+                        temp.addIce(quantity);
+                        haveLabel.setText("You have " + temp.getIce() + " " + component + " and $" + df.format(temp.getMoney()));
                     }
-                    dayLabel.setText("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(money) + "</html>");
+                    dayLabel.setText("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(temp.getMoney()) + "</html>");
                 }
 
-                if(money - price < price){
-                    money -= price;
+                if(temp.getMoney() - price < price){
+                    temp.setMoney(temp.getMoney() - price);
                     if(component.equals("Paper Cups")){
-                        cup += quantity;
-                        if(money < 0){
-                            money += price;
-                            cup -= quantity;
+                        temp.addCups(quantity);
+                        if(temp.getMoney() < 0){
+                            temp.addMoney(price);
+                            temp.setCups(temp.getCups() - quantity);
                         }
-                        haveLabel.setText("You have " + cup + " " + component + " and $" + df.format(money));
+                        haveLabel.setText("You have " + temp.getCups() + " " + component + " and $" + df.format(temp.getMoney()));
                     }
 
                     else if(component.equals("Lemons")){
-                        lemon += quantity;
-                        if(money < 0){
-                            money += price;
-                            lemon -= quantity;
+                        temp.addLemons(quantity);
+                        if(temp.getMoney() < 0){
+                            temp.addMoney(price);
+                            temp.setLemons(temp.getLemons() - quantity);
                         }
-                        haveLabel.setText("You have " + lemon + " " + component + " and $" + df.format(money));
+                        haveLabel.setText("You have " + temp.getLemons() + " " + component + " and $" + df.format(temp.getMoney()));
                     }
 
                     else if(component.equals("Cups of Sugar")){
-                        sugar += quantity;
-                        if(money < 0){
-                            money += price;
-                            sugar -= quantity;
+                        temp.addSugar(quantity);
+                        if(temp.getMoney() < 0){
+                            temp.addMoney(price);
+                            temp.setSugar(temp.getSugar() - quantity);
                         }
-                        haveLabel.setText("You have " + sugar + " " + component + " and $" + df.format(money));
+                        haveLabel.setText("You have " + temp.getSugar() + " " + component + " and $" + df.format(temp.getMoney()));
                     }
 
                     else if(component.equals("Ice Cubes")){
-                        ice += quantity;
-                        if(money < 0){
-                            money += price;
-                            ice -= quantity;
+                        temp.addIce(quantity);
+                        if(temp.getMoney() < 0){
+                            temp.addMoney(price);
+                            temp.setIce(temp.getIce() - quantity);
                         }
-                        haveLabel.setText("You have " + ice + " " + component + " and $" + df.format(money));
+                        haveLabel.setText("You have " + temp.getIce() + " " + component + " and $" + df.format(temp.getMoney()));
                     }
-                    dayLabel.setText("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(money) + "</html>");
+                    dayLabel.setText("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(temp.getMoney()) + "</html>");
                     
-                    if(money - cost1 < 0){
+                    if(temp.getMoney() - cost1 < 0){
                         buttonClose1.setEnabled(false);
                         customLabel(closeLabel1 , "Comic Sans", Color.lightGray, 15);
                     }
 
-                    if(money - cost2 < 0){
+                    if(temp.getMoney() - cost2 < 0){
                         buttonClose2.setEnabled(false);
                         customLabel(closeLabel2 , "Comic Sans", Color.lightGray, 15);
                     }
@@ -359,11 +368,11 @@ public class Purchase {
         });
     }
 
-    public void okAction(){
+    public void okAction(LemonadeStandModel temp){
         buttonOK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new Purchase();
+                new Purchase(temp);
                 acquisitionFrame.dispose();
             }
         });
@@ -379,11 +388,11 @@ public class Purchase {
         });
     }
 
-    public void startAction(){
+    public void startAction(LemonadeStandModel temp){
         buttonStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new pricing();
+                new pricing(temp);
                 inventoryFrame.dispose();
             }
         });
@@ -448,7 +457,7 @@ public class Purchase {
         buttonBack.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new Purchase();
+                new Purchase(ls);
                 backFrame.dispose();
             }
         });  

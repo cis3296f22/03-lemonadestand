@@ -83,6 +83,10 @@ public class LemonadeStandModel {
         cups = i;
     }
 
+    public void setSugar(double i){
+        sugar = i;
+    }
+
     public void setMoney(double i){
         money = i;
     }
@@ -130,6 +134,10 @@ public class LemonadeStandModel {
     // add lemons, such as after purchasing more from the store
     public void addLemons(double l){
         lemons += l;
+    }
+
+    public void addMoney(double m){
+        money += m;
     }
 
     // add ice, such as after purchasing more from the store
@@ -188,7 +196,7 @@ public class LemonadeStandModel {
 
      // subtract sugar based on recipe
      public void subtractSugar(){
-        this.sugar -= sugarPer;
+        sugar -= sugarPer;
     }
 
     // accept currency from customer

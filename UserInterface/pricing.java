@@ -5,12 +5,13 @@ import java.awt.event.*;
 import java.text.DecimalFormat;
 
 public class pricing extends JFrame{
+    LemonadeStandModel ls;
     //values for the lemonade
-    double money = 20.00;
+    /*double money = 20.00;
     double price_per_cup = 0.00;
     int lemons = 0;
     int sugar = 0;
-    int ice = 0;
+    int ice = 0;*/
     //values for the bottom itesm
     int temperature = 0;
     int currentDay = 1;
@@ -28,10 +29,10 @@ public class pricing extends JFrame{
     Button increase = new Button();
     Button decrease = new Button();
     //labels that show the amount
-    JLabel ppc = new JLabel(" " + price_per_cup);
-    JLabel amtlemon = new JLabel(" " + lemons);
-    JLabel amtsugar = new JLabel(" " + sugar);
-    JLabel amtice = new JLabel(" " + ice);
+    JLabel ppc = new JLabel(); //" " + ls.getPricePer()
+    JLabel amtlemon = new JLabel(); //" " + ls.getLemons()
+    JLabel amtsugar = new JLabel(); // " " + ls.getSugar()
+    JLabel amtice = new JLabel(); // " " + ls.getIce()
 
     JLabel headLabel = new JLabel("Price/Quality Control", SwingConstants.CENTER);
     JLabel ppc2 = new JLabel("Price per Cup: ");
@@ -39,21 +40,27 @@ public class pricing extends JFrame{
     JLabel sugs = new JLabel("Sugar per Pitcher: ");
     JLabel icee = new JLabel("Ice per Cup: ");
     //bottom items
-    JLabel dayLabel = new JLabel("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(money) + "</html>", SwingConstants.LEFT);
+    JLabel dayLabel = new JLabel("", SwingConstants.LEFT); //"<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(ls.getMoney()) + "</html>"
     JLabel weatherLabel = new JLabel("<html>Temperature: " + temperature + "&#8457<br />Weather: " + weather + "</html>", SwingConstants.RIGHT);
     //makes it look good
     ImageIcon image = new ImageIcon("UserInterface/LemonIcon.png");
     GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
     GraphicsDevice device = graphics.getDefaultScreenDevice();
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         new pricing();
-    }
+    }*/
 
-    public pricing(){
+    public pricing(LemonadeStandModel ls){
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
+
+        ppc.setText(" " + ls.getPricePer());
+        amtlemon.setText(" " + ls.getLemons());
+        amtsugar.setText(" " + ls.getSugar());
+        amtice.setText(" " + ls.getIce());
+
 
         panel.setBorder(BorderFactory.createEmptyBorder(75, 75, 0, 75));
         panel1.setBorder(BorderFactory.createEmptyBorder(25, 450, 25, 450));
@@ -136,9 +143,9 @@ public class pricing extends JFrame{
         panel2.add(weatherLabel);
 
         bankruptAction();
-        startAction();
-        instructAction();
-        goBack();
+        startAction(ls);
+        instructAction(ls);
+        goBack(ls);
 
         priceFrame.add(panel, BorderLayout.NORTH);
         priceFrame.add(panel1, BorderLayout.CENTER);
@@ -150,7 +157,7 @@ public class pricing extends JFrame{
         priceFrame.setResizable(false);
         priceFrame.pack();
         priceFrame.setVisible(true);
-        device.setFullScreenWindow(priceFrame);
+        // device.setFullScreenWindow(priceFrame);
     }
 
     public void bankruptAction(){
@@ -163,27 +170,32 @@ public class pricing extends JFrame{
         });
     }
 
-    public void startAction(){
+    public void startAction(LemonadeStandModel temp){
         buttonStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new GameView();
+                try {
+                    new GameView();
+                } catch (InterruptedException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
                 priceFrame.dispose();
             }
         });
     }
 
-    public void goBack(){
+    public void goBack(LemonadeStandModel temp){
         buttonBack.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new Purchase();
+                new Purchase(temp);
                 priceFrame.dispose();
             }
         });
     }
 
-    public void instructAction(){
+    public void instructAction(LemonadeStandModel temp){
         buttonHelp.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 JLabel headLabel = new JLabel("How to play");
@@ -222,7 +234,7 @@ public class pricing extends JFrame{
                 panel.add(headLabel, BorderLayout.PAGE_START);
                 panel.add(instructLabel);
                 panel1.add(buttonBack);
-                backAction(helpFrame);
+                backAction(helpFrame, temp);
 
                 helpFrame.add(panel, BorderLayout.CENTER);
                 helpFrame.add(panel1, BorderLayout.SOUTH);
@@ -239,11 +251,11 @@ public class pricing extends JFrame{
         });
     }
 
-    public void backAction(JFrame backFrame){
+    public void backAction(JFrame backFrame, LemonadeStandModel temp){
         buttonBack.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new pricing();
+                new pricing(temp);
                 backFrame.dispose();
             }
         });  

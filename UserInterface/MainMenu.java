@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class MainMenu {
+    // creation of LemonadeStand
+    LemonadeStandModel ls = new LemonadeStandModel();
+
     JFrame mainFrame = new JFrame();
     JFrame gameFrame = new JFrame();
     JFrame instructFrame = new JFrame();
@@ -19,6 +22,9 @@ public class MainMenu {
     ImageIcon image = new ImageIcon("UserInterface/LemonIcon.png");
 
     public MainMenu(){
+        ls.setMoney(20.0);
+        System.out.println("Money in main menu:" + ls.getMoney());
+
         JLabel headLabel = new JLabel("Lemonade Stand");
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
@@ -172,7 +178,7 @@ public class MainMenu {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new Purchase();
+                new Purchase(ls);
                 gameFrame.dispose();
             }
         });  
