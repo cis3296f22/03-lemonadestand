@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.text.DecimalFormat;
 
 public class pricing extends JFrame{
+    LemonadeStandModel ls;
     //values for the lemonade
     double money = 20.00;
     double price_per_cup = 0.00;
@@ -150,7 +151,7 @@ public class pricing extends JFrame{
         priceFrame.setResizable(false);
         priceFrame.pack();
         priceFrame.setVisible(true);
-        device.setFullScreenWindow(priceFrame);
+        // device.setFullScreenWindow(priceFrame);
     }
 
     public void bankruptAction(){
@@ -167,7 +168,12 @@ public class pricing extends JFrame{
         buttonStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new GameView();
+                try {
+                    new GameView();
+                } catch (InterruptedException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
                 priceFrame.dispose();
             }
         });
