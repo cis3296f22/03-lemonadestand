@@ -7,11 +7,18 @@ import java.text.DecimalFormat;
 public class pricing extends JFrame{
     LemonadeStandModel ls;
     //values for the lemonade
-    /*double money = 20.00;
-    double price_per_cup = 0.00;
-    int lemons = 0;
-    int sugar = 0;
-    int ice = 0;*/
+    double money = 20.00;
+    double price_per_cup = 1.00;
+    int lemons = 4;
+    int sugar = 4;
+    int ice = 4;
+
+    double monmax = 5.00;
+    double monmin = 0.01;
+    double monstep = .01;
+    int max = 99;
+    int min = 1;
+    int step = 1;
     //values for the bottom itesm
     int temperature = 0;
     int currentDay = 1;
@@ -29,16 +36,26 @@ public class pricing extends JFrame{
     Button increase = new Button();
     Button decrease = new Button();
     //labels that show the amount
-    JLabel ppc = new JLabel(); //" " + ls.getPricePer()
-    JLabel amtlemon = new JLabel(); //" " + ls.getLemons()
-    JLabel amtsugar = new JLabel(); // " " + ls.getSugar()
-    JLabel amtice = new JLabel(); // " " + ls.getIce()
+    JLabel ppc = new JLabel("dollars"); //" " + ls.getPricePer()
+    JLabel amtlemon = new JLabel("lemons"); //" " + ls.getLemons()
+    JLabel amtsugar = new JLabel("sugar"); // " " + ls.getSugar()
+    JLabel amtice = new JLabel("ice"); // " " + ls.getIce()
 
     JLabel headLabel = new JLabel("Price/Quality Control", SwingConstants.CENTER);
     JLabel ppc2 = new JLabel("Price per Cup: ");
     JLabel lems = new JLabel("Lemons per Pitcher: ");
     JLabel sugs = new JLabel("Sugar per Pitcher: ");
     JLabel icee = new JLabel("Ice per Cup: ");
+
+    //spinner
+    SpinnerModel model1 = new SpinnerNumberModel(price_per_cup, monmin, monmax, monstep);
+    JSpinner spinner1 = new JSpinner(model1);
+    SpinnerModel model2 = new SpinnerNumberModel(lemons, min, max, step);
+    JSpinner spinner2 = new JSpinner(model2);
+    SpinnerModel model3 = new SpinnerNumberModel(sugar, min, max, step);
+    JSpinner spinner3 = new JSpinner(model3);
+    SpinnerModel model4 = new SpinnerNumberModel(ice, min, max, step);
+    JSpinner spinner4 = new JSpinner(model4);
     //bottom items
     JLabel dayLabel = new JLabel("", SwingConstants.LEFT); //"<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(ls.getMoney()) + "</html>"
     JLabel weatherLabel = new JLabel("<html>Temperature: " + temperature + "&#8457<br />Weather: " + weather + "</html>", SwingConstants.RIGHT);
@@ -47,19 +64,10 @@ public class pricing extends JFrame{
     GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
     GraphicsDevice device = graphics.getDefaultScreenDevice();
 
-    /*public static void main(String[] args) {
-        new pricing();
-    }*/
-
     public pricing(LemonadeStandModel ls){
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
-
-        ppc.setText(" " + ls.getPricePer());
-        amtlemon.setText(" " + ls.getLemons());
-        amtsugar.setText(" " + ls.getSugar());
-        amtice.setText(" " + ls.getIce());
 
 
         panel.setBorder(BorderFactory.createEmptyBorder(75, 75, 0, 75));
@@ -95,9 +103,11 @@ public class pricing extends JFrame{
         panel.add(headLabel);
         
 
-        grid.gridx = 0;
         grid.gridy = 0;
         panel1.add(ppc2, grid);
+
+        grid.gridx = 1;
+        panel1.add(spinner1, grid);
 
         grid.gridx = 2;
         panel1.add(ppc, grid);
@@ -106,6 +116,9 @@ public class pricing extends JFrame{
         grid.gridy = 1;
         panel1.add(lems, grid);
 
+        grid.gridx = 1;
+        panel1.add(spinner2, grid);
+
         grid.gridx = 2;
         panel1.add(amtlemon, grid);
 
@@ -113,12 +126,18 @@ public class pricing extends JFrame{
         grid.gridy = 2;
         panel1.add(sugs, grid);
 
+        grid.gridx = 1;
+        panel1.add(spinner3, grid);
+
         grid.gridx = 2;
         panel1.add(amtsugar, grid);
 
         grid.gridx = 0;
         grid.gridy = 3;
         panel1.add(icee, grid);
+
+        grid.gridx = 1;
+        panel1.add(spinner4, grid);
 
         grid.gridx = 2;
         panel1.add(amtice, grid);
@@ -177,7 +196,7 @@ public class pricing extends JFrame{
                 try {
                     new GameView();
                 } catch (InterruptedException e1) {
-                    // TODO Auto-generated catch block
+                    
                     e1.printStackTrace();
                 }
                 priceFrame.dispose();
