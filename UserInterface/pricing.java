@@ -16,7 +16,8 @@ public class pricing {
     JButton buttonBankrupt = new JButton("Bankrupt!");
     JButton buttonStart = new JButton("OK");
     JButton buttonHelp = new JButton("Help");
-    JButton buttonBack = new JButton("Back to Store");
+    JButton buttonBack1 = new JButton("Back to Store!");
+    JButton buttonBack2 = new JButton("Back");
     //buttons to increase
     JFrame priceFrame = new JFrame();
     JFrame helpFrame = new JFrame();
@@ -85,7 +86,7 @@ public class pricing {
 
         customButton(buttonBankrupt, 12, new Color(204, 0, 0), Color.white);
         customButton(buttonStart, 16, new Color(0, 204, 0), Color.white);
-        customButton(buttonBack, 16, Color.white, Color.black);
+        customButton(buttonBack1, 16, Color.white, Color.black);
         customButton(buttonHelp, 14, new Color(255, 153, 0), Color.white);
 
         panel.add(headLabel);
@@ -144,14 +145,14 @@ public class pricing {
         grid.insets = new Insets(5, 0, 5, 100);
         grid.gridx = 1;
         grid.gridy = 5;
-        panel1.add(buttonBack, grid);
+        panel1.add(buttonBack1, grid);
 
         grid.insets = new Insets(5, 150, 0, 50);
         grid.gridx = 0;
         grid.gridy = 6;
         panel1.add(buttonBankrupt, grid);
 
-        grid.insets = new Insets(5, 0, 5, 100);
+        grid.insets = new Insets(5, 50, 5, 150);
         grid.gridx = 1;
         panel1.add(buttonStart, grid);
 
@@ -206,7 +207,7 @@ public class pricing {
     }
 
     public void goBack(LemonadeStandModel temp){
-        buttonBack.addActionListener(new ActionListener() {
+        buttonBack1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
                 new Purchase(temp);
@@ -247,11 +248,11 @@ public class pricing {
                 customLabel(headLabel, "MV Boli", new Color(204,0,0), 30);
                 customLabel(instructLabel, "Consolas", Color.black, 12);
 
-                customButton(buttonBack, 20, Color.white, Color.black);
+                customButton(buttonBack2, 20, Color.white, Color.black);
 
                 panel.add(headLabel, BorderLayout.PAGE_START);
                 panel.add(instructLabel);
-                panel1.add(buttonBack);
+                panel1.add(buttonBack2);
 
                 backAction(helpFrame, temp);
 
@@ -271,7 +272,7 @@ public class pricing {
     }
 
     public void backAction(JFrame backFrame, LemonadeStandModel temp){
-        buttonBack.addActionListener(new ActionListener() {
+        buttonBack2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
                 new pricing(temp);

@@ -5,7 +5,6 @@ import java.awt.event.*;
 import java.text.DecimalFormat;
 
 public class Purchase {
-    LemonadeStandModel ls;
     int temperature = 0;
     int currentDay = 1;
     int totalDay = 7;
@@ -135,7 +134,7 @@ public class Purchase {
         iceAction(ls);
         bankruptAction();
         startAction(ls);
-        instructAction();
+        instructAction(ls);
 
         inventoryFrame.add(panel, BorderLayout.NORTH);
         inventoryFrame.add(panel1, BorderLayout.CENTER);
@@ -388,7 +387,7 @@ public class Purchase {
         });
     }
 
-    public void instructAction(){
+    public void instructAction(LemonadeStandModel temp){
         buttonHelp.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 JLabel headLabel = new JLabel("How to play");
@@ -426,7 +425,7 @@ public class Purchase {
                 panel.add(instructLabel);
                 panel1.add(buttonBack);
 
-                backAction(helpFrame);
+                backAction(helpFrame, temp);
 
                 helpFrame.add(panel, BorderLayout.CENTER);
                 helpFrame.add(panel1, BorderLayout.SOUTH);
@@ -443,11 +442,11 @@ public class Purchase {
         });
     }
 
-    public void backAction(JFrame backFrame){
+    public void backAction(JFrame backFrame, LemonadeStandModel temp){
         buttonBack.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new Purchase(ls);
+                new Purchase(temp);
                 backFrame.dispose();
             }
         });  
