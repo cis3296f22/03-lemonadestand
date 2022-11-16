@@ -5,8 +5,7 @@ import java.awt.event.*;
 import java.text.DecimalFormat;
 
 public class pricing {
-    LemonadeStandModel ls;
-    //values for the bottom itesm
+    //values for the bottom items
     int temperature = 0;
     int currentDay = 1;
     int totalDay = 7;
@@ -91,7 +90,7 @@ public class pricing {
 
         panel.add(headLabel);
         
-        grid.insets = new Insets(5, 150, 5, 0);
+        grid.insets = new Insets(5, 175, 5, 0);
         grid.gridy = 0;
         panel1.add(cupPerLabel, grid);
 
@@ -103,7 +102,7 @@ public class pricing {
         grid.gridx = 2;
         panel1.add(cupLabel, grid);
 
-        grid.insets = new Insets(5, 150, 5, 0);
+        grid.insets = new Insets(5, 175, 5, 0);
         grid.gridx = 0;
         grid.gridy = 1;
         panel1.add(lemonPerLabel, grid);
@@ -116,7 +115,7 @@ public class pricing {
         grid.gridx = 2;
         panel1.add(lemonLabel, grid);
 
-        grid.insets = new Insets(5, 150, 5, 0);
+        grid.insets = new Insets(5, 175, 5, 0);
         grid.gridx = 0;
         grid.gridy = 2;
         panel1.add(sugarPerLabel, grid);
@@ -129,7 +128,7 @@ public class pricing {
         grid.gridx = 2;
         panel1.add(sugarLabel, grid);
 
-        grid.insets = new Insets(5, 150, 5, 0);
+        grid.insets = new Insets(5, 175, 5, 0);
         grid.gridx = 0;
         grid.gridy = 3;
         panel1.add(icePerLabel, grid);
@@ -164,7 +163,7 @@ public class pricing {
         panel2.add(dayLabel);
         panel2.add(weatherLabel);
 
-        bankruptAction();
+        bankruptAction(ls);
         startAction(ls);
         instructAction(ls);
         goBack(ls);
@@ -182,11 +181,11 @@ public class pricing {
         priceFrame.setVisible(true);
     }
 
-    public void bankruptAction(){
+    public void bankruptAction(LemonadeStandModel temp){
         buttonBankrupt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new gameover();
+                new gameover(temp);
                 priceFrame.dispose();
             }
         });

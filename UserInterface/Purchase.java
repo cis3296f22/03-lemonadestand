@@ -132,7 +132,7 @@ public class Purchase {
         lemonAction(ls);
         sugarAction(ls);
         iceAction(ls);
-        bankruptAction();
+        bankruptAction(ls);
         startAction(ls);
         instructAction(ls);
 
@@ -367,11 +367,11 @@ public class Purchase {
         });
     }
 
-    public void bankruptAction(){
+    public void bankruptAction(LemonadeStandModel temp){
         buttonBankrupt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new gameover();
+                new gameover(temp);
                 inventoryFrame.dispose();
             }
         });
