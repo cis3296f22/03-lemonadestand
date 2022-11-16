@@ -6,11 +6,6 @@ import java.text.DecimalFormat;
 
 public class Purchase {
     LemonadeStandModel ls;
-    /*double money = 20;
-    int cup = 0;
-    int lemon = 0;
-    int sugar = 0;
-    int ice = 0;*/
     int temperature = 0;
     int currentDay = 1;
     int totalDay = 7;
@@ -45,10 +40,10 @@ public class Purchase {
 
     public Purchase(LemonadeStandModel ls){
         moneyLabel.setText("You have $" + df.format(ls.getMoney()) + " and:");
-        cupLabel.setText(ls.getCups() + " Paper Cups");
-        lemonLabel.setText(ls.getLemons() + " Lemons");
-        sugarLabel.setText(ls.getSugar() + " Cups of Sugar");
-        iceLabel.setText(ls.getIce() + " Ice Cubes");
+        cupLabel.setText((int)ls.getCups() + " Paper Cups");
+        lemonLabel.setText((int)ls.getLemons() + " Lemons");
+        sugarLabel.setText((int)ls.getSugar() + " Cups of Sugar");
+        iceLabel.setText((int)ls.getIce() + " Ice Cubes");
 
         dayLabel.setText("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
 
@@ -69,7 +64,7 @@ public class Purchase {
         GridBagConstraints grid = new GridBagConstraints();
         grid.fill = GridBagConstraints.HORIZONTAL;
         grid.insets = new Insets(5, 0, 0, 5);
-        grid.ipadx = 60;
+        grid.ipadx = 50;
         grid.ipady = 30;
 
         customLabel(headLabel, "Comic Sans", new Color(204, 0, 0), 25);
@@ -197,7 +192,7 @@ public class Purchase {
 
     public void acquisition(String ingredient, double item, int q1, int q2, int q3, double p1, double p2, double p3, LemonadeStandModel temp){
         JLabel acquisitionLabel = new JLabel("Acquisition: " + ingredient, SwingConstants.CENTER);
-        JLabel ownLabel = new JLabel("You have " + item + " " + ingredient + " and $" + df.format(temp.getMoney()), SwingConstants.CENTER);
+        JLabel ownLabel = new JLabel("You have " + (int)item + " " + ingredient + " and $" + df.format(temp.getMoney()), SwingConstants.CENTER);
         JLabel buyLabel = new JLabel("You can buy:");
         JLabel qp1Label = new JLabel(q1 + " " + ingredient + " for $" + df.format(p1));
         JLabel qp2Label = new JLabel(q2 + " " + ingredient + " for $" + df.format(p2));
@@ -217,7 +212,7 @@ public class Purchase {
         GridBagConstraints grid = new GridBagConstraints();
         grid.fill = GridBagConstraints.HORIZONTAL;
         grid.insets = new Insets(5, 0, 5, 0);
-        grid.ipadx = 60;
+        grid.ipadx = 50;
         grid.ipady = 30;
 
         customLabel(acquisitionLabel, "Comic Sans", new Color(204, 0, 0), 25);
@@ -293,62 +288,57 @@ public class Purchase {
                     temp.setMoney(temp.getMoney() - price);
                     if(component.equals("Paper Cups")){
                         temp.addCups(quantity);
-                        haveLabel.setText("You have " + temp.getCups() + " " + component + " and $" + df.format(temp.getMoney()));
+                        haveLabel.setText("You have " + (int)temp.getCups() + " " + component + " and $" + df.format(temp.getMoney()));
                     }
 
                     else if(component.equals("Lemons")){
                         temp.addLemons(quantity);
-                        haveLabel.setText("You have " + temp.getLemons() + " " + component + " and $" + df.format(temp.getMoney()));
+                        haveLabel.setText("You have " + (int)temp.getLemons() + " " + component + " and $" + df.format(temp.getMoney()));
                     }
 
                     else if(component.equals("Cups of Sugar")){
                         temp.addSugar(quantity);
-                        haveLabel.setText("You have " + temp.getSugar() + " " + component + " and $" + df.format(temp.getMoney()));
+                        haveLabel.setText("You have " + (int)temp.getSugar() + " " + component + " and $" + df.format(temp.getMoney()));
                     }
 
                     else if(component.equals("Ice Cubes")){
                         temp.addIce(quantity);
-                        haveLabel.setText("You have " + temp.getIce() + " " + component + " and $" + df.format(temp.getMoney()));
+                        haveLabel.setText("You have " + (int)temp.getIce() + " " + component + " and $" + df.format(temp.getMoney()));
                     }
                     dayLabel.setText("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(temp.getMoney()) + "</html>");
                 }
 
-                if(temp.getMoney() - price < price){
-                    temp.setMoney(temp.getMoney() - price);
+                if(temp.getMoney() < price){
                     if(component.equals("Paper Cups")){
-                        temp.addCups(quantity);
                         if(temp.getMoney() < 0){
                             temp.addMoney(price);
                             temp.setCups(temp.getCups() - quantity);
                         }
-                        haveLabel.setText("You have " + temp.getCups() + " " + component + " and $" + df.format(temp.getMoney()));
+                        haveLabel.setText("You have " + (int)temp.getCups() + " " + component + " and $" + df.format(temp.getMoney()));
                     }
 
                     else if(component.equals("Lemons")){
-                        temp.addLemons(quantity);
                         if(temp.getMoney() < 0){
                             temp.addMoney(price);
                             temp.setLemons(temp.getLemons() - quantity);
                         }
-                        haveLabel.setText("You have " + temp.getLemons() + " " + component + " and $" + df.format(temp.getMoney()));
+                        haveLabel.setText("You have " + (int)temp.getLemons() + " " + component + " and $" + df.format(temp.getMoney()));
                     }
 
                     else if(component.equals("Cups of Sugar")){
-                        temp.addSugar(quantity);
                         if(temp.getMoney() < 0){
                             temp.addMoney(price);
                             temp.setSugar(temp.getSugar() - quantity);
                         }
-                        haveLabel.setText("You have " + temp.getSugar() + " " + component + " and $" + df.format(temp.getMoney()));
+                        haveLabel.setText("You have " + (int)temp.getSugar() + " " + component + " and $" + df.format(temp.getMoney()));
                     }
 
                     else if(component.equals("Ice Cubes")){
-                        temp.addIce(quantity);
                         if(temp.getMoney() < 0){
                             temp.addMoney(price);
                             temp.setIce(temp.getIce() - quantity);
                         }
-                        haveLabel.setText("You have " + temp.getIce() + " " + component + " and $" + df.format(temp.getMoney()));
+                        haveLabel.setText("You have " + (int)temp.getIce() + " " + component + " and $" + df.format(temp.getMoney()));
                     }
                     dayLabel.setText("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(temp.getMoney()) + "</html>");
                     

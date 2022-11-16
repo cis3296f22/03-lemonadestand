@@ -9,6 +9,7 @@ public class Report {
         new Report();
     }
 
+    LemonadeStandModel ls = new LemonadeStandModel();
     double money = 20;
     double gross = 0;
     double soldCups = 100;
@@ -218,7 +219,7 @@ public class Report {
             @Override
             public void actionPerformed(ActionEvent e){
                 if(lemon < 3 && sugar == 0 && ice == 0){
-                    new Purchase();
+                    new Purchase(ls);
                 }
                 else{
                     inventoryLoss();
@@ -232,7 +233,7 @@ public class Report {
         buttonOK2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new Purchase();
+                new Purchase(ls);
                 lossFrame.dispose();
             }
         });

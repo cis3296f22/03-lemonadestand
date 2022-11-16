@@ -4,21 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
 
-public class pricing extends JFrame{
+public class pricing {
     LemonadeStandModel ls;
-    //values for the lemonade
-    double money = 20.00;
-    double price_per_cup = 1.00;
-    int lemons = 4;
-    int sugar = 4;
-    int ice = 4;
-
-    double monmax = 5.00;
-    double monmin = 0.01;
-    double monstep = .01;
-    int max = 99;
-    int min = 1;
-    int step = 1;
     //values for the bottom itesm
     int temperature = 0;
     int currentDay = 1;
@@ -36,44 +23,42 @@ public class pricing extends JFrame{
     Button increase = new Button();
     Button decrease = new Button();
     //labels that show the amount
-    JLabel ppc = new JLabel("dollars"); //" " + ls.getPricePer()
-    JLabel amtlemon = new JLabel("lemons"); //" " + ls.getLemons()
-    JLabel amtsugar = new JLabel("sugar"); // " " + ls.getSugar()
-    JLabel amtice = new JLabel("ice"); // " " + ls.getIce()
-
+    JLabel cupLabel = new JLabel("Cents");
+    JLabel lemonLabel = new JLabel("Lemons");
+    JLabel sugarLabel = new JLabel("Sugar");
+    JLabel iceLabel = new JLabel("Ice");
     JLabel headLabel = new JLabel("Price/Quality Control", SwingConstants.CENTER);
-    JLabel ppc2 = new JLabel("Price per Cup: ");
-    JLabel lems = new JLabel("Lemons per Pitcher: ");
-    JLabel sugs = new JLabel("Sugar per Pitcher: ");
-    JLabel icee = new JLabel("Ice per Cup: ");
-
-    //spinner
-    SpinnerModel model1 = new SpinnerNumberModel(price_per_cup, monmin, monmax, monstep);
-    JSpinner spinner1 = new JSpinner(model1);
-    SpinnerModel model2 = new SpinnerNumberModel(lemons, min, max, step);
-    JSpinner spinner2 = new JSpinner(model2);
-    SpinnerModel model3 = new SpinnerNumberModel(sugar, min, max, step);
-    JSpinner spinner3 = new JSpinner(model3);
-    SpinnerModel model4 = new SpinnerNumberModel(ice, min, max, step);
-    JSpinner spinner4 = new JSpinner(model4);
+    JLabel cupPerLabel = new JLabel("Price per Cup:");
+    JLabel lemonPerLabel = new JLabel("Lemons per Pitcher:");
+    JLabel sugarPerLabel = new JLabel("Sugar per Pitcher:");
+    JLabel icePerLabel = new JLabel("Ice per Cup:");
     //bottom items
-    JLabel dayLabel = new JLabel("", SwingConstants.LEFT); //"<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(ls.getMoney()) + "</html>"
+    JLabel dayLabel = new JLabel("", SwingConstants.LEFT);
     JLabel weatherLabel = new JLabel("<html>Temperature: " + temperature + "&#8457<br />Weather: " + weather + "</html>", SwingConstants.RIGHT);
     //makes it look good
     ImageIcon image = new ImageIcon("UserInterface/LemonIcon.png");
-    GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
-    GraphicsDevice device = graphics.getDefaultScreenDevice();
 
     public pricing(LemonadeStandModel ls){
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
 
+        //spinner
+        SpinnerModel model1 = new SpinnerNumberModel(ls.getPricePer(), 1, 99, 1);
+        JSpinner spinner1 = new JSpinner(model1);
+        SpinnerModel model2 = new SpinnerNumberModel(ls.getLemonsPer(), 0, 99, 1);
+        JSpinner spinner2 = new JSpinner(model2);
+        SpinnerModel model3 = new SpinnerNumberModel(ls.getSugarPer(), 0, 99, 1);
+        JSpinner spinner3 = new JSpinner(model3);
+        SpinnerModel model4 = new SpinnerNumberModel(ls.getIcePer(), 0, 99, 1);
+        JSpinner spinner4 = new JSpinner(model4);
 
-        panel.setBorder(BorderFactory.createEmptyBorder(75, 75, 0, 75));
-        panel1.setBorder(BorderFactory.createEmptyBorder(25, 450, 25, 450));
-        panel2.setBorder(BorderFactory.createEmptyBorder(50, 200, 75, 200));
-        panel.setLayout(new GridLayout(0,1, 100, 100));
+        dayLabel.setText("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
+
+        panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 10, 25));
+        panel1.setBorder(BorderFactory.createEmptyBorder(10, 100, 10, 100));
+        panel2.setBorder(BorderFactory.createEmptyBorder(10, 25, 10, 25));
+        panel.setLayout(new GridLayout(0,1, 0, 20));
         panel1.setLayout(new GridBagLayout());
         panel2.setLayout(new GridLayout(1,0, 100, 0));
         panel.setBackground(new Color(0xF1E592));
@@ -83,77 +68,94 @@ public class pricing extends JFrame{
         GridBagConstraints grid = new GridBagConstraints();
         grid.fill = GridBagConstraints.HORIZONTAL;
         grid.insets = new Insets(5, 5, 5, 5);
-        grid.ipadx = 60;
+        grid.ipadx = 40;
         grid.ipady = 30;
 
-        customLabel(headLabel, "Comic Sans", Color.red, 35);
-        customLabel(ppc2, "Comic Sans", Color.black, 20);
-        customLabel(lems, "Comic Sans", Color.black, 20);
-        customLabel(sugs, "Comic Sans", Color.black, 20);
-        customLabel(icee, "Comic Sans", Color.black, 20);
+        customLabel(headLabel, "Comic Sans", new Color(204, 0, 0), 25);
+        customLabel(cupLabel, "Comic Sans", Color.black, 15);
+        customLabel(lemonLabel, "Comic Sans", Color.black, 15);
+        customLabel(sugarLabel, "Comic Sans", Color.black, 15);
+        customLabel(iceLabel, "Comic Sans", Color.black, 15);
+        customLabel(cupPerLabel, "Comic Sans", Color.black, 15);
+        customLabel(lemonPerLabel, "Comic Sans", Color.black, 15);
+        customLabel(sugarPerLabel, "Comic Sans", Color.black, 15);
+        customLabel(icePerLabel, "Comic Sans", Color.black, 15);
         customLabel(dayLabel,"Georgia", Color.black, 20);
         customLabel(weatherLabel, "Georgia", Color.black, 20);
 
-        
-        customButton(buttonBankrupt, 18, Color.red, Color.white);
-        customButton(buttonStart, 25, new Color(0, 204, 0), Color.white);
-        customButton(buttonBack, 25, Color.white, Color.black);
-        customButton(buttonHelp, 20, Color.orange, Color.white);
+        customButton(buttonBankrupt, 12, new Color(204, 0, 0), Color.white);
+        customButton(buttonStart, 16, new Color(0, 204, 0), Color.white);
+        customButton(buttonBack, 16, Color.white, Color.black);
+        customButton(buttonHelp, 14, new Color(255, 153, 0), Color.white);
 
         panel.add(headLabel);
         
-
+        grid.insets = new Insets(5, 150, 5, 0);
         grid.gridy = 0;
-        panel1.add(ppc2, grid);
+        panel1.add(cupPerLabel, grid);
 
+        grid.insets = new Insets(5, 200, 5, 0);
         grid.gridx = 1;
         panel1.add(spinner1, grid);
 
+        grid.insets = new Insets(5, 0, 5, 30);
         grid.gridx = 2;
-        panel1.add(ppc, grid);
+        panel1.add(cupLabel, grid);
 
+        grid.insets = new Insets(5, 150, 5, 0);
         grid.gridx = 0;
         grid.gridy = 1;
-        panel1.add(lems, grid);
+        panel1.add(lemonPerLabel, grid);
 
+        grid.insets = new Insets(5, 200, 5, 0);
         grid.gridx = 1;
         panel1.add(spinner2, grid);
 
+        grid.insets = new Insets(5, 0, 5, 30);
         grid.gridx = 2;
-        panel1.add(amtlemon, grid);
+        panel1.add(lemonLabel, grid);
 
+        grid.insets = new Insets(5, 150, 5, 0);
         grid.gridx = 0;
         grid.gridy = 2;
-        panel1.add(sugs, grid);
+        panel1.add(sugarPerLabel, grid);
 
+        grid.insets = new Insets(5, 200, 5, 0);
         grid.gridx = 1;
         panel1.add(spinner3, grid);
 
+        grid.insets = new Insets(5, 0, 5, 30);
         grid.gridx = 2;
-        panel1.add(amtsugar, grid);
+        panel1.add(sugarLabel, grid);
 
+        grid.insets = new Insets(5, 150, 5, 0);
         grid.gridx = 0;
         grid.gridy = 3;
-        panel1.add(icee, grid);
+        panel1.add(icePerLabel, grid);
 
+        grid.insets = new Insets(5, 200, 5, 0);
         grid.gridx = 1;
         panel1.add(spinner4, grid);
 
+        grid.insets = new Insets(5, 0, 5, 30);
         grid.gridx = 2;
-        panel1.add(amtice, grid);
+        panel1.add(iceLabel, grid);
 
-        grid.gridx = 0;
-        grid.gridy = 6;
-        panel1.add(buttonBankrupt, grid);
-
-        grid.insets = new Insets(5, 60, 5, 20);
-        grid.gridx = 1;
-        panel1.add(buttonStart, grid);
-
+        grid.insets = new Insets(5, 0, 5, 100);
         grid.gridx = 1;
         grid.gridy = 5;
         panel1.add(buttonBack, grid);
 
+        grid.insets = new Insets(5, 150, 0, 50);
+        grid.gridx = 0;
+        grid.gridy = 6;
+        panel1.add(buttonBankrupt, grid);
+
+        grid.insets = new Insets(5, 0, 5, 100);
+        grid.gridx = 1;
+        panel1.add(buttonStart, grid);
+
+        grid.insets = new Insets(5, 0, 5, 150);
         grid.gridx = 2;
         grid.gridy = 6;
         panel1.add(buttonHelp, grid);
@@ -172,11 +174,11 @@ public class pricing extends JFrame{
         priceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         priceFrame.setTitle("Lemonade Stand");
         priceFrame.setIconImage(image.getImage());
+        priceFrame.setPreferredSize(new Dimension(650, 550));
         priceFrame.setUndecorated(false);
         priceFrame.setResizable(false);
         priceFrame.pack();
         priceFrame.setVisible(true);
-        // device.setFullScreenWindow(priceFrame);
     }
 
     public void bankruptAction(){
@@ -196,7 +198,6 @@ public class pricing extends JFrame{
                 try {
                     new GameView();
                 } catch (InterruptedException e1) {
-                    
                     e1.printStackTrace();
                 }
                 priceFrame.dispose();
@@ -234,25 +235,24 @@ public class pricing extends JFrame{
                     Customers:<br/>
                     Keep an eye on passing customers. Symbols or words appear over their heads indicating whether they like or dislike your lemonade, or if they think your prices are fair. Always try to please the customers.</html>"""
                 );
-                
-                headLabel.setFont(new Font("MV Boli", Font.BOLD, 35));
-                instructLabel.setFont(new Font("Consolas", Font.BOLD, 16));
-                headLabel.setForeground(Color.red);
-                instructLabel.setForeground(Color.black);
-                headLabel.setHorizontalTextPosition(JLabel.CENTER);
 
                 JPanel panel = new JPanel(new BorderLayout());
                 JPanel panel1 = new JPanel();
 
-                panel.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
-                panel1.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
+                panel.setBorder(BorderFactory.createEmptyBorder(50, 25, 10, 25));
+                panel1.setBorder(BorderFactory.createEmptyBorder(10, 25, 25, 25));
                 panel.setBackground(new Color(0xF1E592));
                 panel1.setBackground(new Color(0xF1E592));
+
+                customLabel(headLabel, "MV Boli", new Color(204,0,0), 30);
+                customLabel(instructLabel, "Consolas", Color.black, 12);
+
                 customButton(buttonBack, 20, Color.white, Color.black);
 
                 panel.add(headLabel, BorderLayout.PAGE_START);
                 panel.add(instructLabel);
                 panel1.add(buttonBack);
+
                 backAction(helpFrame, temp);
 
                 helpFrame.add(panel, BorderLayout.CENTER);
@@ -260,11 +260,11 @@ public class pricing extends JFrame{
                 helpFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 helpFrame.setTitle("Lemonade Stand");
                 helpFrame.setIconImage(image.getImage());
+                helpFrame.setPreferredSize(new Dimension(650, 550));
                 helpFrame.setUndecorated(false);
                 helpFrame.setResizable(false);
                 helpFrame.pack();
                 helpFrame.setVisible(true);
-                device.setFullScreenWindow(helpFrame);
                 priceFrame.dispose();
             }
         });

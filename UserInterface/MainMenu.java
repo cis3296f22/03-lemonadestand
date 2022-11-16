@@ -22,9 +22,6 @@ public class MainMenu {
     ImageIcon image = new ImageIcon("UserInterface/LemonIcon.png");
 
     public MainMenu(){
-        ls.setMoney(20.0);
-        System.out.println("Money in main menu:" + ls.getMoney());
-
         JLabel headLabel = new JLabel("Lemonade Stand");
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
