@@ -6,6 +6,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -13,10 +15,11 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.InterruptedException;
 
-public class GameView extends JFrame {
+public class GameView extends JFrame implements ActionListener {
 
     JFrame frame = new JFrame();
     JLabel background = new JLabel();
+    JLabel walker = new JLabel();
     JLabel gameText = new JLabel();
     JLabel weatherText = new JLabel();
     JLabel inventory = new JLabel();
@@ -25,6 +28,12 @@ public class GameView extends JFrame {
     JLabel customerMessage = new JLabel();
 
     Button testButton = new Button();
+
+    //animation Variables
+    Timer timer;
+    int animationX = 0;
+    int animationY = 0;
+    int xVelocity = 1;
 
     LemonadeStandModel ls = new LemonadeStandModel();
     /*int money;
@@ -57,10 +66,11 @@ public class GameView extends JFrame {
             // System.out.println(ls.getMoney());
         });
 
-        //WILL PASS IN PARAMS WHEN INITIALIZED
-        loadGameText(); //sets up initial game display,
+        customerMessage.setForeground(Color.WHITE);
 
+        loadGameText(); //sets up initial game display,
         loadBackground(); //loading in background image for game
+        loadWalker(); //load customer
 
         //using a layered pane to order z-index of components
         layeredPane.setBounds(0,0, 800,800);
@@ -70,6 +80,7 @@ public class GameView extends JFrame {
         layeredPane.add(inventory, Integer.valueOf(1));
         layeredPane.add(testButton, Integer.valueOf(1));
         layeredPane.add(customerMessage, Integer.valueOf(1));
+        layeredPane.add(walker, Integer.valueOf(1));
 
         //adding info to frame
         frame.setTitle("Lemonade Stand");
@@ -82,25 +93,13 @@ public class GameView extends JFrame {
         frame.setResizable(false);
         //frame.pack();
 
+        System.out.println("Window size: " + frame.getWidth());
 
         int customers = 0;
         while(customers < 20){
             int rnd = (int) ( Math.random() * 2 + 1);
-
-            // purhcase cup
-            if(rnd == 1) {
-                ls.sellCup();
-                gameText.setText("<html>Day 1 of 7<br />Money: $" + ls.getMoney() + "</html>"); // add variable
-                inventory.setText("<html><pre> Cups: " + ls.getCups() + "  Ice: " + ls.getIce() + "  Lemons: " + ls.getLemons() + "  Sugar: " + ls.getSugar() + " </pre></html>");
-                customerMessage.setText("<html>Cup Sold!</html>");
-                System.out.println("Current Money: " + ls.getMoney());
-            } else {
-                System.out.println("Ew! I dont want that lemonade...");
-                customerMessage.setText("<html>Ew! I dont want that lemonade..." + "</html>");
-            }
-
             try {
-                Thread.sleep(3000);
+                Thread.sleep(1000);
 
                 // trying to get message to fade after it shows up
                 /*double faded = 1.0;
@@ -110,6 +109,31 @@ public class GameView extends JFrame {
                     Thread.sleep(100);
                     System.out.println("Fade is now " + (float)faded);
                 }*/
+                int xLocation = 0;
+                while(xLocation<650){
+
+                    if(xLocation == 275){ //if walker is at lemonade stand
+                        // purhcase cup
+                        if(rnd == 1) {
+                            Thread.sleep(100);
+                            ls.sellCup();
+                            gameText.setText("<html>Day 1 of 7<br />Money: $" + ls.getMoney() + "</html>"); // add variable
+                            inventory.setText("<html><pre> Cups: " + ls.getCups() + "  Ice: " + ls.getIce() + "  Lemons: " + ls.getLemons() + "  Sugar: " + ls.getSugar() + " </pre></html>");
+                            customerMessage.setForeground(Color.GREEN);
+                            customerMessage.setText("<html>Cup Sold!</html>");
+                            System.out.println("Current Money: " + ls.getMoney());
+                        } else {
+                            System.out.println("Ew! I dont want that lemonade...");
+                            customerMessage.setForeground(Color.RED);
+                            customerMessage.setText("<html>Ew! I don't want that lemonade..." + "</html>");
+                        }
+
+                    }
+                    xLocation += 1;
+                    Thread.sleep(2);
+                    walker.setBounds(xLocation, 200, 200, 200);
+                }
+//                walker.setBounds(20, 200, 200, 200);
 
                 // for now, just set to empty message  
                 customerMessage.setText("<html></html>");
@@ -130,12 +154,12 @@ public class GameView extends JFrame {
     public void loadBackground(){
 
         String path = System.getProperty("user.dir");
-        System.out.println(path + File.separator + "UserInterface" + File.separator + "frontYardNoStand.jpg");
+        System.out.println(path + File.separator + "UserInterface" + File.separator + "frontYardWithStand.jpg");
 
         //Setting image
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File(path + File.separator + "UserInterface" + File.separator + "frontYardNoStand.jpg")); //Can change depending on weather
+            img = ImageIO.read(new File(path + File.separator + "UserInterface" + File.separator + "frontYardWithStand.jpg")); //Can change depending on weather
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -160,13 +184,13 @@ public class GameView extends JFrame {
         weatherText.setFont(new Font("Georgia", Font.BOLD, 20));
 
         inventory.setText("<html><pre> Cups: " + ls.getCups() + "  Ice: " + ls.getIce() + "  Lemons: " + ls.getLemons() + "  Sugar: " + ls.getSugar() + " </pre></html>");
-        inventory.setBounds(150, 375, 460, 25);
-        inventory.setFont(new Font("Georgia", Font.BOLD, 20));
+        inventory.setBounds(75, 375, 495, 25);
+        inventory.setFont(new Font("Georgia", Font.BOLD, 16));
         inventory.setBackground(new Color(0xDEE3E3));
         inventory.setOpaque(true);
 
         // customer message on cup sold / not sold
-        customerMessage.setText("<html>Message: </html>");
+        //customerMessage.setText("<html>Message: </html>");
         customerMessage.setBounds(200, 225, 500, 25);
         customerMessage.setFont(new Font("Georgia", Font.BOLD, 20));
 
@@ -175,9 +199,51 @@ public class GameView extends JFrame {
         inventory.setBorder(invBorder);
     }
 
+    private void loadWalker(){
+        String path = System.getProperty("user.dir");
+        System.out.println(path + File.separator + "UserInterface" + File.separator + "stickFigAnimTest.png");
+
+        //Setting image
+        BufferedImage walkerImg = null;
+        try {
+            walkerImg = ImageIO.read(new File(path + File.separator + "UserInterface" + File.separator + "smallStickFig.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ImageIcon walkerIcon = new ImageIcon(walkerImg);
+        walker.setIcon(walkerIcon);
+
+        walker.setBounds(0,200,walker.getIcon().getIconWidth(),walker.getIcon().getIconHeight());
+    }
+
+//    public void paint(Graphics g){
+//        super.paint(g);
+//        String path = System.getProperty("user.dir");
+//        System.out.println(path + File.separator + "UserInterface" + File.separator + "stickFigAnimTest.png");
+//
+//        //Setting image
+//        BufferedImage walkerImg = null;
+//        try {
+//            walkerImg = ImageIO.read(new File(path + File.separator + "UserInterface" + File.separator + "stickFigAnimTest.png"));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        Graphics2D g2d = (Graphics2D) g;
+//        g2d.drawImage(walkerImg, animationX, animationY, null);
+//
+//
+//    }
+
+
+
     private void increaseMoney(){
         //money += 1;
         //System.out.println(money);
     }
 
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+
+    }
 }

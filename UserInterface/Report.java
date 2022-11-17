@@ -218,7 +218,7 @@ public class Report {
             @Override
             public void actionPerformed(ActionEvent e){
                 if(lemon < 3 && sugar == 0 && ice == 0){
-                    new Purchase();
+                    //new Purchase();
                 }
                 else{
                     inventoryLoss();
@@ -232,7 +232,7 @@ public class Report {
         buttonOK2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new Purchase();
+                //new Purchase();
                 lossFrame.dispose();
             }
         });
