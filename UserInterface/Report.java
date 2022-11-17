@@ -218,6 +218,7 @@ public class Report {
         buttonOK1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
+
                 if(temp.getLemons() < 3 && temp.getSugar() == 0 && temp.getIce() == 0){
                     new Purchase(temp);
                 }
@@ -233,7 +234,9 @@ public class Report {
         buttonOK2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
+
                 new Purchase(temp);
+                
                 lossFrame.dispose();
             }
         });
