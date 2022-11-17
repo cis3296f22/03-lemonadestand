@@ -5,14 +5,9 @@ import java.awt.event.*;
 import java.text.DecimalFormat;
 
 public class gameover extends JFrame{
-    double expenses = 0.00;
-    double invalue = 0.00;
-    double net = 0.00;
-
+    double net = 0.0;
     //values for the bottom items
     int temperature = 0;
-    int currentDay = 1;
-    int totalDay = 7;
     String weather = "Sunny";
     DecimalFormat df = new DecimalFormat("0.00");
     //buttons to go back
@@ -36,10 +31,10 @@ public class gameover extends JFrame{
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
 
-        JLabel income = new JLabel(" " + df.format(ls.getMoney()));
-        JLabel expense = new JLabel(" " + df.format(expenses));
-        JLabel liquid = new JLabel(" " + df.format(invalue));
-        dayLabel.setText("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
+        JLabel income = new JLabel(" " + df.format(ls.getMoney() + ls.getExpense() - 20));
+        JLabel expense = new JLabel(" " + df.format(ls.getExpense()));
+        JLabel liquidate = new JLabel(" " + df.format(ls.getLiquidate()));
+        dayLabel.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + (int)ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
 
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 10, 25));
         panel1.setBorder(BorderFactory.createEmptyBorder(20, 100, 20, 100));
@@ -51,7 +46,7 @@ public class gameover extends JFrame{
         panel1.setBackground(new Color(0xF1E592));
         panel2.setBackground(new Color(0xF1E592));
         
-        net = ((ls.getMoney() + invalue) - expenses);
+        net = (((ls.getMoney() - 20) + ls.getLiquidate()));
         JLabel nets = new JLabel(" " + df.format(net));
         if(net > 0){
             customLabel(nets, "Comic Sans", new Color(0, 204, 0), 15);
@@ -77,7 +72,7 @@ public class gameover extends JFrame{
         customLabel(prof, "Comic Sans", Color.black, 15);
         customLabel(income, "Comic Sans", new Color(0, 204, 0), 15);
         customLabel(expense, "Comic Sans", new Color(204, 0, 0), 15);
-        customLabel(liquid, "Comic Sans", new Color(0, 204, 0), 15);
+        customLabel(liquidate, "Comic Sans", new Color(0, 204, 0), 15);
         customLabel(dayLabel,"Georgia", Color.black, 20);
         customLabel(weatherLabel, "Georgia", Color.black, 20);
 
@@ -104,7 +99,7 @@ public class gameover extends JFrame{
         panel1.add(liq, grid);
 
         grid.gridx = 2;
-        panel1.add(liquid, grid);
+        panel1.add(liquidate, grid);
 
         grid.gridx = 0;
         grid.gridy = 3;

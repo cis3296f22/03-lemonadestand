@@ -6,8 +6,6 @@ import java.text.DecimalFormat;
 
 public class Purchase {
     int temperature = 0;
-    int currentDay = 1;
-    int totalDay = 7;
     String weather = "Sunny";
     DecimalFormat df = new DecimalFormat("0.00");
 
@@ -43,8 +41,7 @@ public class Purchase {
         lemonLabel.setText((int)ls.getLemons() + " Lemons");
         sugarLabel.setText((int)ls.getSugar() + " Cups of Sugar");
         iceLabel.setText((int)ls.getIce() + " Ice Cubes");
-
-        dayLabel.setText("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
+        dayLabel.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + (int)ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
 
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
@@ -285,6 +282,7 @@ public class Purchase {
             public void actionPerformed(ActionEvent e){
                 if(temp.getMoney() > price){
                     temp.setMoney(temp.getMoney() - price);
+                    temp.setExpense(temp.getExpense() + price);
                     if(component.equals("Paper Cups")){
                         temp.addCups(quantity);
                         haveLabel.setText("You have " + (int)temp.getCups() + " " + component + " and $" + df.format(temp.getMoney()));
@@ -304,7 +302,7 @@ public class Purchase {
                         temp.addIce(quantity);
                         haveLabel.setText("You have " + (int)temp.getIce() + " " + component + " and $" + df.format(temp.getMoney()));
                     }
-                    dayLabel.setText("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(temp.getMoney()) + "</html>");
+                    dayLabel.setText("<html>Day " + (int)temp.getCurrentDay() + " of " + (int)temp.getTotalDay() + "<br />Money: $" + df.format(temp.getMoney()) + "</html>");
                 }
 
                 if(temp.getMoney() < price){
@@ -339,7 +337,7 @@ public class Purchase {
                         }
                         haveLabel.setText("You have " + (int)temp.getIce() + " " + component + " and $" + df.format(temp.getMoney()));
                     }
-                    dayLabel.setText("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(temp.getMoney()) + "</html>");
+                    dayLabel.setText("<html>Day " + (int)temp.getCurrentDay() + " of " + (int)temp.getTotalDay() + "<br />Money: $" + df.format(temp.getMoney()) + "</html>");
                     
                     if(temp.getMoney() - cost1 < 0){
                         buttonClose1.setEnabled(false);
@@ -371,6 +369,8 @@ public class Purchase {
         buttonBankrupt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
+                double asset = (temp.getCups() * .0031 + temp.getLemons() * .0062 + temp.getSugar() * .0073 + temp.getIce() * .00083);
+                temp.setLiquidate(temp.getLiquidate() + asset);
                 new gameover(temp);
                 inventoryFrame.dispose();
             }

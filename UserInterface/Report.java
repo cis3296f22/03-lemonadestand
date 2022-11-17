@@ -19,9 +19,6 @@ public class Report {
     int s = 0;
     int i = 0;
     int temperature = 0;
-    int currentDay = 1;
-    int totalDay = 7;
-    int counter = 0;
     String weather = "Sunny";
     String reaction;
     DecimalFormat df = new DecimalFormat("0.00");
@@ -51,55 +48,54 @@ public class Report {
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
 
-        dayLabel.setText("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
+        dayLabel.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + (int)ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
         lemonLabel.setText((int)(ls.getLemons() / 3) + " of your remaining lemons spoiled.");
 
         if((soldCups / customer) == 1){
             reaction = "AMAZING!";
-            counter += (100 / totalDay) + 1;
+            ls.setCounter((int)(ls.getCounter() + 100 / ls.getTotalDay()) + 1);
         }
 
         else if((soldCups / customer) >= .8 && (soldCups / customer) < 1){
             if(weather.equals("Rain") || weather.equals("Snow")){
                 reaction = "AMAZING!";
-                counter += (100 / totalDay) + 1;
+                ls.setCounter((int)(ls.getCounter() + 100 / ls.getTotalDay()) + 1);
             }
             else{
                 reaction = "Great!";
-                counter += (80 / totalDay);
+                ls.setCounter((int)(ls.getCounter() + 80 / ls.getTotalDay()));
             }
         }
 
         else if((soldCups / customer) >= .5 && (soldCups / customer) < .8){
             if(weather.equals("Rain") || weather.equals("Snow")){
                 reaction = "Great!";
-                counter += (80 / totalDay);
+                ls.setCounter((int)(ls.getCounter() + 80 / ls.getTotalDay()));
             }
             else{
                 reaction = "Decent.";
-                counter += (60 / totalDay);
+                ls.setCounter((int)(ls.getCounter() + 60 / ls.getTotalDay()));
             }
         }
 
         else if((soldCups / customer) < .5 && (soldCups / customer) >= .3){
             if((weather.equals("Rain") || weather.equals("Snow"))){
                 reaction = "Decent.";
-                counter += (60 / totalDay);
+                ls.setCounter((int)(ls.getCounter() + 60 / ls.getTotalDay()));
             }
             else{
                 reaction = "Pitiful.";
-                counter += (40 / totalDay);
+                ls.setCounter((int)(ls.getCounter() + 40 / ls.getTotalDay()));
             }
         }
 
         else{
             reaction = "Pitiful.";
-            counter = 0;
         }
         JLabel soldLabel = new JLabel("<html>You managed to sell " + (int)soldCups + " cups to " + (int)customer + " potential customers." + "<br />&emsp;&emsp;Considering the weather, I'd say this is " + reaction + "</html>", SwingConstants.CENTER);
 
         gross = soldCups * (ls.getPricePer() / 100);
-        JLabel grossLabel = new JLabel("Money generated from Day " + currentDay + ": $" + df.format(gross), SwingConstants.CENTER);
+        JLabel grossLabel = new JLabel("Money generated from Day " + (int)ls.getCurrentDay() + ": $" + df.format(gross), SwingConstants.CENTER);
         
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 15, 25));
         panel1.setBorder(BorderFactory.createEmptyBorder(15, 250, 30, 250));
@@ -117,7 +113,7 @@ public class Report {
         customLabel(grossLabel, "Comic Sans", Color.black, 20);
         customLabel(dayLabel,"Georgia", Color.black, 20);
         customLabel(weatherLabel, "Georgia", Color.black, 20);
-        customProgressBar(popularBar, "Comic Sans", new Color(255, 153, 0), new Color(0xF1E592), 20);
+        customProgressBar(popularBar, "Comic Sans", new Color(255, 153, 0), new Color(0xF1E592), 20, ls);
         customButton(buttonOK1, 25, new Color(0, 204, 0), Color.white);
 
         panel.add(reportLabel);
@@ -173,9 +169,15 @@ public class Report {
         }
 
         if(ls.getSugar() > 0){
-            s++;
-            ls.setSugar(0);
-            panel.add(sugarLabel);
+            int rand = (Math.random() <= 0.5) ? 1 : 2;
+            if(rand == 1){
+                s++;
+                ls.setSugar(0);
+                panel.add(sugarLabel);
+            }
+            else if(rand == 2){
+                s = 0;
+            }
         }
 
         if(ls.getIce() > 0){
@@ -247,8 +249,8 @@ public class Report {
         label.setForeground(color);
     }
 
-    public void customProgressBar(JProgressBar bar, String font, Color color1, Color color2, int size){
-        bar.setValue(counter);
+    public void customProgressBar(JProgressBar bar, String font, Color color1, Color color2, int size, LemonadeStandModel temp){
+        bar.setValue((int)temp.getCounter());
         bar.setStringPainted(true);
         bar.setFont(new Font(font, Font.BOLD, size));
         bar.setForeground(color1);
