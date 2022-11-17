@@ -6,17 +6,15 @@ import java.text.DecimalFormat;
 
 public class Report {
     public static void main(String[] args){
-        new Report();
+        LemonadeStandModel ls = new LemonadeStandModel();
+        ls.setLemons(ls.getLemons() + 3);
+        ls.setSugar(ls.getSugar() + 1);
+        ls.setIce(ls.getIce() + 1);
+        new Report(ls);
     }
-
-    double money = 20;
     double gross = 0;
     double soldCups = 100;
     double customer = 100;
-    double pricePerCup = .25;
-    int lemon = 3;
-    int sugar = 1;
-    int ice = 1;
     int l = 0;
     int s = 0;
     int i = 0;
@@ -38,20 +36,23 @@ public class Report {
     JLabel reportLabel = new JLabel("End of Day Report", SwingConstants.CENTER);
     JLabel lossLabel = new JLabel("Inventory Loss", SwingConstants.CENTER);
     JLabel popularLabel = new JLabel("Your Popularity:", SwingConstants.CENTER);
-    JLabel lemonLabel = new JLabel((lemon / 3) + " of your remaining lemons spoiled.", SwingConstants.CENTER);
+    JLabel lemonLabel = new JLabel(" ", SwingConstants.CENTER);
     JLabel sugarLabel = new JLabel("Bugs in the sugar! All remaining sugar needs discarding.", SwingConstants.CENTER);
     JLabel iceLabel = new JLabel("Your remaining ice has melted.", SwingConstants.CENTER);
     JLabel blankLabel1 = new JLabel(" ", SwingConstants.CENTER);
     JLabel blankLabel2 = new JLabel(" ", SwingConstants.CENTER);
     JLabel blankLabel3 = new JLabel(" ", SwingConstants.CENTER);
-    JLabel dayLabel = new JLabel("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(money) + "</html>", SwingConstants.LEFT);
+    JLabel dayLabel = new JLabel(" ", SwingConstants.LEFT);
     JLabel weatherLabel = new JLabel("<html>Temperature: " + temperature + "&#8457<br />Weather: " + weather + "</html>", SwingConstants.RIGHT);
     ImageIcon image = new ImageIcon("UserInterface/LemonIcon.png");
 
-    public Report(){
+    public Report(LemonadeStandModel ls){
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
+
+        dayLabel.setText("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
+        lemonLabel.setText((int)(ls.getLemons() / 3) + " of your remaining lemons spoiled.");
 
         if((soldCups / customer) == 1){
             reaction = "AMAZING!";
@@ -97,7 +98,7 @@ public class Report {
         }
         JLabel soldLabel = new JLabel("<html>You managed to sell " + (int)soldCups + " cups to " + (int)customer + " potential customers." + "<br />&emsp;&emsp;Considering the weather, I'd say this is " + reaction + "</html>", SwingConstants.CENTER);
 
-        gross = soldCups * pricePerCup;
+        gross = soldCups * (ls.getPricePer() / 100);
         JLabel grossLabel = new JLabel("Money generated from Day " + currentDay + ": $" + df.format(gross), SwingConstants.CENTER);
         
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 15, 25));
@@ -128,7 +129,7 @@ public class Report {
         panel2.add(dayLabel);
         panel2.add(weatherLabel);
 
-        lossAction();
+        lossAction(ls);
 
         reportFrame.add(panel, BorderLayout.NORTH);
         reportFrame.add(panel1, BorderLayout.CENTER);
@@ -143,7 +144,7 @@ public class Report {
         reportFrame.setVisible(true);
     }
 
-    public void inventoryLoss(){
+    public void inventoryLoss(LemonadeStandModel ls){
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
@@ -165,21 +166,21 @@ public class Report {
         customButton(buttonOK2, 25, new Color(0, 204, 0), Color.white);
 
         panel.add(lossLabel);
-        if(lemon >= 3){
+        if(ls.getLemons() >= 3){
             l++;
-            lemon -= lemon / 3;
+            ls.setLemons(ls.getLemons() - (ls.getLemons() / 3));
             panel.add(lemonLabel);
         }
 
-        if(sugar > 0){
+        if(ls.getSugar() > 0){
             s++;
-            sugar = 0;
+            ls.setSugar(0);
             panel.add(sugarLabel);
         }
 
-        if(ice > 0){
+        if(ls.getIce() > 0){
             i++;
-            ice = 0;
+            ls.setIce(0);
             panel.add(iceLabel);
         }
 
@@ -198,7 +199,7 @@ public class Report {
         panel2.add(dayLabel);
         panel2.add(weatherLabel);
 
-        nextDayAction();
+        nextDayAction(ls);
 
         lossFrame.add(panel, BorderLayout.NORTH);
         lossFrame.add(panel1, BorderLayout.CENTER);
@@ -213,26 +214,29 @@ public class Report {
         lossFrame.setVisible(true);
     }
 
-    public void lossAction(){
+    public void lossAction(LemonadeStandModel temp){
         buttonOK1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                if(lemon < 3 && sugar == 0 && ice == 0){
-                    //new Purchase();
+
+                if(temp.getLemons() < 3 && temp.getSugar() == 0 && temp.getIce() == 0){
+                    new Purchase(temp);
                 }
                 else{
-                    inventoryLoss();
+                    inventoryLoss(temp);
                 }
                 reportFrame.dispose();
             }
         });
     }
 
-    public void nextDayAction(){
+    public void nextDayAction(LemonadeStandModel temp){
         buttonOK2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                //new Purchase();
+
+                new Purchase(temp);
+                
                 lossFrame.dispose();
             }
         });

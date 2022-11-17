@@ -15,18 +15,25 @@ public class LemonadeStandModel {
     private double icePer;
     private double pricePer;
 
+    //current and total days
+    private int currentDay;
+    private int totalDay;
+
     // constructor
     public LemonadeStandModel(){
         ice = 0.0;
         lemons = 0.0;
         cups = 0.0;
-        money = 0.0;
+        money = 20.0;
+        sugar = 0.0;
 
-        cupsPer = 0.0;
-        sugarPer = 0.0;
-        lemonsPer = 0.0;
-        icePer = 0.0;
-        pricePer = 0.0;
+        sugarPer = 4.0;
+        lemonsPer = 4.0;
+        icePer = 4.0;
+        pricePer = 25;
+
+        currentDay = 1;
+        totalDay = 7;
     }
 
     // GETTERS
@@ -70,6 +77,14 @@ public class LemonadeStandModel {
         return pricePer;
     }
 
+    public int getCurrentDay(){
+        return currentDay;
+    }
+
+    public int getTotalDays(){
+        return totalDay;
+    }
+
     // SETTERS
     public void setIce(double i){
         ice = i;
@@ -109,6 +124,14 @@ public class LemonadeStandModel {
 
     public void setPricePer(double i){
         pricePer = i;
+    }
+
+    public void setCurrentDay(int i){
+        currentDay = i;
+    }
+
+    public void setTotalDay(int i){
+        totalDay = i;
     }
 
     // ACTIONS

@@ -5,15 +5,11 @@ import java.awt.event.*;
 import java.text.DecimalFormat;
 
 public class gameover extends JFrame{
-    double money = 20.00;
     double expenses = 0.00;
     double invalue = 0.00;
     double net = 0.00;
-    int lemons = 0;
-    int cups = 0;
-    int sugar = 0;
 
-    //values for the bottom itesm
+    //values for the bottom items
     int temperature = 0;
     int currentDay = 1;
     int totalDay = 7;
@@ -29,24 +25,21 @@ public class gameover extends JFrame{
     JLabel liq = new JLabel("Liquidated Inventory Value: ");
     JLabel line = new JLabel("---------------------------------------------------------");
     JLabel prof = new JLabel("Net Profit/Loss: ");
-    //labels that show the amount
-    JLabel income = new JLabel(" " + df.format(money));
-    JLabel expense = new JLabel(" " + df.format(expenses));
-    JLabel liquid = new JLabel(" " + df.format(invalue));
     //bottom items
-    JLabel dayLabel = new JLabel("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(money) + "</html>", SwingConstants.LEFT);
+    JLabel dayLabel = new JLabel(" ", SwingConstants.LEFT);
     JLabel weatherLabel = new JLabel("<html>Temperature: " + temperature + "&#8457<br />Weather: " + weather + "</html>", SwingConstants.RIGHT);
     //makes it look good
     ImageIcon image = new ImageIcon("UserInterface/LemonIcon.png");
 
-    public static void main(String[] args) {
-        new gameover();
-    }
-
-    public gameover(){
+    public gameover(LemonadeStandModel ls){
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
+
+        JLabel income = new JLabel(" " + df.format(ls.getMoney()));
+        JLabel expense = new JLabel(" " + df.format(expenses));
+        JLabel liquid = new JLabel(" " + df.format(invalue));
+        dayLabel.setText("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
 
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 10, 25));
         panel1.setBorder(BorderFactory.createEmptyBorder(20, 100, 20, 100));
@@ -58,7 +51,7 @@ public class gameover extends JFrame{
         panel1.setBackground(new Color(0xF1E592));
         panel2.setBackground(new Color(0xF1E592));
         
-        net = ((money + invalue) - expenses);
+        net = ((ls.getMoney() + invalue) - expenses);
         JLabel nets = new JLabel(" " + df.format(net));
         if(net > 0){
             customLabel(nets, "Comic Sans", new Color(0, 204, 0), 15);
