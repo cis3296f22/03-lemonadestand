@@ -94,10 +94,10 @@ public class MainMenu {
                 panel2.add(buttonEnd);
                 panel2.add(buttonBack);
                 
-                gameAction(button7);
-                gameAction(button14);
-                gameAction(button30);
-                gameAction(buttonEnd);
+                gameAction1(button7);
+                gameAction2(button14);
+                gameAction3(button30);
+                gameAction4(buttonEnd);
                 backAction(gameFrame);
                 
                 gameFrame.add(panel, BorderLayout.NORTH);
@@ -171,10 +171,45 @@ public class MainMenu {
         });
     }
 
-    public void gameAction(JButton button){
+    public void gameAction1(JButton button){
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
+                ls.setTotalDay(7);
+                new Purchase(ls);
+                gameFrame.dispose();
+            }
+        });  
+    }
+
+    public void gameAction2(JButton button){
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                ls.setTotalDay(14);
+                new Purchase(ls);
+                gameFrame.dispose();
+            }
+        });  
+    }
+
+    public void gameAction3(JButton button){
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                ls.setTotalDay(30);
+                new Purchase(ls);
+                gameFrame.dispose();
+            }
+        });  
+    }
+
+    public void gameAction4(JButton button){
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                double infinity = Double.POSITIVE_INFINITY;
+                ls.setTotalDay(infinity);
                 new Purchase(ls);
                 gameFrame.dispose();
             }

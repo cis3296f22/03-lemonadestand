@@ -1,5 +1,8 @@
 package UserInterface;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
@@ -7,8 +10,6 @@ import java.text.DecimalFormat;
 public class pricing {
     //values for the bottom items
     int temperature = 0;
-    int currentDay = 1;
-    int totalDay = 7;
     String weather = "Sunny";
     DecimalFormat df = new DecimalFormat("0.00");
     //buttons to go back
@@ -53,7 +54,7 @@ public class pricing {
         SpinnerModel model4 = new SpinnerNumberModel(ls.getIcePer(), 0, 99, 1);
         JSpinner spinner4 = new JSpinner(model4);
 
-        dayLabel.setText("<html>Day " + currentDay + " of " + totalDay + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
+        dayLabel.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + (int)ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
 
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 10, 25));
         panel1.setBorder(BorderFactory.createEmptyBorder(10, 100, 10, 100));
@@ -163,6 +164,10 @@ public class pricing {
         panel2.add(dayLabel);
         panel2.add(weatherLabel);
 
+        spinnerAction1(spinner1, ls);
+        spinnerAction2(spinner2, ls);
+        spinnerAction3(spinner3, ls);
+        spinnerAction4(spinner4, ls);
         bankruptAction(ls);
         startAction(ls);
         instructAction(ls);
@@ -185,6 +190,8 @@ public class pricing {
         buttonBankrupt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
+                double asset = (temp.getCups() * .0031 + temp.getLemons() * .0062 + temp.getSugar() * .0073 + temp.getIce() * .00083);
+                temp.setLiquidate(temp.getLiquidate() + asset);
                 new gameover(temp);
                 priceFrame.dispose();
             }
@@ -278,6 +285,42 @@ public class pricing {
                 backFrame.dispose();
             }
         });  
+    }
+
+    public void spinnerAction1(JSpinner spinner, LemonadeStandModel temp){
+        spinner.addChangeListener((ChangeListener) new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                temp.setPricePer(((double)spinner.getValue()) / 100);
+            }
+        });
+    }
+
+    public void spinnerAction2(JSpinner spinner, LemonadeStandModel temp){
+        spinner.addChangeListener((ChangeListener) new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                temp.setLemonsPer(((double)spinner.getValue())); 
+            }
+        });
+    }
+
+    public void spinnerAction3(JSpinner spinner, LemonadeStandModel temp){
+        spinner.addChangeListener((ChangeListener) new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                temp.setSugarPer(((double)spinner.getValue()));
+            }
+        });
+    }
+
+    public void spinnerAction4(JSpinner spinner, LemonadeStandModel temp){
+        spinner.addChangeListener((ChangeListener) new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                temp.setIcePer(((double)spinner.getValue()));
+            }
+        });
     }
 
     public void customLabel(JLabel label, String font, Color color, int size){

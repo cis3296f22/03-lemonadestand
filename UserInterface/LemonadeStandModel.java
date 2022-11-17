@@ -16,8 +16,15 @@ public class LemonadeStandModel {
     private double pricePer;
 
     //current and total days
-    private int currentDay;
-    private int totalDay;
+    private double currentDay;
+    private double totalDay;
+
+    //expenses and liquidated values
+    private double expense;
+    private double liquidate;
+
+    //counter for progress bar
+    private int counter;
 
     // constructor
     public LemonadeStandModel(){
@@ -34,6 +41,11 @@ public class LemonadeStandModel {
 
         currentDay = 1;
         totalDay = 7;
+
+        expense = 0.0;
+        liquidate = 0.0;
+
+        counter = 0;
     }
 
     // GETTERS
@@ -77,12 +89,24 @@ public class LemonadeStandModel {
         return pricePer;
     }
 
-    public int getCurrentDay(){
+    public double getCurrentDay(){
         return currentDay;
     }
 
-    public int getTotalDays(){
+    public double getTotalDay(){
         return totalDay;
+    }
+
+    public double getExpense(){
+        return expense;
+    }
+
+    public double getLiquidate(){
+        return liquidate;
+    }
+
+    public double getCounter(){
+        return counter;
     }
 
     // SETTERS
@@ -126,12 +150,24 @@ public class LemonadeStandModel {
         pricePer = i;
     }
 
-    public void setCurrentDay(int i){
+    public void setCurrentDay(double i){
         currentDay = i;
     }
 
-    public void setTotalDay(int i){
+    public void setTotalDay(double i){
         totalDay = i;
+    }
+
+    public void setExpense(double i){
+        expense = i;
+    }
+
+    public void setLiquidate(double i){
+        liquidate = i;
+    }
+
+    public void setCounter(int i){
+        counter = i;
     }
 
     // ACTIONS
