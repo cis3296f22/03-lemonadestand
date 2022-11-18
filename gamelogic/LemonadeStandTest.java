@@ -26,7 +26,13 @@ public class LemonadeStandTest {
 
     // print inventory
     public static void customers(LemonadeStand L){
-        System.out.println("Amount of Customers2 " + L.CustomerLogic());
+        int[] customers = L.CustomerLogic();
+        System.out.printf("Amount of Customers2 %d %d %d %d %d \n", customers[0], customers[1], customers[2], customers[3], customers[4]);
+        //customers0 amount of customers after reducing or increasing
+        //customers1 amount of customers reduced due to price
+        //customers2 amount of customers reduced due to lemons
+        //customers3 amount of customers reduced due to sugar
+        //customers4 amount of customers reduced due to ice
     }
 
     public static void temperature(WeatherForecast R){
