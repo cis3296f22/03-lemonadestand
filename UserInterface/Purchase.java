@@ -369,7 +369,7 @@ public class Purchase {
         buttonBankrupt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                double asset = (temp.getCups() * .0031 + temp.getLemons() * .0062 + temp.getSugar() * .0073 + temp.getIce() * .00083);
+                double asset = (temp.getCups() * .0067 + temp.getLemons() * .0129 + temp.getSugar() * .0151 + temp.getIce() * .00216);
                 temp.setLiquidate(temp.getLiquidate() + asset);
                 new gameover(temp);
                 inventoryFrame.dispose();
