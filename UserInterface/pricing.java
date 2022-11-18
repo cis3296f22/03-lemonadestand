@@ -6,6 +6,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
+import java.lang.InterruptedException;
 
 public class pricing {
     //values for the bottom items
@@ -190,7 +191,7 @@ public class pricing {
         buttonBankrupt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                double asset = (temp.getCups() * .0031 + temp.getLemons() * .0062 + temp.getSugar() * .0073 + temp.getIce() * .00083);
+                double asset = (temp.getCups() * .0067 + temp.getLemons() * .0129 + temp.getSugar() * .0151 + temp.getIce() * .00216);
                 temp.setLiquidate(temp.getLiquidate() + asset);
                 new gameover(temp);
                 priceFrame.dispose();
@@ -200,14 +201,19 @@ public class pricing {
 
     public void startAction(LemonadeStandModel temp){
         buttonStart.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e){
-                try {
-                    new GameView();
-                } catch (InterruptedException e1) {
-                    e1.printStackTrace();
-                }
-                priceFrame.dispose();
+                Thread thread = new Thread(new Runnable(){
+                    @Override
+                    public void run(){
+                        priceFrame.dispose();
+                        try {
+                            new GameView();
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                });
+                thread.start();
             }
         });
     }
