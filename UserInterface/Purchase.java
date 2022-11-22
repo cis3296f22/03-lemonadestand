@@ -9,9 +9,12 @@ public class Purchase {
     String weather = "Sunny";
     DecimalFormat df = new DecimalFormat("0.00");
 
+    //create frames
     JFrame inventoryFrame = new JFrame();
     JFrame helpFrame = new JFrame();
     JFrame acquisitionFrame = new JFrame();
+
+    //create buttons
     JButton buttonCup = new JButton("Buy More Cups");
     JButton buttonLemon = new JButton("Buy More Lemons");
     JButton buttonSugar = new JButton("Buy More Sugar");
@@ -25,6 +28,7 @@ public class Purchase {
     JButton buttonBuy3 = new JButton("Buy It!");
     JButton buttonOK = new JButton("OK");
 
+    //create labels
     JLabel headLabel = new JLabel("Inventory/Purchase", SwingConstants.CENTER);
     JLabel moneyLabel = new JLabel("", SwingConstants.CENTER);
     JLabel cupLabel = new JLabel("");
@@ -35,18 +39,29 @@ public class Purchase {
     JLabel weatherLabel = new JLabel("<html>Temperature: " + temperature + "&#8457<br />Weather: " + weather + "</html>", SwingConstants.RIGHT);
     ImageIcon image = new ImageIcon("UserInterface/LemonIcon.png");
 
+    //inventory screen
     public Purchase(LemonadeStandModel ls){
+        //set text for item labels
         moneyLabel.setText("You have $" + df.format(ls.getMoney()) + " and:");
         cupLabel.setText((int)ls.getCups() + " Paper Cups");
         lemonLabel.setText((int)ls.getLemons() + " Lemons");
         sugarLabel.setText((int)ls.getSugar() + " Cups of Sugar");
         iceLabel.setText((int)ls.getIce() + " Ice Cubes");
-        dayLabel.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + (int)ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
 
+        //set text for bottom labels
+        if(ls.getTotalDay() <= 30){
+            dayLabel.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + (int)ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
+        }
+        else if(ls.getTotalDay() > 30){
+            dayLabel.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
+        }
+
+        //create panels
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
 
+        //set empty border, layout, and background color for panels
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 10, 25));
         panel1.setBorder(BorderFactory.createEmptyBorder(10, 100, 10, 100));
         panel2.setBorder(BorderFactory.createEmptyBorder(10, 25, 10, 25));
@@ -57,12 +72,14 @@ public class Purchase {
         panel1.setBackground(new Color(0xF1E592));
         panel2.setBackground(new Color(0xF1E592));
 
+        //set grid bag layout
         GridBagConstraints grid = new GridBagConstraints();
         grid.fill = GridBagConstraints.HORIZONTAL;
         grid.insets = new Insets(5, 0, 0, 5);
         grid.ipadx = 50;
         grid.ipady = 30;
 
+        //customize labels
         customLabel(headLabel, "Comic Sans", new Color(204, 0, 0), 25);
         customLabel(moneyLabel, "Comic Sans", Color.black, 25);
         customLabel(cupLabel, "Comic Sans", Color.black, 15);
@@ -72,6 +89,7 @@ public class Purchase {
         customLabel(dayLabel,"Georgia", Color.black, 20);
         customLabel(weatherLabel, "Georgia", Color.black, 20);
 
+        //customize buttons
         customButton(buttonCup, 16, Color.white, Color.black);
         customButton(buttonLemon, 16, Color.white, Color.black);
         customButton(buttonSugar, 16, Color.white, Color.black);
@@ -80,6 +98,7 @@ public class Purchase {
         customButton(buttonStart, 16, new Color(0, 204, 0), Color.white);
         customButton(buttonHelp, 14, new Color(255, 153, 0), Color.white);
 
+        //add utilities to panels
         panel.add(headLabel);
         panel.add(moneyLabel);
 
@@ -125,6 +144,7 @@ public class Purchase {
         panel2.add(dayLabel);
         panel2.add(weatherLabel);
 
+        //add action functions
         cupAction(ls);
         lemonAction(ls);
         sugarAction(ls);
@@ -133,6 +153,7 @@ public class Purchase {
         startAction(ls);
         instructAction(ls);
 
+        //add panels and objects to frame
         inventoryFrame.add(panel, BorderLayout.NORTH);
         inventoryFrame.add(panel1, BorderLayout.CENTER);
         inventoryFrame.add(panel2, BorderLayout.SOUTH);
@@ -146,6 +167,7 @@ public class Purchase {
         inventoryFrame.setVisible(true);
     }
 
+    //acquisition action for paper cups
     public void cupAction(LemonadeStandModel temp){
         buttonCup.addActionListener(new ActionListener() {
             @Override
@@ -156,6 +178,7 @@ public class Purchase {
         });  
     }
 
+    //acquisition action for lemons
     public void lemonAction(LemonadeStandModel temp){
         buttonLemon.addActionListener(new ActionListener() {
             @Override
@@ -166,6 +189,7 @@ public class Purchase {
         });
     }
 
+    //acquisition action for sugar
     public void sugarAction(LemonadeStandModel temp){
         buttonSugar.addActionListener(new ActionListener() {
             @Override
@@ -176,6 +200,7 @@ public class Purchase {
         });
     }
 
+    //acquisition action for ice
     public void iceAction(LemonadeStandModel temp){
         buttonIce.addActionListener(new ActionListener() {
             @Override
@@ -186,7 +211,14 @@ public class Purchase {
         });
     }
 
+    //acquisition screen
     public void acquisition(String ingredient, double item, int q1, int q2, int q3, double p1, double p2, double p3, LemonadeStandModel temp){
+        //create panels
+        JPanel panel = new JPanel();
+        JPanel panel1 = new JPanel();
+        JPanel panel2 = new JPanel();
+        
+        //create and set text for labels
         JLabel acquisitionLabel = new JLabel("Acquisition: " + ingredient, SwingConstants.CENTER);
         JLabel ownLabel = new JLabel("You have " + (int)item + " " + ingredient + " and $" + df.format(temp.getMoney()), SwingConstants.CENTER);
         JLabel buyLabel = new JLabel("You can buy:");
@@ -194,23 +226,25 @@ public class Purchase {
         JLabel qp2Label = new JLabel(q2 + " " + ingredient + " for $" + df.format(p2));
         JLabel qp3Label = new JLabel(q3 + " " + ingredient + " for $" + df.format(p3));
 
-        JPanel panel = new JPanel(new GridLayout(0,1, 0, 20));
-        JPanel panel1 = new JPanel(new GridBagLayout());
-        JPanel panel2 = new JPanel(new GridLayout(1,0, 100, 0));
-
+        //set empty border, layout, and background color of panels
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 10, 25));
         panel1.setBorder(BorderFactory.createEmptyBorder(10, 100, 10, 100));
         panel2.setBorder(BorderFactory.createEmptyBorder(10, 25, 5, 25));
+        panel.setLayout(new GridLayout(0,1, 0, 20));
+        panel1.setLayout(new GridBagLayout());
+        panel2.setLayout(new GridLayout(1,0, 100, 0));
         panel.setBackground(new Color(0xF1E592));
         panel1.setBackground(new Color(0xF1E592));
         panel2.setBackground(new Color(0xF1E592));
 
+        //set grid bag layout
         GridBagConstraints grid = new GridBagConstraints();
         grid.fill = GridBagConstraints.HORIZONTAL;
         grid.insets = new Insets(5, 0, 5, 0);
         grid.ipadx = 50;
         grid.ipady = 30;
 
+        //customize labels
         customLabel(acquisitionLabel, "Comic Sans", new Color(204, 0, 0), 25);
         customLabel(ownLabel, "Comic Sans", Color.black, 25);
         customLabel(buyLabel, "Comic Sans", Color.black, 20);
@@ -218,11 +252,13 @@ public class Purchase {
         customLabel(qp2Label, "Comic Sans", Color.black, 15);
         customLabel(qp3Label, "Comic Sans", Color.black, 15);
 
+        //customize buttons
         customButton(buttonBuy1, 18, Color.white, Color.black);
         customButton(buttonBuy2, 18, Color.white, Color.black);
         customButton(buttonBuy3, 18, Color.white, Color.black);
         customButton(buttonOK, 20, new Color(0, 204, 0), Color.white);
 
+        //add utilities to panels
         panel.add(acquisitionLabel);
         panel.add(ownLabel);
 
@@ -257,11 +293,13 @@ public class Purchase {
         panel2.add(dayLabel);
         panel2.add(weatherLabel);
 
+        //add action functions
         buyAction(buttonBuy1, ownLabel, qp1Label, ingredient, q1, p1, buttonBuy2, buttonBuy3, qp2Label, qp3Label, p2, p3, temp);
         buyAction(buttonBuy2, ownLabel, qp2Label, ingredient, q2, p2, buttonBuy1, buttonBuy3, qp1Label, qp3Label, p1, p3, temp);
         buyAction(buttonBuy3, ownLabel, qp3Label, ingredient, q3, p3, buttonBuy1, buttonBuy2, qp1Label, qp2Label, p1, p2, temp);
         okAction(temp);
 
+        //add panels and objects to frame
         acquisitionFrame.add(panel, BorderLayout.NORTH);
         acquisitionFrame.add(panel1, BorderLayout.CENTER);
         acquisitionFrame.add(panel2, BorderLayout.SOUTH);
@@ -276,10 +314,12 @@ public class Purchase {
         inventoryFrame.dispose();
     }
 
+    //action for buying the items
     public void buyAction(JButton buttonBuy, JLabel haveLabel, JLabel qpLabel, String component, int quantity, double price, JButton buttonClose1, JButton buttonClose2, JLabel closeLabel1, JLabel closeLabel2, double cost1, double cost2, LemonadeStandModel temp){
         buttonBuy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
+                //buy items if there are sufficient funds
                 if(temp.getMoney() > price){
                     temp.setMoney(temp.getMoney() - price);
                     temp.setExpense(temp.getExpense() + price);
@@ -305,6 +345,7 @@ public class Purchase {
                     dayLabel.setText("<html>Day " + (int)temp.getCurrentDay() + " of " + (int)temp.getTotalDay() + "<br />Money: $" + df.format(temp.getMoney()) + "</html>");
                 }
 
+                //disable buttons if there are no sufficient funds
                 if(temp.getMoney() < price){
                     if(component.equals("Paper Cups")){
                         if(temp.getMoney() < 0){
@@ -355,6 +396,7 @@ public class Purchase {
         });
     }
 
+    //action for opening the inventory screen
     public void okAction(LemonadeStandModel temp){
         buttonOK.addActionListener(new ActionListener() {
             @Override
@@ -365,6 +407,7 @@ public class Purchase {
         });
     }
 
+    //action to bankrupt and end the game
     public void bankruptAction(LemonadeStandModel temp){
         buttonBankrupt.addActionListener(new ActionListener() {
             @Override
@@ -377,6 +420,7 @@ public class Purchase {
         });
     }
 
+    //action for opening the pricing screen
     public void startAction(LemonadeStandModel temp){
         buttonStart.addActionListener(new ActionListener() {
             @Override
@@ -387,9 +431,11 @@ public class Purchase {
         });
     }
 
+    //action to open the instruction screen
     public void instructAction(LemonadeStandModel temp){
         buttonHelp.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
+                //set text for labels
                 JLabel headLabel = new JLabel("How to play");
                 JLabel instructLabel = new JLabel("""
                     <html>Weather:<br/>
@@ -408,25 +454,32 @@ public class Purchase {
                     Keep an eye on passing customers. Symbols or words appear over their heads indicating whether they like or dislike your lemonade, or if they think your prices are fair. Always try to please the customers.</html>"""
                 );
 
+                //create panels
                 JPanel panel = new JPanel(new BorderLayout());
                 JPanel panel1 = new JPanel();
 
+                //set empty border and background color of panels
                 panel.setBorder(BorderFactory.createEmptyBorder(50, 25, 10, 25));
                 panel1.setBorder(BorderFactory.createEmptyBorder(10, 25, 25, 25));
                 panel.setBackground(new Color(0xF1E592));
                 panel1.setBackground(new Color(0xF1E592));
 
+                //customize labels
                 customLabel(headLabel, "MV Boli", new Color(204,0,0), 30);
                 customLabel(instructLabel, "Consolas", Color.black, 12);
 
+                //customize back button
                 customButton(buttonBack, 20, Color.white, Color.black);
 
+                //add utilities to panels
                 panel.add(headLabel, BorderLayout.PAGE_START);
                 panel.add(instructLabel);
                 panel1.add(buttonBack);
 
+                //add back action
                 backAction(helpFrame, temp);
 
+                //add panels and objects to frame
                 helpFrame.add(panel, BorderLayout.CENTER);
                 helpFrame.add(panel1, BorderLayout.SOUTH);
                 helpFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -442,6 +495,7 @@ public class Purchase {
         });
     }
 
+    //action to exit instruction screen
     public void backAction(JFrame backFrame, LemonadeStandModel temp){
         buttonBack.addActionListener(new ActionListener() {
             @Override
@@ -452,11 +506,13 @@ public class Purchase {
         });  
     }
 
+    //function to customize the labels
     public void customLabel(JLabel label, String font, Color color, int size){
         label.setFont(new Font(font, Font.BOLD, size));
         label.setForeground(color);
     }
 
+    //function to customize the buttons
     public void customButton(JButton button, int size, Color color, Color color1){
         button.setFont(new Font("Comic Sans", Font.BOLD, size));
         button.setBackground(color);
