@@ -1,0 +1,16 @@
+{
+    "java.project.referencedLibraries": {
+        "include": [
+            "lib/**/*.jar",
+            "c:\\Users\\rickw\\Downloads\\commons-lang3-3.12.0\\commons-lang3-3.12.0-sources.jar",
+            "c:\\Users\\rickw\\Downloads\\commons-lang3-3.12.0\\commons-lang3-3.12.0-test-sources.jar",
+            "c:\\Users\\rickw\\Downloads\\httpcomponents-client-4.5.13\\lib\\httpclient-4.5.13.jar",
+            "c:\\Users\\rickw\\Downloads\\httpcomponents-client-4.5.13\\lib\\httpcore-4.4.13.jar",
+            "c:\\Users\\rickw\\Downloads\\json-20220924.jar"
+        ],
+        "exclude": [
+            "c:\\Users\\rickw\\Downloads\\commons-lang3-3.12.0\\commons-lang3-3.12.0-javadoc.jar",
+            "c:\\Users\\rickw\\Downloads\\commons-lang3-3.12.0\\commons-lang3-3.12.0-javadoc.jar"
+        ]
+    }
+}
