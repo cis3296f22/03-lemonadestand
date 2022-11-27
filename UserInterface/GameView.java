@@ -14,20 +14,21 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.lang.InterruptedException;
+import java.util.Random;
 
-public class GameView extends JFrame implements ActionListener {
+public class GameView extends JFrame {
 
     JFrame frame = new JFrame();
     JLabel background = new JLabel();
     JLabel walker = new JLabel();
+    String[] rightSideCustomers = {"girlWalkingDog3Resized.png","guyWalking2Resized.png", "guyWalkingResized.png"};
+    String[] leftSideCustomers = {"girlWalking2Resized.png","girlWalkingResized.png", "guyWalkingDogResized.png"};
     JLabel gameText = new JLabel();
     JLabel weatherText = new JLabel();
     JLabel inventory = new JLabel();
 
     // label for in-game messages
     JLabel customerMessage = new JLabel();
-
-    Button testButton = new Button();
 
     //animation Variables
     Timer timer;
@@ -57,15 +58,6 @@ public class GameView extends JFrame implements ActionListener {
         ls.setInventory(100, 100, 50, 50);
         ls.setRecipe(2, 4, 2, 1);
 
-        //REMOVE
-        testButton.setBounds(200,440,40,25);
-        testButton.addActionListener(e -> {
-            ls.sellCup();
-            gameText.setText("<html>Day 1 of 7<br />Money: $" + ls.getMoney() + "</html>"); // add variable
-            inventory.setText("<html><pre> Cups: " + ls.getCups() + "  Ice: " + ls.getIce() + "  Lemons: " + ls.getLemons() + "  Sugar: " + ls.getSugar() + " </pre></html>");
-            // System.out.println(ls.getMoney());
-        });
-
         customerMessage.setForeground(Color.WHITE);
 
         loadGameText(); //sets up initial game display,
@@ -78,9 +70,7 @@ public class GameView extends JFrame implements ActionListener {
         layeredPane.add(gameText, Integer.valueOf(1));
         layeredPane.add(weatherText, Integer.valueOf(1));
         layeredPane.add(inventory, Integer.valueOf(1));
-        layeredPane.add(testButton, Integer.valueOf(1));
         layeredPane.add(customerMessage, Integer.valueOf(1));
-        layeredPane.add(walker, Integer.valueOf(1));
 
         //adding info to frame
         frame.setTitle("Lemonade Stand");
@@ -97,52 +87,13 @@ public class GameView extends JFrame implements ActionListener {
 
         int customers = 0;
         while(customers < 20){
-            int rnd = (int) ( Math.random() * 2 + 1);
-            try {
-                Thread.sleep(1000);
+            customerAnimationThread a = new customerAnimationThread(walker, 0, 200, 200, 200);
+            a.execute();
+            int rnd = (int) ( Math.random() * 2000 + 350);
 
-                // trying to get message to fade after it shows up
-                /*double faded = 1.0;
-                while(faded > 0.2){
-                    faded = faded - 0.1;
-                    customerMessage.setForeground(new Color(0, 0, 0, (float)faded));
-                    Thread.sleep(100);
-                    System.out.println("Fade is now " + (float)faded);
-                }*/
-                int xLocation = 0;
-                while(xLocation<650){
-
-                    if(xLocation == 275){ //if walker is at lemonade stand
-                        // purhcase cup
-                        if(rnd == 1) {
-                            Thread.sleep(100);
-                            ls.sellCup();
-                            gameText.setText("<html>Day 1 of 7<br />Money: $" + ls.getMoney() + "</html>"); // add variable
-                            inventory.setText("<html><pre> Cups: " + ls.getCups() + "  Ice: " + ls.getIce() + "  Lemons: " + ls.getLemons() + "  Sugar: " + ls.getSugar() + " </pre></html>");
-                            customerMessage.setForeground(Color.GREEN);
-                            customerMessage.setText("<html>Cup Sold!</html>");
-                            System.out.println("Current Money: " + ls.getMoney());
-                        } else {
-                            System.out.println("Ew! I dont want that lemonade...");
-                            customerMessage.setForeground(Color.RED);
-                            customerMessage.setText("<html>Ew! I don't want that lemonade..." + "</html>");
-                        }
-
-                    }
-                    xLocation += 1;
-                    Thread.sleep(2);
-                    walker.setBounds(xLocation, 200, 200, 200);
-                }
-//                walker.setBounds(20, 200, 200, 200);
-
-                // for now, just set to empty message  
-                customerMessage.setText("<html></html>");
-                Thread.sleep(1000);
-            } catch(InterruptedException e) {
-                System.out.println("Interruption Exception thrown");
-            }
-
+            Thread.sleep(rnd);
             customers++;
+            System.out.println("num customers: " + customers);
         }
 
     }
@@ -199,6 +150,7 @@ public class GameView extends JFrame implements ActionListener {
         inventory.setBorder(invBorder);
     }
 
+
     private void loadWalker(){
         String path = System.getProperty("user.dir");
         System.out.println(path + File.separator + "UserInterface" + File.separator + "stickFigAnimTest.png");
@@ -212,29 +164,9 @@ public class GameView extends JFrame implements ActionListener {
         }
         ImageIcon walkerIcon = new ImageIcon(walkerImg);
         walker.setIcon(walkerIcon);
-
         walker.setBounds(0,200,walker.getIcon().getIconWidth(),walker.getIcon().getIconHeight());
+
     }
-
-//    public void paint(Graphics g){
-//        super.paint(g);
-//        String path = System.getProperty("user.dir");
-//        System.out.println(path + File.separator + "UserInterface" + File.separator + "stickFigAnimTest.png");
-//
-//        //Setting image
-//        BufferedImage walkerImg = null;
-//        try {
-//            walkerImg = ImageIO.read(new File(path + File.separator + "UserInterface" + File.separator + "stickFigAnimTest.png"));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        Graphics2D g2d = (Graphics2D) g;
-//        g2d.drawImage(walkerImg, animationX, animationY, null);
-//
-//
-//    }
-
 
 
     private void increaseMoney(){
@@ -242,8 +174,146 @@ public class GameView extends JFrame implements ActionListener {
         //System.out.println(money);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) {
+    private class customerAnimationThread extends SwingWorker{
+
+        private JLabel customer;
+        String path;
+        private int xPos, yPos, customerWidth, customerHeight;
+        public customerAnimationThread(JLabel j, int xPosition, int yPosition, int width, int height){
+            path = System.getProperty("user.dir");
+            customer = new JLabel();
+            xPos = xPosition;
+            yPos = yPosition;
+            customerWidth = width;
+            customerHeight = height;
+        }
+
+        @Override
+        protected Object doInBackground() throws Exception {
+
+            int rnd = (int) ( Math.random() * 2 + 1);
+            int rndSide = (int) ( Math.random() * 2 + 1);
+
+            try {
+                Thread.sleep(100);
+
+                // trying to get message to fade after it shows up
+                /*double faded = 1.0;
+                while(faded > 0.2){
+                    faded = faded - 0.1;
+                    customerMessage.setForeground(new Color(0, 0, 0, (float)faded));
+                    Thread.sleep(100);
+                    System.out.println("Fade is now " + (float)faded);
+                }*/
+
+                if (rndSide == 1) {
+                    loadLeftWalker();
+                    customer.setBounds(0, yPos, customerWidth, customerHeight);
+                    layeredPane.add(customer, Integer.valueOf(2));
+                    while(xPos<650){
+
+                        if(xPos == 275){ //if walker is at lemonade stand
+                            // purhcase cup
+                            if(rnd == 1) {
+                                Thread.sleep(100);
+                                ls.sellCup();
+                                gameText.setText("<html>Day 1 of 7<br />Money: $" + ls.getMoney() + "</html>"); // add variable
+                                inventory.setText("<html><pre> Cups: " + ls.getCups() + "  Ice: " + ls.getIce() + "  Lemons: " + ls.getLemons() + "  Sugar: " + ls.getSugar() + " </pre></html>");
+                                customerMessage.setForeground(Color.GREEN);
+                                customerMessage.setText("<html>Cup Sold!</html>");
+                                System.out.println("Current Money: " + ls.getMoney());
+                            } else {
+                                System.out.println("Ew! I dont want that lemonade...");
+//                                customerMessage.setForeground(Color.RED);
+//                                customerMessage.setText("<html>Ew! I don't want that lemonade..." + "</html>");
+                            }
+
+                        }
+                        else if(xPos == 515){
+                            customer.setVisible(false);
+                        }
+                        xPos += 1;
+                        Thread.sleep(2);
+                        customer.setBounds(xPos, yPos, customerWidth, customerHeight);
+                    }
+                }else{ //Customers moving from right to left
+                    xPos = 525;
+                    loadRightWalker();
+                    customer.setBounds(xPos, yPos, customerWidth, customerHeight);
+                    layeredPane.add(customer, Integer.valueOf(2));
+                    while(xPos>-100){
+                        if(xPos == 275){ //if walker is at lemonade stand
+                            // purhcase cup
+                            if(rnd == 1) {
+                                Thread.sleep(100);
+                                ls.sellCup();
+                                gameText.setText("<html>Day 1 of 7<br />Money: $" + ls.getMoney() + "</html>"); // add variable
+                                inventory.setText("<html><pre> Cups: " + ls.getCups() + "  Ice: " + ls.getIce() + "  Lemons: " + ls.getLemons() + "  Sugar: " + ls.getSugar() + " </pre></html>");
+                                customerMessage.setForeground(Color.GREEN);
+                                customerMessage.setText("<html>Cup Sold!</html>");
+                                System.out.println("Current Money: " + ls.getMoney());
+                            } else {
+                                System.out.println("Ew! I dont want that lemonade...");
+//                                customerMessage.setForeground(Color.RED);
+//                                customerMessage.setText("<html>Ew! I don't want that lemonade..." + "</html>");
+                            }
+
+                        }else if(xPos == 0){
+                            customer.setVisible(false);
+                        }
+
+                        xPos -= 1;
+                        Thread.sleep(2);
+                        customer.setBounds(xPos, yPos, customerWidth, customerHeight);
+                    }
+                }
+
+                // for now, just set to empty message
+                customerMessage.setText("<html></html>");
+                Thread.sleep(1000);
+            } catch(InterruptedException e) {
+                System.out.println("Interruption Exception thrown");
+            }
+
+            return null;
+        }
+
+        private void loadLeftWalker(){
+            int rndIndex = new Random().nextInt(leftSideCustomers.length);
+            String pic = leftSideCustomers[rndIndex];
+
+            String path = System.getProperty("user.dir");
+            //Setting image
+            BufferedImage walkerImg = null;
+            try {
+                walkerImg = ImageIO.read(new File(path + File.separator + "UserInterface" + File.separator + pic));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            ImageIcon walkerIcon = new ImageIcon(walkerImg);
+            customer.setIcon(walkerIcon);
+            customer.setBounds(0,200,customer.getIcon().getIconWidth(),customer.getIcon().getIconHeight());
+
+        }
+
+        private void loadRightWalker(){
+            int rndIndex = new Random().nextInt(rightSideCustomers.length);
+            String pic = rightSideCustomers[rndIndex];
+
+            String path = System.getProperty("user.dir");
+            //Setting image
+            BufferedImage walkerImg = null;
+            try {
+                walkerImg = ImageIO.read(new File(path + File.separator + "UserInterface" + File.separator + pic));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            ImageIcon walkerIcon = new ImageIcon(walkerImg);
+            customer.setIcon(walkerIcon);
+            customer.setBounds(0,200,customer.getIcon().getIconWidth(),customer.getIcon().getIconHeight());
+
+        }
 
     }
+
 }

@@ -3,6 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/03_lemonadestand_jar</output-path>
     <root id="archive" name="03-lemonadestand.jar">
       <element id="module-output" name="03-lemonadestand" />
+      <element id="library" level="module" name="testng" module-name="03-lemonadestand" />
     </root>
   </artifact>
 </component>
