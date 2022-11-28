@@ -222,7 +222,7 @@ public class pricing {
                     public void run(){
                         priceFrame.dispose();
                         try {
-                            new GameView();
+                            new GameView(temp);
                         } catch (InterruptedException e1) {
                             e1.printStackTrace();
                         }

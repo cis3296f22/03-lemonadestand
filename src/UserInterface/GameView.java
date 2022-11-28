@@ -14,9 +14,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.lang.InterruptedException;
+import java.text.DecimalFormat;
 import java.util.Random;
 
 public class GameView extends JFrame {
+    DecimalFormat df = new DecimalFormat("0.00");
 
     JFrame frame = new JFrame();
     JLabel background = new JLabel();
@@ -36,7 +38,6 @@ public class GameView extends JFrame {
     int animationY = 0;
     int xVelocity = 1;
 
-    LemonadeStandModel ls = new LemonadeStandModel();
     /*int money;
     int lemons;
     int sugar;
@@ -44,24 +45,24 @@ public class GameView extends JFrame {
     int ice;*/
     int temperature = 0;
     String weather = "Sunny";
-    int currentDay = 1;
-    String totalDays = "7";
+    int currentDay;
+    String totalDays;
 
     private JPanel panel1;
 
     JLayeredPane layeredPane = new JLayeredPane();
     ImageIcon image = new ImageIcon("src/UserInterface/LemonIcon.png");
 
-    public GameView() throws InterruptedException {
+    public GameView(LemonadeStandModel ls) throws InterruptedException {
 
         // set up dummy lemonade stand
-        ls = new LemonadeStandModel();
-        ls.setInventory(100, 100, 50, 50);
-        ls.setRecipe(2, 4, 2, 1);
+        //ls = new LemonadeStandModel();
+        //ls.setInventory(100, 100, 50, 50);
+        // ls.setRecipe(2, 4, 2, 1);
 
         customerMessage.setForeground(Color.WHITE);
 
-        loadGameText(); //sets up initial game display,
+        loadGameText(ls); //sets up initial game display,
         loadBackground(); //loading in background image for game
         loadWalker(); //load customer
 
@@ -89,7 +90,7 @@ public class GameView extends JFrame {
 
         int customers = 0;
         while(customers < 20){
-            customerAnimationThread a = new customerAnimationThread(walker, 0, 200, 200, 200);
+            customerAnimationThread a = new customerAnimationThread(walker, 0, 200, 200, 200, ls);
             a.execute();
             int rnd = (int) ( Math.random() * 2000 + 350);
 
@@ -100,9 +101,9 @@ public class GameView extends JFrame {
 
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    /*public static void main(String[] args) throws InterruptedException {
         new GameView();
-    }
+    }*/
 
     public void loadBackground(){
 
@@ -126,9 +127,9 @@ public class GameView extends JFrame {
         background.setBounds(15,15, 600,400);
     }
 
-    private void loadGameText(){
+    private void loadGameText(LemonadeStandModel ls){
         //text display game information
-        gameText.setText("<html>Day " + currentDay + " of " + totalDays + "<br />Money: $" + ls.getMoney() + "</html>"); // add variables
+        gameText.setText("<html>Day " + ls.getCurrentDay() + " of " + ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>"); // add variables
         gameText.setBounds(15,440,200,50); // sets text position
         gameText.setFont(new Font("Georgia", Font.BOLD, 20));
 
@@ -179,15 +180,17 @@ public class GameView extends JFrame {
     private class customerAnimationThread extends SwingWorker{
 
         private JLabel customer;
+        LemonadeStandModel ls;
         String path;
         private int xPos, yPos, customerWidth, customerHeight;
-        public customerAnimationThread(JLabel j, int xPosition, int yPosition, int width, int height){
+        public customerAnimationThread(JLabel j, int xPosition, int yPosition, int width, int height, LemonadeStandModel temp){
             path = System.getProperty("user.dir");
             customer = new JLabel();
             xPos = xPosition;
             yPos = yPosition;
             customerWidth = width;
             customerHeight = height;
+            ls = temp;
         }
 
         @Override
@@ -219,11 +222,11 @@ public class GameView extends JFrame {
                             if(rnd == 1) {
                                 Thread.sleep(100);
                                 ls.sellCup();
-                                gameText.setText("<html>Day 1 of 7<br />Money: $" + ls.getMoney() + "</html>"); // add variable
+                                gameText.setText("<html>Day 1 of 7<br />Money: $" + df.format(ls.getMoney()) + "</html>"); // add variable
                                 inventory.setText("<html><pre> Cups: " + ls.getCups() + "  Ice: " + ls.getIce() + "  Lemons: " + ls.getLemons() + "  Sugar: " + ls.getSugar() + " </pre></html>");
                                 customerMessage.setForeground(Color.GREEN);
                                 customerMessage.setText("<html>Cup Sold!</html>");
-                                System.out.println("Current Money: " + ls.getMoney());
+                                System.out.printf("Current Money: %.2f", ls.getMoney());
                             } else {
                                 System.out.println("Ew! I dont want that lemonade...");
 //                                customerMessage.setForeground(Color.RED);
@@ -249,7 +252,7 @@ public class GameView extends JFrame {
                             if(rnd == 1) {
                                 Thread.sleep(100);
                                 ls.sellCup();
-                                gameText.setText("<html>Day 1 of 7<br />Money: $" + ls.getMoney() + "</html>"); // add variable
+                                gameText.setText("<html>Day 1 of 7<br />Money: $" + df.format(ls.getMoney()) + "</html>"); // add variable
                                 inventory.setText("<html><pre> Cups: " + ls.getCups() + "  Ice: " + ls.getIce() + "  Lemons: " + ls.getLemons() + "  Sugar: " + ls.getSugar() + " </pre></html>");
                                 customerMessage.setForeground(Color.GREEN);
                                 customerMessage.setText("<html>Cup Sold!</html>");
