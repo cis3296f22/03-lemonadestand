@@ -13,6 +13,7 @@ public class LemonadeStandTest {
         customers(L);
         WeatherForecast R = new WeatherForecast();
         temperature(R);
+        getWeather(R);
     }
 
     // HELPER FUNCTIONS
@@ -39,5 +40,9 @@ public class LemonadeStandTest {
     public static void temperature(WeatherForecast R){
         //System.out.println("Amount of customers " + R.getTemperature());
         System.out.println("Test Temperature" + R.temperature);
+    }
+
+    public static void getWeather(WeatherForecast R){
+        System.out.println("Test Weather " + R.getWeather());
     }
 }

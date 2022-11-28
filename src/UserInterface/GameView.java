@@ -43,8 +43,12 @@ public class GameView extends JFrame {
     int sugar;
     int cups;
     int ice;*/
-    int temperature = 0;
-    String weather = "Sunny";
+    WeatherForecast obj = new WeatherForecast();
+    LemonadeStandModel L = new LemonadeStandModel();
+    int temperature = obj.temperature;
+    //int temperature = 0;
+    //String weather = "Sunny";
+    String weather = obj.weather; 
     int currentDay;
     String totalDays;
 
@@ -88,8 +92,9 @@ public class GameView extends JFrame {
 
         System.out.println("Window size: " + frame.getWidth());
 
+        int[] customers1 = L.CustomerLogic();
         int customers = 0;
-        while(customers < 20){
+        while(customers < customers1[0]){
             customerAnimationThread a = new customerAnimationThread(walker, 0, 200, 200, 200, ls);
             a.execute();
             int rnd = (int) ( Math.random() * 2000 + 350);
