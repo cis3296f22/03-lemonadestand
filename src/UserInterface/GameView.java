@@ -50,6 +50,7 @@ public class GameView extends JFrame {
     private JPanel panel1;
 
     JLayeredPane layeredPane = new JLayeredPane();
+    ImageIcon image = new ImageIcon("src/UserInterface/LemonIcon.png");
 
     public GameView() throws InterruptedException {
 
@@ -74,6 +75,7 @@ public class GameView extends JFrame {
 
         //adding info to frame
         frame.setTitle("Lemonade Stand");
+        frame.setIconImage(image.getImage());
         frame.add(layeredPane);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Exits app on close
         frame.setSize(650,550); //setting frame size
@@ -105,12 +107,12 @@ public class GameView extends JFrame {
     public void loadBackground(){
 
         String path = System.getProperty("user.dir");
-        System.out.println(path + File.separator + "UserInterface" + File.separator + "frontYardWithStand.jpg");
+        System.out.println(path + File.separator + "src/UserInterface" + File.separator + "frontYardWithStand.jpg");
 
         //Setting image
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File(path + File.separator + "UserInterface" + File.separator + "frontYardWithStand.jpg")); //Can change depending on weather
+            img = ImageIO.read(new File(path + File.separator + "src/UserInterface" + File.separator + "frontYardWithStand.jpg")); //Can change depending on weather
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -126,7 +128,7 @@ public class GameView extends JFrame {
 
     private void loadGameText(){
         //text display game information
-        gameText.setText("<html>Day " + currentDay + " of " + totalDays + "7<br />Money: $" + ls.getMoney() + "</html>"); // add variables
+        gameText.setText("<html>Day " + currentDay + " of " + totalDays + "<br />Money: $" + ls.getMoney() + "</html>"); // add variables
         gameText.setBounds(15,440,200,50); // sets text position
         gameText.setFont(new Font("Georgia", Font.BOLD, 20));
 
@@ -153,12 +155,12 @@ public class GameView extends JFrame {
 
     private void loadWalker(){
         String path = System.getProperty("user.dir");
-        System.out.println(path + File.separator + "UserInterface" + File.separator + "stickFigAnimTest.png");
+        System.out.println(path + File.separator + "src/UserInterface" + File.separator + "stickFigAnimTest.png");
 
         //Setting image
         BufferedImage walkerImg = null;
         try {
-            walkerImg = ImageIO.read(new File(path + File.separator + "UserInterface" + File.separator + "smallStickFig.png"));
+            walkerImg = ImageIO.read(new File(path + File.separator + "src/UserInterface" + File.separator + "smallStickFig.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -286,7 +288,7 @@ public class GameView extends JFrame {
             //Setting image
             BufferedImage walkerImg = null;
             try {
-                walkerImg = ImageIO.read(new File(path + File.separator + "UserInterface" + File.separator + pic));
+                walkerImg = ImageIO.read(new File(path + File.separator + "src/UserInterface" + File.separator + pic));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -304,7 +306,7 @@ public class GameView extends JFrame {
             //Setting image
             BufferedImage walkerImg = null;
             try {
-                walkerImg = ImageIO.read(new File(path + File.separator + "UserInterface" + File.separator + pic));
+                walkerImg = ImageIO.read(new File(path + File.separator + "src/UserInterface" + File.separator + pic));
             } catch (IOException e) {
                 e.printStackTrace();
             }

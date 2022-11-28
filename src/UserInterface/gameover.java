@@ -25,7 +25,7 @@ public class gameover extends JFrame{
     JLabel prof = new JLabel("Net Profit/Loss: ");
     JLabel dayLabel = new JLabel(" ", SwingConstants.LEFT);
     JLabel weatherLabel = new JLabel("<html>Temperature: " + temperature + "&#8457<br />Weather: " + weather + "</html>", SwingConstants.RIGHT);
-    ImageIcon image = new ImageIcon("UserInterface/LemonIcon.png");
+    ImageIcon image = new ImageIcon("src/UserInterface/LemonIcon.png");
 
     //bankrupt screen
     public gameover(LemonadeStandModel ls){

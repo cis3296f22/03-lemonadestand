@@ -21,7 +21,7 @@ public class MainMenu {
     JButton buttonGame = new JButton("New Game");
     JButton buttonInstruct = new JButton("Instructions");
     JButton buttonExit = new JButton("Quit");
-    ImageIcon image = new ImageIcon("UserInterface/LemonIcon.png");
+    ImageIcon image = new ImageIcon("src/UserInterface/LemonIcon.png");
 
     //main menu screen
     public MainMenu(){
