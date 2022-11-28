@@ -177,6 +177,7 @@ public class pricing {
         panel2.add(weatherLabel);
 
         //add action functions
+        ls.setPricePer(((double)spinner1.getValue()) / 100);
         spinnerAction(spinner1, ls, 100);
         spinnerAction(spinner2, ls, 1);
         spinnerAction(spinner3, ls, 1);
