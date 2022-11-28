@@ -342,7 +342,13 @@ public class Purchase {
                         temp.addIce(quantity);
                         haveLabel.setText("You have " + (int)temp.getIce() + " " + component + " and $" + df.format(temp.getMoney()));
                     }
-                    dayLabel.setText("<html>Day " + (int)temp.getCurrentDay() + " of " + (int)temp.getTotalDay() + "<br />Money: $" + df.format(temp.getMoney()) + "</html>");
+
+                    if(temp.getTotalDay() <= 30){
+                        dayLabel.setText("<html>Day " + (int)temp.getCurrentDay() + " of " + (int)temp.getTotalDay() + "<br />Money: $" + df.format(temp.getMoney()) + "</html>");
+                    }
+                    else if(temp.getTotalDay() > 30){
+                        dayLabel.setText("<html>Day " + (int)temp.getCurrentDay() + " of " + temp.getTotalDay() + "<br />Money: $" + df.format(temp.getMoney()) + "</html>");
+                    }
                 }
 
                 //disable buttons if there are no sufficient funds
@@ -378,7 +384,13 @@ public class Purchase {
                         }
                         haveLabel.setText("You have " + (int)temp.getIce() + " " + component + " and $" + df.format(temp.getMoney()));
                     }
-                    dayLabel.setText("<html>Day " + (int)temp.getCurrentDay() + " of " + (int)temp.getTotalDay() + "<br />Money: $" + df.format(temp.getMoney()) + "</html>");
+                    
+                    if(temp.getTotalDay() <= 30){
+                        dayLabel.setText("<html>Day " + (int)temp.getCurrentDay() + " of " + (int)temp.getTotalDay() + "<br />Money: $" + df.format(temp.getMoney()) + "</html>");
+                    }
+                    else if(temp.getTotalDay() > 30){
+                        dayLabel.setText("<html>Day " + (int)temp.getCurrentDay() + " of " + temp.getTotalDay() + "<br />Money: $" + df.format(temp.getMoney()) + "</html>");
+                    }
                     
                     if(temp.getMoney() - cost1 < 0){
                         buttonClose1.setEnabled(false);

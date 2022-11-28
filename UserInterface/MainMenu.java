@@ -21,10 +21,6 @@ public class MainMenu {
     JButton buttonGame = new JButton("New Game");
     JButton buttonInstruct = new JButton("Instructions");
     JButton buttonExit = new JButton("Quit");
-
-    //create and set values for drop down menu
-    String[] cities = {"Philadelphia", "New York City", "Los Angeles", "Miami", "London", "Paris", "Istanbul", "Dubai", "Tokyo"};
-    JComboBox<String> comboBox = new JComboBox<>(cities);
     ImageIcon image = new ImageIcon("UserInterface/LemonIcon.png");
 
     //main menu screen
@@ -85,23 +81,20 @@ public class MainMenu {
 
                 //create and set text for labels
                 JLabel headLabel = new JLabel("Lemonade Stand");
-                JLabel playLabel = new JLabel("Where and how long would you like to play?");
+                JLabel playLabel = new JLabel("How long would you like to play?");
 
                 //set empty border, layout, and background colors to panels
-                panel.setBorder(BorderFactory.createEmptyBorder(50, 30, 10, 30));
-                panel1.setBorder(BorderFactory.createEmptyBorder(10, 100, 10, 100));
+                panel.setBorder(BorderFactory.createEmptyBorder(50, 30, 25, 30));
+                panel1.setBorder(BorderFactory.createEmptyBorder(25, 100, 10, 100));
                 panel2.setBorder(BorderFactory.createEmptyBorder(10, 250, 30, 250));
                 panel2.setLayout(new GridLayout(0,1, 0, 15));
                 panel.setBackground(new Color(0xF1E592));
                 panel1.setBackground(new Color(0xF1E592));
                 panel2.setBackground(new Color(0xF1E592));
 
-                //customize combo box
-                customComboBox(comboBox, Color.white, Color.black, 15);
-
                 //customize labels
                 customLabel(headLabel, "Comic Sans", new Color(204, 0, 0), 35);
-                customLabel(playLabel, "MV Boli", Color.black, 22);
+                customLabel(playLabel, "MV Boli", Color.black, 25);
 
                 //customize buttons
                 customButton(button7, 25, new Color(0,204,0), Color.white);
@@ -113,7 +106,6 @@ public class MainMenu {
                 //add utilities to panels
                 panel.add(headLabel);
                 panel1.add(playLabel);
-                panel2.add(comboBox);
                 panel2.add(button7);
                 panel2.add(button14);
                 panel2.add(button30);
@@ -121,7 +113,6 @@ public class MainMenu {
                 panel2.add(buttonBack);
                 
                 //add action functions
-                comboBoxAction();
                 gameAction(button7, 7);
                 gameAction(button14, 14);
                 gameAction(button30, 30);
@@ -209,18 +200,6 @@ public class MainMenu {
         });
     }
 
-    //action to set values from combo box
-    public void comboBoxAction(){
-        comboBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e){
-                if(e.getSource() == comboBox){
-                    System.out.println(comboBox.getSelectedItem());
-                }
-            }
-        });  
-    }
-
     //action to start a new game
     public void gameAction(JButton button, double days){
         button.addActionListener(new ActionListener() {
@@ -253,16 +232,6 @@ public class MainMenu {
                 System.exit(1);
             }
         });  
-    }
-
-    //function to customize the combo box
-    public void customComboBox(JComboBox<String> cb, Color color, Color color1, int size){
-        System.out.println(comboBox.getSelectedItem());
-        cb.setFont(new Font("Comic Sans", Font.BOLD, size));
-        cb.setBackground(color);
-        cb.setForeground(color1);
-        cb.setFocusable(false);
-        cb.setBorder(BorderFactory.createEtchedBorder());
     }
 
     //function to customize the labels

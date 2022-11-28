@@ -248,7 +248,13 @@ public class Report {
             public void actionPerformed(ActionEvent e){
                 temp.setCurrentDay(temp.getCurrentDay() + 1);
                 if(temp.getLemons() < 3 && temp.getSugar() == 0 && temp.getIce() == 0){
-                    new Purchase(temp);
+                    if(temp.getCurrentDay() > temp.getTotalDay()){
+                        temp.setCurrentDay(temp.getCurrentDay() - 1);
+                        new gameover(temp);
+                    }
+                    else{
+                        new Purchase(temp);
+                    }
                 }
                 else{
                     inventoryLoss(temp);
@@ -263,7 +269,13 @@ public class Report {
         buttonOK2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new Purchase(temp);
+                if(temp.getCurrentDay() > temp.getTotalDay()){
+                    temp.setCurrentDay(temp.getCurrentDay() - 1);
+                    new gameover(temp);
+                }
+                else{
+                    new Purchase(temp);
+                }
                 lossFrame.dispose();
             }
         });
