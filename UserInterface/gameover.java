@@ -6,36 +6,48 @@ import java.text.DecimalFormat;
 
 public class gameover extends JFrame{
     double net = 0.0;
-    //values for the bottom items
     int temperature = 0;
     String weather = "Sunny";
     DecimalFormat df = new DecimalFormat("0.00");
-    //buttons to go back
+    
+    //create frame
     JFrame gameOverFrame = new JFrame();
-    JButton buttonBack = new JButton("Play Again?");
-    //label for items
+
+    //create play button
+    JButton buttonPlay = new JButton("Play Again?");
+
+    //create and set text for labels
     JLabel headLabel = new JLabel("End of Season Report", SwingConstants.CENTER);
     JLabel inco = new JLabel("Total Income: ");
     JLabel exp = new JLabel("Total Expenses: ");
     JLabel liq = new JLabel("Liquidated Inventory Value: ");
     JLabel line = new JLabel("---------------------------------------------------------");
     JLabel prof = new JLabel("Net Profit/Loss: ");
-    //bottom items
     JLabel dayLabel = new JLabel(" ", SwingConstants.LEFT);
     JLabel weatherLabel = new JLabel("<html>Temperature: " + temperature + "&#8457<br />Weather: " + weather + "</html>", SwingConstants.RIGHT);
-    //makes it look good
     ImageIcon image = new ImageIcon("UserInterface/LemonIcon.png");
 
+    //bankrupt screen
     public gameover(LemonadeStandModel ls){
+        //create panels
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
 
+        //labels for final report values
         JLabel income = new JLabel(" " + df.format(ls.getMoney() + ls.getExpense() - 20));
         JLabel expense = new JLabel(" " + df.format(ls.getExpense()));
         JLabel liquidate = new JLabel(" " + df.format(ls.getLiquidate()));
-        dayLabel.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + (int)ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
+        
+        //set text for bottom labels
+        if(ls.getTotalDay() <= 30){
+            dayLabel.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + (int)ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
+        }
+        else if(ls.getTotalDay() > 30){
+            dayLabel.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
+        }
 
+        //create empty border, layout, and background color for panels
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 10, 25));
         panel1.setBorder(BorderFactory.createEmptyBorder(20, 100, 20, 100));
         panel2.setBorder(BorderFactory.createEmptyBorder(20, 25, 20, 25));
@@ -46,6 +58,7 @@ public class gameover extends JFrame{
         panel1.setBackground(new Color(0xF1E592));
         panel2.setBackground(new Color(0xF1E592));
         
+        //calculate net value
         net = (((ls.getMoney() - 20) + ls.getLiquidate()));
         JLabel nets = new JLabel(" " + df.format(net));
         if(net > 0){
@@ -58,12 +71,14 @@ public class gameover extends JFrame{
             customLabel(nets, "Comic Sans", Color.black, 15);
         }
 
+        //set grid bag layout
         GridBagConstraints grid = new GridBagConstraints();
         grid.fill = GridBagConstraints.HORIZONTAL;
         grid.insets = new Insets(5, 40, 5, 5);
         grid.ipadx = 60;
         grid.ipady = 30;
 
+        //customize labels
         customLabel(headLabel, "Comic Sans", new Color(204, 0, 0), 30);
         customLabel(inco, "Comic Sans", Color.black, 15);
         customLabel(exp, "Comic Sans", Color.black, 15);
@@ -76,8 +91,10 @@ public class gameover extends JFrame{
         customLabel(dayLabel,"Georgia", Color.black, 20);
         customLabel(weatherLabel, "Georgia", Color.black, 20);
 
-        customButton(buttonBack, 20, Color.white, Color.black);
+        //customize play again button
+        customButton(buttonPlay, 20, Color.white, Color.black);
 
+        //add utilities to panels
         panel.add(headLabel);
 
         grid.gridx = 0;
@@ -115,13 +132,15 @@ public class gameover extends JFrame{
         grid.gridx = 0;
         grid.gridy = 5;
         grid.insets = new Insets(5, 100, 5, 5);
-        panel1.add(buttonBack, grid);
+        panel1.add(buttonPlay, grid);
 
         panel2.add(dayLabel);
         panel2.add(weatherLabel);
 
-        backAction();
+        //add menu action
+        menuAction();
 
+        //add panels and objects to frame
         gameOverFrame.add(panel, BorderLayout.NORTH);
         gameOverFrame.add(panel1, BorderLayout.CENTER);
         gameOverFrame.add(panel2, BorderLayout.SOUTH);
@@ -135,9 +154,9 @@ public class gameover extends JFrame{
         gameOverFrame.setVisible(true);
     }
 
-
-    public void backAction(){
-        buttonBack.addActionListener(new ActionListener() {
+    //action to return to main menu
+    public void menuAction(){
+        buttonPlay.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
                 new MainMenu();
@@ -146,11 +165,13 @@ public class gameover extends JFrame{
         });
     }
 
+    //function to customize the labels
     public void customLabel(JLabel label, String font, Color color, int size){
         label.setFont(new Font(font, Font.BOLD, size));
         label.setForeground(color);
     }
 
+    //function to customize the buttons
     public void customButton(JButton button, int size, Color color, Color color1){
         button.setFont(new Font("Comic Sans", Font.BOLD, size));
         button.setBackground(color);

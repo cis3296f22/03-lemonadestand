@@ -4,13 +4,15 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class MainMenu {
-    // creation of LemonadeStand
+    //creation of LemonadeStand
     LemonadeStandModel ls = new LemonadeStandModel();
 
+    //create frames
     JFrame mainFrame = new JFrame();
     JFrame gameFrame = new JFrame();
     JFrame instructFrame = new JFrame();
 
+    //create buttons
     JButton button7 = new JButton("7 Days");
     JButton button14 = new JButton("14 Days");
     JButton button30 = new JButton("30 Days");
@@ -21,32 +23,40 @@ public class MainMenu {
     JButton buttonExit = new JButton("Quit");
     ImageIcon image = new ImageIcon("UserInterface/LemonIcon.png");
 
+    //main menu screen
     public MainMenu(){
-        JLabel headLabel = new JLabel("Lemonade Stand");
+        //create panels and title label
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
+        JLabel headLabel = new JLabel("Lemonade Stand");
 
+        //set empty border, layout, and background color for panels
         panel.setBorder(BorderFactory.createEmptyBorder(60, 25, 50, 25));
         panel1.setBorder(BorderFactory.createEmptyBorder(50, 225, 50, 225));
         panel1.setLayout(new GridLayout(0,1, 0, 20));
         panel.setBackground(new Color(0xF1E592));
         panel1.setBackground(new Color(0xF1E592));
 
+        //customize title label
         customLabel(headLabel, "MV Boli", Color.black, 45);
         
+        //customize buttons
         customButton(buttonGame, 25, new Color(0,204,0), Color.white);
         customButton(buttonInstruct, 25, new Color(255,153,0), Color.white);
         customButton(buttonExit, 25, new Color(204, 0, 0), Color.white);
 
+        //add utilities to panels
         panel.add(headLabel);
         panel1.add(buttonGame);
         panel1.add(buttonInstruct);
         panel1.add(buttonExit);
         
+        //add action functions
         newGameAction();
         instructAction();
         quitAction();
 
+        //add panels and objects to frame
         mainFrame.add(panel, BorderLayout.NORTH);
         mainFrame.add(panel1, BorderLayout.CENTER);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,16 +69,21 @@ public class MainMenu {
         mainFrame.setVisible(true);
     }
 
+    //action to open new game screen
     public void newGameAction(){
         buttonGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                JLabel headLabel = new JLabel("Lemonade Stand");
-                JLabel playLabel = new JLabel("How long would you like to play?");
+                //create panels
                 JPanel panel = new JPanel();
                 JPanel panel1 = new JPanel();
                 JPanel panel2 = new JPanel();
 
+                //create and set text for labels
+                JLabel headLabel = new JLabel("Lemonade Stand");
+                JLabel playLabel = new JLabel("How long would you like to play?");
+
+                //set empty border, layout, and background colors to panels
                 panel.setBorder(BorderFactory.createEmptyBorder(50, 30, 25, 30));
                 panel1.setBorder(BorderFactory.createEmptyBorder(25, 100, 10, 100));
                 panel2.setBorder(BorderFactory.createEmptyBorder(10, 250, 30, 250));
@@ -77,15 +92,18 @@ public class MainMenu {
                 panel1.setBackground(new Color(0xF1E592));
                 panel2.setBackground(new Color(0xF1E592));
 
+                //customize labels
                 customLabel(headLabel, "Comic Sans", new Color(204, 0, 0), 35);
                 customLabel(playLabel, "MV Boli", Color.black, 25);
 
+                //customize buttons
                 customButton(button7, 25, new Color(0,204,0), Color.white);
                 customButton(button14, 25, new Color(255,153,0), Color.white);
                 customButton(button30, 25, new Color(204, 0, 0), Color.white);
                 customButton(buttonEnd, 25, Color.black, Color.white);
                 customButton(buttonBack, 25, Color.darkGray, Color.white);
                 
+                //add utilities to panels
                 panel.add(headLabel);
                 panel1.add(playLabel);
                 panel2.add(button7);
@@ -94,12 +112,14 @@ public class MainMenu {
                 panel2.add(buttonEnd);
                 panel2.add(buttonBack);
                 
-                gameAction1(button7);
-                gameAction2(button14);
-                gameAction3(button30);
-                gameAction4(buttonEnd);
+                //add action functions
+                gameAction(button7, 7);
+                gameAction(button14, 14);
+                gameAction(button30, 30);
+                gameAction(buttonEnd, Double.POSITIVE_INFINITY);
                 backAction(gameFrame);
                 
+                //add panels and objects to frame
                 gameFrame.add(panel, BorderLayout.NORTH);
                 gameFrame.add(panel1, BorderLayout.CENTER);
                 gameFrame.add(panel2, BorderLayout.SOUTH);
@@ -116,9 +136,15 @@ public class MainMenu {
         });
     }
 
+    //action to open the instruction screen
     public void instructAction(){
         buttonInstruct.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
+                //create panels
+                JPanel panel = new JPanel(new BorderLayout());
+                JPanel panel1 = new JPanel();
+
+                //create and set text for labels
                 JLabel headLabel = new JLabel("How to play");
                 JLabel instructLabel = new JLabel("""
                     <html>Weather:<br/>
@@ -137,25 +163,28 @@ public class MainMenu {
                     Keep an eye on passing customers. Symbols or words appear over their heads indicating whether they like or dislike your lemonade, or if they think your prices are fair. Always try to please the customers.</html>"""
                 );
 
-                JPanel panel = new JPanel(new BorderLayout());
-                JPanel panel1 = new JPanel();
-
+                //set empty border and background color for panels
                 panel.setBorder(BorderFactory.createEmptyBorder(50, 25, 10, 25));
                 panel1.setBorder(BorderFactory.createEmptyBorder(10, 25, 25, 25));
                 panel.setBackground(new Color(0xF1E592));
                 panel1.setBackground(new Color(0xF1E592));
 
+                //customize labels
                 customLabel(headLabel, "MV Boli", new Color(204, 0, 0), 30);
                 customLabel(instructLabel, "Consolas", Color.black, 12);
 
+                //customize back button
                 customButton(buttonBack, 20, Color.white, Color.black);
 
+                //add utilities to panels
                 panel.add(headLabel, BorderLayout.PAGE_START);
                 panel.add(instructLabel);
                 panel1.add(buttonBack);
 
+                //add back action
                 backAction(instructFrame);
 
+                //add panels and objects to frame
                 instructFrame.add(panel, BorderLayout.CENTER);
                 instructFrame.add(panel1, BorderLayout.SOUTH);
                 instructFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -171,51 +200,19 @@ public class MainMenu {
         });
     }
 
-    public void gameAction1(JButton button){
+    //action to start a new game
+    public void gameAction(JButton button, double days){
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                ls.setTotalDay(7);
+                ls.setTotalDay(days);
                 new Purchase(ls);
                 gameFrame.dispose();
             }
         });  
     }
 
-    public void gameAction2(JButton button){
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e){
-                ls.setTotalDay(14);
-                new Purchase(ls);
-                gameFrame.dispose();
-            }
-        });  
-    }
-
-    public void gameAction3(JButton button){
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e){
-                ls.setTotalDay(30);
-                new Purchase(ls);
-                gameFrame.dispose();
-            }
-        });  
-    }
-
-    public void gameAction4(JButton button){
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e){
-                double infinity = Double.POSITIVE_INFINITY;
-                ls.setTotalDay(infinity);
-                new Purchase(ls);
-                gameFrame.dispose();
-            }
-        });  
-    }
-
+    //action to exit instruction screen
     public void backAction(JFrame backFrame){
         buttonBack.addActionListener(new ActionListener() {
             @Override
@@ -226,6 +223,7 @@ public class MainMenu {
         });  
     }
 
+    //action to close the game program
     public void quitAction(){
         buttonExit.addActionListener(new ActionListener() {
             @Override
@@ -236,11 +234,13 @@ public class MainMenu {
         });  
     }
 
+    //function to customize the labels
     public void customLabel(JLabel label, String font, Color color, int size){
         label.setFont(new Font(font, Font.BOLD, size));
         label.setForeground(color);
     }
 
+    //function to customize the buttons
     public void customButton(JButton button, int size, Color color, Color color1){
         button.setFont(new Font("Comic Sans", Font.BOLD, size));
         button.setBackground(color);
