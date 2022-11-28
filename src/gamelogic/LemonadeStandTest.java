@@ -1,3 +1,4 @@
+package gamelogic;
 //import org.testng.annotations.Test;
 
 public class LemonadeStandTest {

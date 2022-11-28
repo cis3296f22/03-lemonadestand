@@ -1,3 +1,5 @@
+package gamelogic;
+
 /*import java.util.Random;
 public class CustomerLogic {
     Random random = new Random();

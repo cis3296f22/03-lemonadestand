@@ -1,3 +1,5 @@
+package gamelogic;
+
 public class LemonadeStand {
     // inventory available
     private double ice;
