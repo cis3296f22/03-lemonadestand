@@ -143,7 +143,7 @@ public class GameView extends JFrame {
         weatherText.setBounds(400, 440, 200, 50);
         weatherText.setFont(new Font("Georgia", Font.BOLD, 20));
 
-        inventory.setText("<html><pre> Cups: " + ls.getCups() + "  Ice: " + ls.getIce() + "  Lemons: " + ls.getLemons() + "  Sugar: " + ls.getSugar() + " </pre></html>");
+        inventory.setText("<html><pre> Cups: " + (int)ls.getCups() + "  Ice: " + (int)ls.getIce() + "  Lemons: " + (int)ls.getLemons() + "  Sugar: " + (int)ls.getSugar() + " </pre></html>");
         inventory.setBounds(75, 375, 495, 25);
         inventory.setFont(new Font("Georgia", Font.BOLD, 16));
         inventory.setBackground(new Color(0xDEE3E3));
@@ -234,7 +234,7 @@ public class GameView extends JFrame {
                                 else if(ls.getTotalDay() > 30){
                                     gameText.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
                                 } // add variable
-                                inventory.setText("<html><pre> Cups: " + ls.getCups() + "  Ice: " + ls.getIce() + "  Lemons: " + ls.getLemons() + "  Sugar: " + ls.getSugar() + " </pre></html>");
+                                inventory.setText("<html><pre> Cups: " + (int)ls.getCups() + "  Ice: " + (int)ls.getIce() + "  Lemons: " + (int)ls.getLemons() + "  Sugar: " + (int)ls.getSugar() + " </pre></html>");
                                 customerMessage.setForeground(Color.GREEN);
                                 customerMessage.setText("<html>Cup Sold!</html>");
                                 System.out.printf("Current Money: %.2f", ls.getMoney());
@@ -269,7 +269,7 @@ public class GameView extends JFrame {
                                 else if(ls.getTotalDay() > 30){
                                     gameText.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
                                 } // add variable
-                                inventory.setText("<html><pre> Cups: " + ls.getCups() + "  Ice: " + ls.getIce() + "  Lemons: " + ls.getLemons() + "  Sugar: " + ls.getSugar() + " </pre></html>");
+                                inventory.setText("<html><pre> Cups: " + (int)ls.getCups() + "  Ice: " + (int)ls.getIce() + "  Lemons: " + (int)ls.getLemons() + "  Sugar: " + (int)ls.getSugar() + " </pre></html>");
                                 customerMessage.setForeground(Color.GREEN);
                                 customerMessage.setText("<html>Cup Sold!</html>");
                                 System.out.println("Current Money: " + ls.getMoney());
