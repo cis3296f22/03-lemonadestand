@@ -43,21 +43,14 @@ public class GameView extends JFrame {
     int sugar;
     int cups;
     int ice;*/
-    WeatherForecast obj = new WeatherForecast();
     LemonadeStandModel L = new LemonadeStandModel();
-    int temperature = obj.temperature;
-    //int temperature = 0;
-    //String weather = "Sunny";
-    String weather = obj.weather; 
-    int currentDay;
-    String totalDays;
 
     private JPanel panel1;
 
     JLayeredPane layeredPane = new JLayeredPane();
     ImageIcon image = new ImageIcon("src/UserInterface/LemonIcon.png");
 
-    public GameView(LemonadeStandModel ls) throws InterruptedException {
+    public GameView(LemonadeStandModel ls, WeatherForecast wf) throws InterruptedException {
 
         // set up dummy lemonade stand
         //ls = new LemonadeStandModel();
@@ -66,7 +59,7 @@ public class GameView extends JFrame {
 
         customerMessage.setForeground(Color.WHITE);
 
-        loadGameText(ls); //sets up initial game display,
+        loadGameText(ls, wf); //sets up initial game display,
         loadBackground(); //loading in background image for game
         loadWalker(); //load customer
 
@@ -103,6 +96,8 @@ public class GameView extends JFrame {
             customers++;
             System.out.println("num customers: " + customers);
         }
+        //open report after the day ends
+        new Report(ls, wf);
 
     }
 
@@ -132,13 +127,13 @@ public class GameView extends JFrame {
         background.setBounds(15,15, 600,400);
     }
 
-    private void loadGameText(LemonadeStandModel ls){
+    private void loadGameText(LemonadeStandModel ls, WeatherForecast wf){
         //text display game information
         gameText.setText("<html>Day " + ls.getCurrentDay() + " of " + ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>"); // add variables
         gameText.setBounds(15,440,200,50); // sets text position
         gameText.setFont(new Font("Georgia", Font.BOLD, 20));
 
-        weatherText.setText("<html>Temperature: " + temperature + "&#8457<br />Weather: " + weather + "</html>"); //add variables
+        weatherText.setText("<html>Temperature: " + wf.getTemperature() + "&#8457<br />Weather: " + wf.getWeather() + "</html>"); //add variables
         weatherText.setBounds(400, 440, 200, 50);
         weatherText.setFont(new Font("Georgia", Font.BOLD, 20));
 

@@ -13,7 +13,7 @@ public class WeatherForecast {
         String weather = getWeather();
 
 
-        public int getTemperature(){
+        public int getCustomers(){
             //System.out.println("WeatherForecast temperature " +temperature);
             if (temperature <= 30) {
                 if (rain == 1) {
@@ -66,5 +66,8 @@ public class WeatherForecast {
                 return "Cloudy";
             }
 
+        }
+        public int getTemperature(){
+            return temperature;
         }
     }

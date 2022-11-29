@@ -5,8 +5,6 @@ import java.awt.event.*;
 import java.text.DecimalFormat;
 
 public class Purchase {
-    int temperature = 0;
-    String weather = "Sunny";
     DecimalFormat df = new DecimalFormat("0.00");
 
     //create frames
@@ -36,11 +34,11 @@ public class Purchase {
     JLabel sugarLabel = new JLabel("");
     JLabel iceLabel = new JLabel("");
     JLabel dayLabel = new JLabel("", SwingConstants.LEFT);
-    JLabel weatherLabel = new JLabel("<html>Temperature: " + temperature + "&#8457<br />Weather: " + weather + "</html>", SwingConstants.RIGHT);
+    JLabel weatherLabel = new JLabel("", SwingConstants.RIGHT);
     ImageIcon image = new ImageIcon("src/UserInterface/LemonIcon.png");
 
     //inventory screen
-    public Purchase(LemonadeStandModel ls){
+    public Purchase(LemonadeStandModel ls, WeatherForecast wf){
         //set text for item labels
         moneyLabel.setText("You have $" + df.format(ls.getMoney()) + " and:");
         cupLabel.setText((int)ls.getCups() + " Paper Cups");
@@ -55,6 +53,7 @@ public class Purchase {
         else if(ls.getTotalDay() > 30){
             dayLabel.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
         }
+        weatherLabel.setText("<html>Temperature: " + wf.getTemperature() + "&#8457<br />Weather: " + wf.getWeather() + "</html>");
 
         //create panels
         JPanel panel = new JPanel();
@@ -145,13 +144,13 @@ public class Purchase {
         panel2.add(weatherLabel);
 
         //add action functions
-        cupAction(ls);
-        lemonAction(ls);
-        sugarAction(ls);
-        iceAction(ls);
+        cupAction(ls, wf);
+        lemonAction(ls, wf);
+        sugarAction(ls, wf);
+        iceAction(ls, wf);
         bankruptAction(ls);
-        startAction(ls);
-        instructAction(ls);
+        startAction(ls, wf);
+        instructAction(ls, wf);
 
         //add panels and objects to frame
         inventoryFrame.add(panel, BorderLayout.NORTH);
@@ -168,51 +167,51 @@ public class Purchase {
     }
 
     //acquisition action for paper cups
-    public void cupAction(LemonadeStandModel temp){
+    public void cupAction(LemonadeStandModel temp, WeatherForecast wfTemp){
         buttonCup.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                acquisition("Paper Cups", temp.getCups(), 25, 50, 100, .78, 1.66, 2.99, temp);
+                acquisition("Paper Cups", temp.getCups(), 25, 50, 100, .78, 1.66, 2.99, temp, wfTemp);
                 inventoryFrame.dispose();
             }
         });  
     }
 
     //acquisition action for lemons
-    public void lemonAction(LemonadeStandModel temp){
+    public void lemonAction(LemonadeStandModel temp, WeatherForecast wfTemp){
         buttonLemon.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                acquisition("Lemons", temp.getLemons(), 10, 30, 75, .62, 2.41, 4.06, temp);
+                acquisition("Lemons", temp.getLemons(), 10, 30, 75, .62, 2.41, 4.06, temp, wfTemp);
                 inventoryFrame.dispose();
             }
         });
     }
 
     //acquisition action for sugar
-    public void sugarAction(LemonadeStandModel temp){
+    public void sugarAction(LemonadeStandModel temp, WeatherForecast wfTemp){
         buttonSugar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                acquisition("Cups of Sugar", temp.getSugar(), 8, 20, 48, .59, 1.61, 3.44, temp);
+                acquisition("Cups of Sugar", temp.getSugar(), 8, 20, 48, .59, 1.61, 3.44, temp, wfTemp);
                 inventoryFrame.dispose();
             }
         });
     }
 
     //acquisition action for ice
-    public void iceAction(LemonadeStandModel temp){
+    public void iceAction(LemonadeStandModel temp, WeatherForecast wfTemp){
         buttonIce.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                acquisition("Ice Cubes", temp.getIce(), 100, 250, 500, .83, 2.15, 3.88, temp);
+                acquisition("Ice Cubes", temp.getIce(), 100, 250, 500, .83, 2.15, 3.88, temp, wfTemp);
                 inventoryFrame.dispose();
             }
         });
     }
 
     //acquisition screen
-    public void acquisition(String ingredient, double item, int q1, int q2, int q3, double p1, double p2, double p3, LemonadeStandModel temp){
+    public void acquisition(String ingredient, double item, int q1, int q2, int q3, double p1, double p2, double p3, LemonadeStandModel temp, WeatherForecast wfTemp){
         //create panels
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
@@ -297,7 +296,7 @@ public class Purchase {
         buyAction(buttonBuy1, ownLabel, qp1Label, ingredient, q1, p1, buttonBuy2, buttonBuy3, qp2Label, qp3Label, p2, p3, temp);
         buyAction(buttonBuy2, ownLabel, qp2Label, ingredient, q2, p2, buttonBuy1, buttonBuy3, qp1Label, qp3Label, p1, p3, temp);
         buyAction(buttonBuy3, ownLabel, qp3Label, ingredient, q3, p3, buttonBuy1, buttonBuy2, qp1Label, qp2Label, p1, p2, temp);
-        okAction(temp);
+        okAction(temp, wfTemp);
 
         //add panels and objects to frame
         acquisitionFrame.add(panel, BorderLayout.NORTH);
@@ -409,11 +408,11 @@ public class Purchase {
     }
 
     //action for opening the inventory screen
-    public void okAction(LemonadeStandModel temp){
+    public void okAction(LemonadeStandModel temp, WeatherForecast wfTemp){
         buttonOK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new Purchase(temp);
+                new Purchase(temp, wfTemp);
                 acquisitionFrame.dispose();
             }
         });
@@ -433,18 +432,18 @@ public class Purchase {
     }
 
     //action for opening the pricing screen
-    public void startAction(LemonadeStandModel temp){
+    public void startAction(LemonadeStandModel temp, WeatherForecast wfTemp){
         buttonStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new pricing(temp);
+                new pricing(temp, wfTemp);
                 inventoryFrame.dispose();
             }
         });
     }
 
     //action to open the instruction screen
-    public void instructAction(LemonadeStandModel temp){
+    public void instructAction(LemonadeStandModel temp, WeatherForecast wfTemp){
         buttonHelp.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 //set text for labels
@@ -489,7 +488,7 @@ public class Purchase {
                 panel1.add(buttonBack);
 
                 //add back action
-                backAction(helpFrame, temp);
+                backAction(helpFrame, temp, wfTemp);
 
                 //add panels and objects to frame
                 helpFrame.add(panel, BorderLayout.CENTER);
@@ -508,11 +507,11 @@ public class Purchase {
     }
 
     //action to exit instruction screen
-    public void backAction(JFrame backFrame, LemonadeStandModel temp){
+    public void backAction(JFrame backFrame, LemonadeStandModel temp, WeatherForecast wfTemp){
         buttonBack.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new Purchase(temp);
+                new Purchase(temp, wfTemp);
                 backFrame.dispose();
             }
         });  

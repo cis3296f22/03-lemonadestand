@@ -8,6 +8,7 @@ public class melt {
     double ice = 0;
     // creation of LemonadeStand
     LemonadeStandModel ls = new LemonadeStandModel();
+    WeatherForecast wf = new WeatherForecast();
     //values for the bottom items
     int temperature = 0;
     int currentDay = 1;
@@ -76,7 +77,7 @@ public class melt {
         panel2.add(dayLabel);
         panel2.add(weatherLabel);
 
-        startAction(ls);
+        startAction(ls, wf);
 
         priceFrame.add(panel, BorderLayout.NORTH);
         priceFrame.add(panel1, BorderLayout.CENTER);
@@ -91,11 +92,11 @@ public class melt {
         priceFrame.setVisible(true);
     }
 
-    public void startAction(LemonadeStandModel temp){
+    public void startAction(LemonadeStandModel temp, WeatherForecast wfTemp){
         buttonStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new Purchase(ls);
+                new Purchase(ls, wfTemp);
                 priceFrame.dispose();
             }
         });
