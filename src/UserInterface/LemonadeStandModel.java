@@ -26,6 +26,9 @@ public class LemonadeStandModel {
     //counter for progress bar
     private int counter;
 
+    //amount of cups sold
+    private int soldCups;
+
     // constructor
     public LemonadeStandModel(){
         ice = 0.0;
@@ -47,6 +50,7 @@ public class LemonadeStandModel {
         liquidate = 0.0;
 
         counter = 0;
+        soldCups = 0;
     }
 
     // GETTERS
@@ -115,6 +119,10 @@ public class LemonadeStandModel {
         return counter;
     }
 
+    public int getSoldCups(){
+        return soldCups;
+    }
+
     // SETTERS
     public void setIce(double i){
         ice = i;
@@ -174,6 +182,10 @@ public class LemonadeStandModel {
 
     public void setCounter(int i){
         counter = i;
+    }
+
+    public void setSoldCups(int i){
+        soldCups = i;
     }
 
     // ACTIONS

@@ -58,7 +58,7 @@ public class Report {
 
         //give rating and set bar counter for day performance
         int[] customers1 = customers;
-        soldCups = customers1[0];
+        soldCups = ls.getSoldCups();;
         customer = customers1[5];
         if((soldCups / customer) == 1){
             reaction = "AMAZING!";
@@ -250,6 +250,7 @@ public class Report {
                     }
                     else{
                         WeatherForecast wfNext = new WeatherForecast();
+                        temp.setSoldCups(0);
                         new Purchase(temp, wfNext);
                     }
                 }
@@ -272,6 +273,7 @@ public class Report {
                 }
                 else{
                     WeatherForecast wfNext = new WeatherForecast();
+                    temp.setSoldCups(0);
                     new Purchase(temp, wfNext);
                 }
                 lossFrame.dispose();
