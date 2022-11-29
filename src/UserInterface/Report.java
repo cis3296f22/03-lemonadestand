@@ -7,8 +7,8 @@ import java.text.DecimalFormat;
 public class Report {
 
     double income = 0;
-    double soldCups = 100;
-    double customer = 100;
+    double soldCups ;
+    double customer ;
     int l = 0;
     int s = 0;
     int i = 0;
@@ -40,7 +40,7 @@ public class Report {
     JLabel weatherLabel = new JLabel("", SwingConstants.RIGHT);
     ImageIcon image = new ImageIcon("src/UserInterface/LemonIcon.png");
 
-    public Report(LemonadeStandModel ls, WeatherForecast wf){
+    public Report(LemonadeStandModel ls, WeatherForecast wf, int[] customers){
         //create panels
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
@@ -57,9 +57,9 @@ public class Report {
         lemonLabel.setText((int)(ls.getLemons() / 3) + " of your remaining lemons spoiled.");
 
         //give rating and set bar counter for day performance
-        int[] customers1 = ls.CustomerLogic();
+        int[] customers1 = customers;
         soldCups = customers1[0];
-        soldCups = customers1[5];
+        customer = customers1[5];
         if((soldCups / customer) == 1){
             reaction = "AMAZING!";
             ls.setCounter((int)(ls.getCounter() + 100 / ls.getTotalDay()) + 1);
