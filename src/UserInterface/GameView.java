@@ -138,7 +138,7 @@ public class GameView extends JFrame {
             System.out.println("num customers: " + customers);
         }
         //open report after the day ends
-        new Report(ls, wf);
+        new Report(ls, wf, customers1);
         frame.dispose();
 
     }
