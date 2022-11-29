@@ -38,6 +38,7 @@ public class LemonadeStandModel {
         lemonsPer = 4.0;
         icePer = 4.0;
         pricePer = 25;
+        cupsPer = 1;        
 
         currentDay = 1;
         totalDay = 7;
