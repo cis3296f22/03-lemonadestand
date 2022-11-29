@@ -5,16 +5,16 @@ import java.awt.event.*;
 import java.text.DecimalFormat;
 
 public class Report {
+
     LemonadeStandModel ls = new LemonadeStandModel();
     int[] customers1 = ls.CustomerLogic();
+
     double income = 0;
     double soldCups = customers1[0];
     double customer = customers1[5];
     int l = 0;
     int s = 0;
     int i = 0;
-    int temperature = 0;
-    String weather = "Sunny";
     String reaction;
     DecimalFormat df = new DecimalFormat("0.00");
 
@@ -40,10 +40,10 @@ public class Report {
     JLabel blankLabel2 = new JLabel(" ", SwingConstants.CENTER);
     JLabel blankLabel3 = new JLabel(" ", SwingConstants.CENTER);
     JLabel dayLabel = new JLabel(" ", SwingConstants.LEFT);
-    JLabel weatherLabel = new JLabel("<html>Temperature: " + temperature + "&#8457<br />Weather: " + weather + "</html>", SwingConstants.RIGHT);
+    JLabel weatherLabel = new JLabel("", SwingConstants.RIGHT);
     ImageIcon image = new ImageIcon("src/UserInterface/LemonIcon.png");
 
-    public Report(LemonadeStandModel ls){
+    public Report(LemonadeStandModel ls, WeatherForecast wf){
         //create panels
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
@@ -56,6 +56,7 @@ public class Report {
         else if(ls.getTotalDay() > 30){
             dayLabel.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
         }
+        weatherLabel.setText("<html>Temperature: " + wf.getTemperature() + "&#8457<br />Weather: " + wf.getWeather() + "</html>");
         lemonLabel.setText((int)(ls.getLemons() / 3) + " of your remaining lemons spoiled.");
 
         //give rating and set bar counter for day performance
@@ -65,7 +66,7 @@ public class Report {
         }
 
         else if((soldCups / customer) >= .8 && (soldCups / customer) < 1){
-            if(weather.equals("Rain") || weather.equals("Snow")){
+            if(wf.getWeather().equals("Rainy")){
                 reaction = "AMAZING!";
                 ls.setCounter((int)(ls.getCounter() + 100 / ls.getTotalDay()) + 1);
             }
@@ -76,7 +77,7 @@ public class Report {
         }
 
         else if((soldCups / customer) >= .5 && (soldCups / customer) < .8){
-            if(weather.equals("Rain") || weather.equals("Snow")){
+            if(wf.getWeather().equals("Rainy")){
                 reaction = "Great!";
                 ls.setCounter((int)(ls.getCounter() + 80 / ls.getTotalDay()));
             }
@@ -87,7 +88,7 @@ public class Report {
         }
 
         else if((soldCups / customer) < .5 && (soldCups / customer) >= .3){
-            if((weather.equals("Rain") || weather.equals("Snow"))){
+            if(wf.getWeather().equals("Rainy")){
                 reaction = "Decent.";
                 ls.setCounter((int)(ls.getCounter() + 60 / ls.getTotalDay()));
             }
@@ -103,7 +104,7 @@ public class Report {
         JLabel soldLabel = new JLabel("<html>You managed to sell " + (int)soldCups + " cups to " + (int)customer + " potential customers." + "<br />&emsp;&emsp;Considering the weather, I'd say this is " + reaction + "</html>", SwingConstants.CENTER);
 
         //calculate generated income
-        income = soldCups * (ls.getPricePer() / 100);
+        income = soldCups * (ls.getPricePer());
         JLabel grossLabel = new JLabel("Money generated from Day " + (int)ls.getCurrentDay() + ": $" + df.format(income), SwingConstants.CENTER);
         
         //set empty border, layout, and background color for panels
@@ -138,7 +139,7 @@ public class Report {
         panel2.add(weatherLabel);
 
         //add inventory loss action
-        lossAction(ls);
+        lossAction(ls, wf);
 
         //add panels and objects to frame
         reportFrame.add(panel, BorderLayout.NORTH);
@@ -155,7 +156,7 @@ public class Report {
     }
 
     //inventory loss screen
-    public void inventoryLoss(LemonadeStandModel ls){
+    public void inventoryLoss(LemonadeStandModel ls, WeatherForecast wf){
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
@@ -220,7 +221,7 @@ public class Report {
         panel2.add(weatherLabel);
 
         //add action to start next day
-        nextDayAction(ls);
+        nextDayAction(ls, wf);
 
         //add panels and objects to frame
         lossFrame.add(panel, BorderLayout.NORTH);
@@ -237,7 +238,7 @@ public class Report {
     }
 
     //action to open the inventory loss screen
-    public void lossAction(LemonadeStandModel temp){
+    public void lossAction(LemonadeStandModel temp, WeatherForecast wfTemp){
         buttonOK1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
@@ -248,11 +249,12 @@ public class Report {
                         new gameover(temp);
                     }
                     else{
-                        new Purchase(temp);
+                        WeatherForecast wfNext = new WeatherForecast();
+                        new Purchase(temp, wfNext);
                     }
                 }
                 else{
-                    inventoryLoss(temp);
+                    inventoryLoss(temp, wfTemp);
                 }
                 reportFrame.dispose();
             }
@@ -260,7 +262,7 @@ public class Report {
     }
 
     //action to start the next day
-    public void nextDayAction(LemonadeStandModel temp){
+    public void nextDayAction(LemonadeStandModel temp, WeatherForecast wfTemp){
         buttonOK2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
@@ -269,7 +271,8 @@ public class Report {
                     new gameover(temp);
                 }
                 else{
-                    new Purchase(temp);
+                    WeatherForecast wfNext = new WeatherForecast();
+                    new Purchase(temp, wfNext);
                 }
                 lossFrame.dispose();
             }

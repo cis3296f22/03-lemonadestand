@@ -184,7 +184,7 @@ public class LemonadeStandModel {
         pricePer = p;
         sugarPer = s;
         // can only use one cup per lemonade
-        cupsPer = 1;
+        // cupsPer = 1;
     }
 
     // set inventory (ice, cups, price)
@@ -233,7 +233,7 @@ public class LemonadeStandModel {
 
     // check if we have enough cups left
     public boolean canSubtractCups(){
-        if(cups - cupsPer >= 0) return true;
+        if(cups - 1 >= 0) return true;
         return false;
     }
 
@@ -255,7 +255,7 @@ public class LemonadeStandModel {
 
     // subtract cups based on recipe (always 1 cup per cup of lemonade)
     public void subtractCups(){
-        cups -= cupsPer;
+        cups--;
     }
 
      // subtract sugar based on recipe

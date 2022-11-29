@@ -35,11 +35,11 @@ public class pricing {
     JLabel sugarPerLabel = new JLabel("Sugar per Pitcher:");
     JLabel icePerLabel = new JLabel("Ice per Cup:");
     JLabel dayLabel = new JLabel("", SwingConstants.LEFT);
-    JLabel weatherLabel = new JLabel("<html>Temperature: " + temperature + "&#8457<br />Weather: " + weather + "</html>", SwingConstants.RIGHT);
+    JLabel weatherLabel = new JLabel("", SwingConstants.RIGHT);
     ImageIcon image = new ImageIcon("src/UserInterface/LemonIcon.png");
 
     //opens the pricing screen
-    public pricing(LemonadeStandModel ls){
+    public pricing(LemonadeStandModel ls, WeatherForecast wf){
         //create panels
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
@@ -62,6 +62,7 @@ public class pricing {
         else if(ls.getTotalDay() > 30){
             dayLabel.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
         }
+        weatherLabel.setText("<html>Temperature: " + wf.getTemperature() + "&#8457<br />Weather: " + wf.getWeather() + "</html>");
 
         //set empty border, layout, and background color of panels
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 10, 25));
@@ -183,9 +184,9 @@ public class pricing {
         spinnerAction(spinner3, ls, 1);
         spinnerAction(spinner4, ls, 1);
         bankruptAction(ls);
-        startAction(ls);
-        instructAction(ls);
-        goBack(ls);
+        startAction(ls, wf);
+        instructAction(ls, wf);
+        goBack(ls, wf);
 
         //add panels and objects to frame
         priceFrame.add(panel, BorderLayout.NORTH);
@@ -215,7 +216,7 @@ public class pricing {
     }
 
     //action for opening the game view screen
-    public void startAction(LemonadeStandModel temp){
+    public void startAction(LemonadeStandModel temp, WeatherForecast wfTemp){
         buttonStart.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 Thread thread = new Thread(new Runnable(){
@@ -223,7 +224,7 @@ public class pricing {
                     public void run(){
                         priceFrame.dispose();
                         try {
-                            new GameView(temp);
+                            new GameView(temp, wfTemp);
                         } catch (InterruptedException e1) {
                             e1.printStackTrace();
                         }
@@ -235,18 +236,19 @@ public class pricing {
     }
 
     //action for returning to inventory screen
-    public void goBack(LemonadeStandModel temp){
+    public void goBack(LemonadeStandModel temp, WeatherForecast wfTemp){
         buttonBack1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new Purchase(temp);
+                temp.setPricePer(25);
+                new Purchase(temp, wfTemp);
                 priceFrame.dispose();
             }
         });
     }
 
     //action for opening the instruction screen
-    public void instructAction(LemonadeStandModel temp){
+    public void instructAction(LemonadeStandModel temp, WeatherForecast wfTemp){
         buttonHelp.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 //set text for labels
@@ -291,7 +293,7 @@ public class pricing {
                 panel1.add(buttonBack2);
 
                 //add back action
-                backAction(helpFrame, temp);
+                backAction(helpFrame, temp, wfTemp);
 
                 //add panels and objects to frame
                 helpFrame.add(panel, BorderLayout.CENTER);
@@ -310,11 +312,11 @@ public class pricing {
     }
 
     //action to exit instruction screen
-    public void backAction(JFrame backFrame, LemonadeStandModel temp){
+    public void backAction(JFrame backFrame, LemonadeStandModel temp, WeatherForecast wfTemp){
         buttonBack2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new pricing(temp);
+                new pricing(temp, wfTemp);
                 backFrame.dispose();
             }
         });  

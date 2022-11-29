@@ -44,12 +44,13 @@ public class GameView extends JFrame {
     int cups;
     int ice;*/
 
+
     private JPanel panel1;
 
     JLayeredPane layeredPane = new JLayeredPane();
     ImageIcon image = new ImageIcon("src/UserInterface/LemonIcon.png");
 
-    public GameView(LemonadeStandModel ls) throws InterruptedException {
+    public GameView(LemonadeStandModel ls, WeatherForecast wf) throws InterruptedException {
 
         // set up dummy lemonade stand
         //ls = new LemonadeStandModel();
@@ -58,7 +59,7 @@ public class GameView extends JFrame {
 
         customerMessage.setForeground(Color.WHITE);
 
-        loadGameText(ls); //sets up initial game display,
+        loadGameText(ls, wf); //sets up initial game display,
         loadBackground(); //loading in background image for game
         loadWalker(); //load customer
 
@@ -95,6 +96,9 @@ public class GameView extends JFrame {
             customers++;
             System.out.println("num customers: " + customers);
         }
+        //open report after the day ends
+        new Report(ls, wf);
+        frame.dispose();
 
     }
 
@@ -124,17 +128,22 @@ public class GameView extends JFrame {
         background.setBounds(15,15, 600,400);
     }
 
-    private void loadGameText(LemonadeStandModel ls){
+    private void loadGameText(LemonadeStandModel ls, WeatherForecast wf){
         //text display game information
-        gameText.setText("<html>Day " + ls.getCurrentDay() + " of " + ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>"); // add variables
+        if(ls.getTotalDay() <= 30){
+            gameText.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + (int)ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
+        }
+        else if(ls.getTotalDay() > 30){
+            gameText.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
+        } // add variables
         gameText.setBounds(15,440,200,50); // sets text position
         gameText.setFont(new Font("Georgia", Font.BOLD, 20));
 
-        weatherText.setText("<html>Temperature: " + temperature + "&#8457<br />Weather: " + weather + "</html>"); //add variables
+        weatherText.setText("<html>Temperature: " + wf.getTemperature() + "&#8457<br />Weather: " + wf.getWeather() + "</html>"); //add variables
         weatherText.setBounds(400, 440, 200, 50);
         weatherText.setFont(new Font("Georgia", Font.BOLD, 20));
 
-        inventory.setText("<html><pre> Cups: " + ls.getCups() + "  Ice: " + ls.getIce() + "  Lemons: " + ls.getLemons() + "  Sugar: " + ls.getSugar() + " </pre></html>");
+        inventory.setText("<html><pre> Cups: " + (int)ls.getCups() + "  Ice: " + (int)ls.getIce() + "  Lemons: " + (int)ls.getLemons() + "  Sugar: " + (int)ls.getSugar() + " </pre></html>");
         inventory.setBounds(75, 375, 495, 25);
         inventory.setFont(new Font("Georgia", Font.BOLD, 16));
         inventory.setBackground(new Color(0xDEE3E3));
@@ -219,8 +228,13 @@ public class GameView extends JFrame {
                             if(rnd == 1) {
                                 Thread.sleep(100);
                                 ls.sellCup();
-                                gameText.setText("<html>Day 1 of 7<br />Money: $" + df.format(ls.getMoney()) + "</html>"); // add variable
-                                inventory.setText("<html><pre> Cups: " + ls.getCups() + "  Ice: " + ls.getIce() + "  Lemons: " + ls.getLemons() + "  Sugar: " + ls.getSugar() + " </pre></html>");
+                                if(ls.getTotalDay() <= 30){
+                                    gameText.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + (int)ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
+                                }
+                                else if(ls.getTotalDay() > 30){
+                                    gameText.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
+                                } // add variable
+                                inventory.setText("<html><pre> Cups: " + (int)ls.getCups() + "  Ice: " + (int)ls.getIce() + "  Lemons: " + (int)ls.getLemons() + "  Sugar: " + (int)ls.getSugar() + " </pre></html>");
                                 customerMessage.setForeground(Color.GREEN);
                                 customerMessage.setText("<html>Cup Sold!</html>");
                                 System.out.printf("Current Money: %.2f", ls.getMoney());
@@ -249,8 +263,13 @@ public class GameView extends JFrame {
                             if(rnd == 1) {
                                 Thread.sleep(100);
                                 ls.sellCup();
-                                gameText.setText("<html>Day 1 of 7<br />Money: $" + df.format(ls.getMoney()) + "</html>"); // add variable
-                                inventory.setText("<html><pre> Cups: " + ls.getCups() + "  Ice: " + ls.getIce() + "  Lemons: " + ls.getLemons() + "  Sugar: " + ls.getSugar() + " </pre></html>");
+                                if(ls.getTotalDay() <= 30){
+                                    gameText.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + (int)ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
+                                }
+                                else if(ls.getTotalDay() > 30){
+                                    gameText.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
+                                } // add variable
+                                inventory.setText("<html><pre> Cups: " + (int)ls.getCups() + "  Ice: " + (int)ls.getIce() + "  Lemons: " + (int)ls.getLemons() + "  Sugar: " + (int)ls.getSugar() + " </pre></html>");
                                 customerMessage.setForeground(Color.GREEN);
                                 customerMessage.setText("<html>Cup Sold!</html>");
                                 System.out.println("Current Money: " + ls.getMoney());
