@@ -7,13 +7,14 @@
 - Download the latest Lemonade Stand .jar file from the Release section on the right on GitHub.  
 - Find .jar file in explorer, double-click to run.
 - This should open up the main menu in a new window.
+
 # How to contribute
 Follow this project board to know the latest status of the project: [Project Board](https://github.com/orgs/cis3296f22/projects/105/views/1)  
 
 ### How to build
 - Use this github repository: ... 
-- Specify what branch to use for a more stable release or for cutting edge development.  
-- Use InteliJ 11
-- Specify additional library to download if needed 
-- What file and target to compile and run. 
-- What is expected to happen when the app start. 
+- Run the code through the Main.java in src/UserInterface/Main.java  
+- Use VSCode to run the project
+- Make sure you have the latest java jdk
+- When all those steps are met you should be greeted with the Main Menu screen of the Game
+- Enjoy :)

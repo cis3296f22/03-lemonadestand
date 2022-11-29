@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.lang.InterruptedException;
 import java.text.DecimalFormat;
 import java.util.Random;
+import java.util.concurrent.Semaphore;
 
 public class GameView extends JFrame {
     DecimalFormat df = new DecimalFormat("0.00");
@@ -44,11 +45,11 @@ public class GameView extends JFrame {
     int cups;
     int ice;*/
 
-
     private JPanel panel1;
 
     JLayeredPane layeredPane = new JLayeredPane();
     ImageIcon image = new ImageIcon("src/UserInterface/LemonIcon.png");
+    Semaphore sem = new Semaphore(0);
 
     public GameView(LemonadeStandModel ls, WeatherForecast wf) throws InterruptedException {
 
@@ -87,12 +88,14 @@ public class GameView extends JFrame {
 
         int[] customers1 = ls.CustomerLogic();
         int customers = 0;
-<<<<<<< Updated upstream
+
         while(customers < customers1[5]){
             customerAnimationThread a = new customerAnimationThread(walker, 0, 200, 200, 200, ls);
-=======
+
+
 
         int temp;
+
 
 
         int customerTotal = customers1[5];
@@ -101,6 +104,14 @@ public class GameView extends JFrame {
         }*/
 
         System.out.println("Customers[0]: " + customers1[0] + "  Customers[1]: " + customers1[1] + "  Customers[2]: " + customers1[2] + "  Customers[3]: " + customers1[3] + "  Customers[4]: " + customers1[4] + "  Customers[5]: " + customers1[5] );
+        
+        int customerTotal = 0;
+        for(int i=0; i<customers1.length; i++){
+            customerTotal += customers1[i];
+        }
+
+        System.out.println("Customers[0]: " + customers1[0] + "  Customers[1]: " + customers1[1] + "  Customers[2]: " + customers1[2] + "  Customers[3]: " + customers1[3]);
+
 
         boolean willBuy = false;
         while(customers < customerTotal){
@@ -129,7 +140,7 @@ public class GameView extends JFrame {
             customerAnimationThread a = new customerAnimationThread(walker, 0, 200, 200, 200, ls, willBuy);
 
 
->>>>>>> Stashed changes
+
             a.execute();
             int rnd = (int) ( Math.random() * 2000 + 350);
 
@@ -230,7 +241,9 @@ public class GameView extends JFrame {
         LemonadeStandModel ls;
         String path;
         private int xPos, yPos, customerWidth, customerHeight;
-        public customerAnimationThread(JLabel j, int xPosition, int yPosition, int width, int height, LemonadeStandModel temp){
+        boolean buyCup;
+
+        public customerAnimationThread(JLabel j, int xPosition, int yPosition, int width, int height, LemonadeStandModel temp, boolean willBuy){
             path = System.getProperty("user.dir");
             customer = new JLabel();
             xPos = xPosition;
@@ -238,12 +251,13 @@ public class GameView extends JFrame {
             customerWidth = width;
             customerHeight = height;
             ls = temp;
+            buyCup = willBuy;
         }
 
         @Override
         protected Object doInBackground() throws Exception {
 
-            int rnd = (int) ( Math.random() * 2 + 1);
+            int rnd = (int) ( Math.random() * 4);
             int rndSide = (int) ( Math.random() * 2 + 1);
 
             try {
@@ -266,7 +280,7 @@ public class GameView extends JFrame {
 
                         if(xPos == 275){ //if walker is at lemonade stand
                             // purhcase cup
-                            if(rnd == 1) {
+                            if(buyCup) {
                                 Thread.sleep(100);
                                 ls.sellCup();
                                 if(ls.getTotalDay() <= 30){
@@ -278,6 +292,7 @@ public class GameView extends JFrame {
                                 inventory.setText("<html><pre> Cups: " + (int)ls.getCups() + "  Ice: " + (int)ls.getIce() + "  Lemons: " + (int)ls.getLemons() + "  Sugar: " + (int)ls.getSugar() + " </pre></html>");
                                 customerMessage.setForeground(Color.GREEN);
                                 customerMessage.setText("<html>Cup Sold!</html>");
+                                
                                 System.out.printf("Current Money: %.2f", ls.getMoney());
                             } else {
                                 System.out.println("Ew! I dont want that lemonade...");
@@ -301,7 +316,8 @@ public class GameView extends JFrame {
                     while(xPos>-100){
                         if(xPos == 275){ //if walker is at lemonade stand
                             // purhcase cup
-                            if(rnd == 1) {
+                            
+                            if(buyCup) {
                                 Thread.sleep(100);
                                 ls.sellCup();
                                 if(ls.getTotalDay() <= 30){
