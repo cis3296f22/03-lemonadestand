@@ -129,7 +129,12 @@ public class GameView extends JFrame {
 
     private void loadGameText(LemonadeStandModel ls, WeatherForecast wf){
         //text display game information
-        gameText.setText("<html>Day " + ls.getCurrentDay() + " of " + ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>"); // add variables
+        if(ls.getTotalDay() <= 30){
+            gameText.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + (int)ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
+        }
+        else if(ls.getTotalDay() > 30){
+            gameText.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
+        } // add variables
         gameText.setBounds(15,440,200,50); // sets text position
         gameText.setFont(new Font("Georgia", Font.BOLD, 20));
 
@@ -222,7 +227,12 @@ public class GameView extends JFrame {
                             if(rnd == 1) {
                                 Thread.sleep(100);
                                 ls.sellCup();
-                                gameText.setText("<html>Day 1 of 7<br />Money: $" + df.format(ls.getMoney()) + "</html>"); // add variable
+                                if(ls.getTotalDay() <= 30){
+                                    gameText.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + (int)ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
+                                }
+                                else if(ls.getTotalDay() > 30){
+                                    gameText.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
+                                } // add variable
                                 inventory.setText("<html><pre> Cups: " + ls.getCups() + "  Ice: " + ls.getIce() + "  Lemons: " + ls.getLemons() + "  Sugar: " + ls.getSugar() + " </pre></html>");
                                 customerMessage.setForeground(Color.GREEN);
                                 customerMessage.setText("<html>Cup Sold!</html>");
@@ -252,7 +262,12 @@ public class GameView extends JFrame {
                             if(rnd == 1) {
                                 Thread.sleep(100);
                                 ls.sellCup();
-                                gameText.setText("<html>Day 1 of 7<br />Money: $" + df.format(ls.getMoney()) + "</html>"); // add variable
+                                if(ls.getTotalDay() <= 30){
+                                    gameText.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + (int)ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
+                                }
+                                else if(ls.getTotalDay() > 30){
+                                    gameText.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
+                                } // add variable
                                 inventory.setText("<html><pre> Cups: " + ls.getCups() + "  Ice: " + ls.getIce() + "  Lemons: " + ls.getLemons() + "  Sugar: " + ls.getSugar() + " </pre></html>");
                                 customerMessage.setForeground(Color.GREEN);
                                 customerMessage.setText("<html>Cup Sold!</html>");
