@@ -4,8 +4,9 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class MainMenu {
-    //creation of LemonadeStand
+    //creation of LemonadeStand and WeatherForecast
     LemonadeStandModel ls = new LemonadeStandModel();
+    WeatherForecast wf = new WeatherForecast();
 
     //create frames
     JFrame mainFrame = new JFrame();
@@ -206,7 +207,7 @@ public class MainMenu {
             @Override
             public void actionPerformed(ActionEvent e){
                 ls.setTotalDay(days);
-                new Purchase(ls);
+                new Purchase(ls, wf);
                 gameFrame.dispose();
             }
         });  
