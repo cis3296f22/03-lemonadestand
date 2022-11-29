@@ -185,7 +185,7 @@ public class LemonadeStandModel {
         pricePer = p;
         sugarPer = s;
         // can only use one cup per lemonade
-        cupsPer = 1;
+        // cupsPer = 1;
     }
 
     // set inventory (ice, cups, price)
@@ -234,7 +234,7 @@ public class LemonadeStandModel {
 
     // check if we have enough cups left
     public boolean canSubtractCups(){
-        if(cups - cupsPer >= 0) return true;
+        if(cups - 1 >= 0) return true;
         return false;
     }
 
@@ -256,7 +256,7 @@ public class LemonadeStandModel {
 
     // subtract cups based on recipe (always 1 cup per cup of lemonade)
     public void subtractCups(){
-        cups -= cupsPer;
+        cups--;
     }
 
      // subtract sugar based on recipe
@@ -294,13 +294,14 @@ public class LemonadeStandModel {
     public int[] CustomerLogic(){
         WeatherForecast obj = new WeatherForecast();
         //int customers[0] = obj.getTemperature();
-        int[] customers = new int[5];
-        customers[0] = obj.getTemperature();
+        int[] customers = new int[6];
+        customers[0] = obj.getCustomers();
 
-        int temperature = obj.temperature;
-
+        int temperature = obj.getTemperature();
+        
 
         System.out.println("LemonadeStand Temperature " + temperature);
+        System.out.println("Weather Today " + obj.getWeather());
         System.out.println("Customers2 unmodified "+ customers[0]);//Test for modifying
 
         if (pricePer > 2) {
@@ -319,7 +320,7 @@ public class LemonadeStandModel {
             customers[0] = customers[0] - (customers[0] * 10 / 100);
             customers[3] = customers[1] + (customers[0] * 10 / 100);
         }
-        if(temperature > 80)
+        if(temperature > 80){
             if (icePer > 3) {
                 customers[0] = customers[0] + (customers[0] * 10 / 100);
             }
@@ -327,11 +328,16 @@ public class LemonadeStandModel {
                 customers[0] = customers[0] - (customers[0] * 10 / 100);
                 customers[4] = customers[1] + (customers[0] * 10 / 100);
             }
-            else if(temperature <= 80)
-                if (icePer == 0){
-                    customers[0] = customers[0] - (customers[0] * 10 / 100);
-                    customers[4] = customers[1] + (customers[0] * 10 / 100);
-                }
+        }
+        else if(temperature <= 80){
+            if (icePer == 0){
+                customers[0] = customers[0] - (customers[0] * 10 / 100);
+                customers[4] = customers[1] + (customers[0] * 10 / 100);
+            }
+        }
+        if (customers[0]>1){
+            customers[5] = customers[0] + customers[1] + customers[2] + customers[3] + customers[4]; 
+        }
         return customers;
     }
 }

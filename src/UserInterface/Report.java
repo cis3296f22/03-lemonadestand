@@ -5,9 +5,13 @@ import java.awt.event.*;
 import java.text.DecimalFormat;
 
 public class Report {
+
+    LemonadeStandModel ls = new LemonadeStandModel();
+    int[] customers1 = ls.CustomerLogic();
+
     double income = 0;
-    double soldCups = 100;
-    double customer = 100;
+    double soldCups = customers1[0];
+    double customer = customers1[5];
     int l = 0;
     int s = 0;
     int i = 0;
