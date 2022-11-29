@@ -88,17 +88,30 @@ public class GameView extends JFrame {
 
         int[] customers1 = ls.CustomerLogic();
         int customers = 0;
-        customerGameLogic
+
+        while(customers < customers1[5]){
+            customerAnimationThread a = new customerAnimationThread(walker, 0, 200, 200, 200, ls);
+
+
 
         int temp;
 
 
+
+        int customerTotal = customers1[5];
+        /*for(int i=0; i<customers1.length; i++){
+            customerTotal += customers1[i];
+        }*/
+
+        System.out.println("Customers[0]: " + customers1[0] + "  Customers[1]: " + customers1[1] + "  Customers[2]: " + customers1[2] + "  Customers[3]: " + customers1[3] + "  Customers[4]: " + customers1[4] + "  Customers[5]: " + customers1[5] );
+        
         int customerTotal = 0;
         for(int i=0; i<customers1.length; i++){
             customerTotal += customers1[i];
         }
 
         System.out.println("Customers[0]: " + customers1[0] + "  Customers[1]: " + customers1[1] + "  Customers[2]: " + customers1[2] + "  Customers[3]: " + customers1[3]);
+
 
         boolean willBuy = false;
         while(customers < customerTotal){
@@ -125,6 +138,7 @@ public class GameView extends JFrame {
             }
 
             customerAnimationThread a = new customerAnimationThread(walker, 0, 200, 200, 200, ls, willBuy);
+
 
 
             a.execute();

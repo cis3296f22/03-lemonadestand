@@ -6,12 +6,9 @@ import java.text.DecimalFormat;
 
 public class Report {
 
-    LemonadeStandModel ls = new LemonadeStandModel();
-    int[] customers1 = ls.CustomerLogic();
-
     double income = 0;
-    double soldCups = customers1[0];
-    double customer = customers1[5];
+    double soldCups = 100;
+    double customer = 100;
     int l = 0;
     int s = 0;
     int i = 0;
@@ -60,6 +57,9 @@ public class Report {
         lemonLabel.setText((int)(ls.getLemons() / 3) + " of your remaining lemons spoiled.");
 
         //give rating and set bar counter for day performance
+        int[] customers1 = ls.CustomerLogic();
+        soldCups = customers1[0];
+        soldCups = customers1[5];
         if((soldCups / customer) == 1){
             reaction = "AMAZING!";
             ls.setCounter((int)(ls.getCounter() + 100 / ls.getTotalDay()) + 1);
