@@ -436,6 +436,7 @@ public class Purchase {
         buttonStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
+                temp.setPricePer(25);
                 new pricing(temp, wfTemp);
                 inventoryFrame.dispose();
             }

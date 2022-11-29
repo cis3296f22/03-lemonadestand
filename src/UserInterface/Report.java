@@ -11,8 +11,6 @@ public class Report {
     int l = 0;
     int s = 0;
     int i = 0;
-    int temperature = 0;
-    String weather = "Sunny";
     String reaction;
     DecimalFormat df = new DecimalFormat("0.00");
 
@@ -64,7 +62,7 @@ public class Report {
         }
 
         else if((soldCups / customer) >= .8 && (soldCups / customer) < 1){
-            if(weather.equals("Rain") || weather.equals("Snow")){
+            if(wf.getWeather().equals("Rainy")){
                 reaction = "AMAZING!";
                 ls.setCounter((int)(ls.getCounter() + 100 / ls.getTotalDay()) + 1);
             }
@@ -75,7 +73,7 @@ public class Report {
         }
 
         else if((soldCups / customer) >= .5 && (soldCups / customer) < .8){
-            if(weather.equals("Rain") || weather.equals("Snow")){
+            if(wf.getWeather().equals("Rainy")){
                 reaction = "Great!";
                 ls.setCounter((int)(ls.getCounter() + 80 / ls.getTotalDay()));
             }
@@ -86,7 +84,7 @@ public class Report {
         }
 
         else if((soldCups / customer) < .5 && (soldCups / customer) >= .3){
-            if((weather.equals("Rain") || weather.equals("Snow"))){
+            if(wf.getWeather().equals("Rainy")){
                 reaction = "Decent.";
                 ls.setCounter((int)(ls.getCounter() + 60 / ls.getTotalDay()));
             }
@@ -102,7 +100,7 @@ public class Report {
         JLabel soldLabel = new JLabel("<html>You managed to sell " + (int)soldCups + " cups to " + (int)customer + " potential customers." + "<br />&emsp;&emsp;Considering the weather, I'd say this is " + reaction + "</html>", SwingConstants.CENTER);
 
         //calculate generated income
-        income = soldCups * (ls.getPricePer() / 100);
+        income = soldCups * (ls.getPricePer());
         JLabel grossLabel = new JLabel("Money generated from Day " + (int)ls.getCurrentDay() + ": $" + df.format(income), SwingConstants.CENTER);
         
         //set empty border, layout, and background color for panels

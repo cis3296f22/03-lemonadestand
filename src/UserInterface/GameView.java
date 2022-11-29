@@ -98,6 +98,7 @@ public class GameView extends JFrame {
         }
         //open report after the day ends
         new Report(ls, wf);
+        frame.dispose();
 
     }
 
