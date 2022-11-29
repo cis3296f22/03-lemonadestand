@@ -281,7 +281,7 @@ public class GameView extends JFrame {
                                 inventory.setText("<html><pre> Cups: " + (int)ls.getCups() + "  Ice: " + (int)ls.getIce() + "  Lemons: " + (int)ls.getLemons() + "  Sugar: " + (int)ls.getSugar() + " </pre></html>");
                                 customerMessage.setForeground(Color.GREEN);
                                 customerMessage.setText("<html>Cup Sold!</html>");
-                                
+                                ls.setSoldCups(ls.getSoldCups() + 1);
                                 System.out.printf("Current Money: %.2f", ls.getMoney());
                             } else {
                                 System.out.println("Ew! I dont want that lemonade...");
@@ -318,6 +318,7 @@ public class GameView extends JFrame {
                                 inventory.setText("<html><pre> Cups: " + (int)ls.getCups() + "  Ice: " + (int)ls.getIce() + "  Lemons: " + (int)ls.getLemons() + "  Sugar: " + (int)ls.getSugar() + " </pre></html>");
                                 customerMessage.setForeground(Color.GREEN);
                                 customerMessage.setText("<html>Cup Sold!</html>");
+                                ls.setSoldCups(ls.getSoldCups() + 1);
                                 System.out.println("Current Money: " + ls.getMoney());
                             } else {
                                 System.out.println("Ew! I dont want that lemonade...");
