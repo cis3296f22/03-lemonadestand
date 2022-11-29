@@ -5,18 +5,8 @@ import java.awt.event.*;
 import java.text.DecimalFormat;
 
 public class Report {
-<<<<<<< Updated upstream
-    public static void main(String[] args){
-        LemonadeStandModel ls = new LemonadeStandModel();
-        ls.setLemons(ls.getLemons() + 3);
-        ls.setSugar(ls.getSugar() + 1);
-        ls.setIce(ls.getIce() + 1);
-        new Report(ls);
-    }
-=======
     LemonadeStandModel ls = new LemonadeStandModel();
     int[] customers1 = ls.CustomerLogic();
->>>>>>> Stashed changes
     double income = 0;
     double soldCups = customers1[0];
     double customer = customers1[5];

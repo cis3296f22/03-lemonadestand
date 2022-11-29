@@ -43,17 +43,6 @@ public class GameView extends JFrame {
     int sugar;
     int cups;
     int ice;*/
-<<<<<<< Updated upstream
-    WeatherForecast obj = new WeatherForecast();
-    LemonadeStandModel L = new LemonadeStandModel();
-    int temperature = obj.temperature;
-    //int temperature = 0;
-    //String weather = "Sunny";
-    String weather = obj.weather; 
-    int currentDay;
-    String totalDays;
-=======
->>>>>>> Stashed changes
 
     private JPanel panel1;
 
