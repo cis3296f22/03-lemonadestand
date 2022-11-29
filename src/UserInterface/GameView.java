@@ -87,8 +87,49 @@ public class GameView extends JFrame {
 
         int[] customers1 = ls.CustomerLogic();
         int customers = 0;
+<<<<<<< Updated upstream
         while(customers < customers1[5]){
             customerAnimationThread a = new customerAnimationThread(walker, 0, 200, 200, 200, ls);
+=======
+
+        int temp;
+
+
+        int customerTotal = customers1[5];
+        /*for(int i=0; i<customers1.length; i++){
+            customerTotal += customers1[i];
+        }*/
+
+        System.out.println("Customers[0]: " + customers1[0] + "  Customers[1]: " + customers1[1] + "  Customers[2]: " + customers1[2] + "  Customers[3]: " + customers1[3] + "  Customers[4]: " + customers1[4] + "  Customers[5]: " + customers1[5] );
+
+        boolean willBuy = false;
+        while(customers < customerTotal){
+            System.out.println("Buying customers left: " + customers1[0]);
+
+            int rndBuy = (int) ( Math.random() * 4);
+            if(rndBuy == 0 || rndBuy == 1){
+                if(customers1[0] > 0 && ls.canSellCup()){
+                    willBuy = true;
+                    customers1[0] = customers1[0] - 1;
+                }else{
+                    willBuy = false;
+                }
+            }else{
+                if(customers1[2] > 0){
+                    willBuy = false;
+                    customers1[2] = customers1[2] - 1;
+                }else if(customers1[0] > 0 && ls.canSellCup()){
+                    willBuy = true;
+                    customers1[0] = customers1[0] - 1;
+                }else{
+                    willBuy = false;
+                }
+            }
+
+            customerAnimationThread a = new customerAnimationThread(walker, 0, 200, 200, 200, ls, willBuy);
+
+
+>>>>>>> Stashed changes
             a.execute();
             int rnd = (int) ( Math.random() * 2000 + 350);
 
