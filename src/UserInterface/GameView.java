@@ -43,7 +43,7 @@ public class GameView extends JFrame {
     int sugar;
     int cups;
     int ice;*/
-    LemonadeStandModel L = new LemonadeStandModel();
+
 
     private JPanel panel1;
 
@@ -85,9 +85,9 @@ public class GameView extends JFrame {
 
         System.out.println("Window size: " + frame.getWidth());
 
-        int[] customers1 = L.CustomerLogic();
+        int[] customers1 = ls.CustomerLogic();
         int customers = 0;
-        while(customers < customers1[0]){
+        while(customers < customers1[5]){
             customerAnimationThread a = new customerAnimationThread(walker, 0, 200, 200, 200, ls);
             a.execute();
             int rnd = (int) ( Math.random() * 2000 + 350);
