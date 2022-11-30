@@ -29,6 +29,9 @@ public class LemonadeStandModel {
     //amount of cups sold
     private int soldCups;
 
+    //Weather Forecast
+    WeatherForecast wf;
+
     // constructor
     public LemonadeStandModel(){
         ice = 0.0;
@@ -40,7 +43,7 @@ public class LemonadeStandModel {
         sugarPer = 4.0;
         lemonsPer = 4.0;
         icePer = 4.0;
-        pricePer = 25;
+        pricePer = 75;
         cupsPer = 1;        
 
         currentDay = 1;
@@ -123,6 +126,10 @@ public class LemonadeStandModel {
         return soldCups;
     }
 
+    public WeatherForecast getWeatherForecast(){
+        return wf;
+    }
+
     // SETTERS
     public void setIce(double i){
         ice = i;
@@ -186,6 +193,10 @@ public class LemonadeStandModel {
 
     public void setSoldCups(int i){
         soldCups = i;
+    }
+
+    public void setWeatherForecast(WeatherForecast i){
+        wf = i;
     }
 
     // ACTIONS
@@ -303,8 +314,8 @@ public class LemonadeStandModel {
         return canSubtractIce() && canSubtractCups() && canSubtractLemons() && canSubtractSugar();
     }
 
-    public int[] CustomerLogic(){
-        WeatherForecast obj = new WeatherForecast();
+    public int[] CustomerLogic(LemonadeStandModel ls){
+        WeatherForecast obj = ls.getWeatherForecast();
         //int customers[0] = obj.getTemperature();
         int[] customers = new int[6];
         customers[0] = obj.getCustomers();
@@ -316,11 +327,11 @@ public class LemonadeStandModel {
         System.out.println("Weather Today " + obj.getWeather());
         System.out.println("Customers2 unmodified "+ customers[0]);//Test for modifying
 
-        if (pricePer > 2) {
+        if (pricePer > .85) {
             customers[0] = customers[0] - (customers[0] * 10 / 100);//reduce customers by 10%
             customers[1] = customers[1] + (customers[0] * 10 / 100);
         }
-        else if (pricePer < 0.50) {
+        else if (pricePer < 0.65) {
             customers[0] = customers[0] + (customers[0] * 10 / 100);//Increase Customers by 10%
 
         }

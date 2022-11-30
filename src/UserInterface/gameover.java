@@ -6,8 +6,6 @@ import java.text.DecimalFormat;
 
 public class gameover extends JFrame{
     double net = 0.0;
-    int temperature = 0;
-    String weather = "Sunny";
     DecimalFormat df = new DecimalFormat("0.00");
     
     //create frame
@@ -24,11 +22,11 @@ public class gameover extends JFrame{
     JLabel line = new JLabel("---------------------------------------------------------");
     JLabel prof = new JLabel("Net Profit/Loss: ");
     JLabel dayLabel = new JLabel(" ", SwingConstants.LEFT);
-    JLabel weatherLabel = new JLabel("<html>Temperature: " + temperature + "&#8457<br />Weather: " + weather + "</html>", SwingConstants.RIGHT);
+    JLabel weatherLabel = new JLabel("", SwingConstants.RIGHT);
     ImageIcon image = new ImageIcon("src/UserInterface/LemonIcon.png");
 
     //bankrupt screen
-    public gameover(LemonadeStandModel ls){
+    public gameover(LemonadeStandModel ls, WeatherForecast wf){
         //create panels
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
@@ -46,6 +44,7 @@ public class gameover extends JFrame{
         else if(ls.getTotalDay() > 30){
             dayLabel.setText("<html>Day " + (int)ls.getCurrentDay() + " of " + ls.getTotalDay() + "<br />Money: $" + df.format(ls.getMoney()) + "</html>");
         }
+        weatherLabel.setText("<html>Temperature: " + wf.getTemperature() + "&#8457<br />Weather: " + wf.getWeather() + "</html>");
 
         //create empty border, layout, and background color for panels
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 10, 25));

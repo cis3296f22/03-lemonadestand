@@ -9,8 +9,6 @@ import java.text.DecimalFormat;
 import java.lang.InterruptedException;
 
 public class pricing {
-    int temperature = 0;
-    String weather = "Sunny";
     DecimalFormat df = new DecimalFormat("0.00");
 
     //create buttons
@@ -48,11 +46,11 @@ public class pricing {
         //create spinners
         SpinnerModel model1 = new SpinnerNumberModel(ls.getPricePer(), 1, 99, 1);
         JSpinner spinner1 = new JSpinner(model1);
-        SpinnerModel model2 = new SpinnerNumberModel(ls.getLemonsPer(), 0, 99, 1);
+        SpinnerModel model2 = new SpinnerNumberModel(ls.getLemonsPer(), 0, 10, 1);
         JSpinner spinner2 = new JSpinner(model2);
-        SpinnerModel model3 = new SpinnerNumberModel(ls.getSugarPer(), 0, 99, 1);
+        SpinnerModel model3 = new SpinnerNumberModel(ls.getSugarPer(), 0, 10, 1);
         JSpinner spinner3 = new JSpinner(model3);
-        SpinnerModel model4 = new SpinnerNumberModel(ls.getIcePer(), 0, 99, 1);
+        SpinnerModel model4 = new SpinnerNumberModel(ls.getIcePer(), 0, 10, 1);
         JSpinner spinner4 = new JSpinner(model4);
 
         //set text for bottom labels
@@ -179,11 +177,11 @@ public class pricing {
 
         //add action functions
         ls.setPricePer(((double)spinner1.getValue()) / 100);
-        spinnerAction(spinner1, ls, 100);
-        spinnerAction(spinner2, ls, 1);
-        spinnerAction(spinner3, ls, 1);
-        spinnerAction(spinner4, ls, 1);
-        bankruptAction(ls);
+        spinnerAction1(spinner1, ls);
+        spinnerAction2(spinner2, ls);
+        spinnerAction3(spinner3, ls);
+        spinnerAction4(spinner4, ls);
+        bankruptAction(ls, wf);
         startAction(ls, wf);
         instructAction(ls, wf);
         goBack(ls, wf);
@@ -203,13 +201,13 @@ public class pricing {
     }
 
     //action to bankrupt and end the game
-    public void bankruptAction(LemonadeStandModel temp){
+    public void bankruptAction(LemonadeStandModel temp, WeatherForecast wfTemp){
         buttonBankrupt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
                 double asset = (temp.getCups() * .0067 + temp.getLemons() * .0129 + temp.getSugar() * .0151 + temp.getIce() * .00216);
                 temp.setLiquidate(temp.getLiquidate() + asset);
-                new gameover(temp);
+                new gameover(temp, wfTemp);
                 priceFrame.dispose();
             }
         });
@@ -240,7 +238,7 @@ public class pricing {
         buttonBack1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                temp.setPricePer(25);
+                temp.setPricePer(75);
                 new Purchase(temp, wfTemp);
                 priceFrame.dispose();
             }
@@ -322,12 +320,42 @@ public class pricing {
         });  
     }
 
-    //action for setting the price per values from the spinners
-    public void spinnerAction(JSpinner spinner, LemonadeStandModel temp, int value){
+    //action for setting the price per values from spinner 1
+    public void spinnerAction1(JSpinner spinner, LemonadeStandModel temp){
         spinner.addChangeListener((ChangeListener) new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                temp.setPricePer(((double)spinner.getValue()) / value);
+                temp.setPricePer(((double)spinner.getValue()) / 100);
+            }
+        });
+    }
+
+    //action for setting the lemons per value from spinner 2
+    public void spinnerAction2(JSpinner spinner, LemonadeStandModel temp){
+        spinner.addChangeListener((ChangeListener) new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                temp.setLemonsPer(((double)spinner.getValue()));
+            }
+        });
+    }
+
+    //action for setting the sugar per value from spinner 3
+    public void spinnerAction3(JSpinner spinner, LemonadeStandModel temp){
+        spinner.addChangeListener((ChangeListener) new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                temp.setSugarPer(((double)spinner.getValue()));
+            }
+        });
+    }
+
+    //action for setting the ice per value from spinner 4
+    public void spinnerAction4(JSpinner spinner, LemonadeStandModel temp){
+        spinner.addChangeListener((ChangeListener) new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                temp.setIcePer(((double)spinner.getValue()));
             }
         });
     }

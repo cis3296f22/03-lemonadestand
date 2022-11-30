@@ -207,6 +207,7 @@ public class MainMenu {
             @Override
             public void actionPerformed(ActionEvent e){
                 ls.setTotalDay(days);
+                ls.setWeatherForecast(wf);
                 new Purchase(ls, wf);
                 gameFrame.dispose();
             }

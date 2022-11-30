@@ -86,7 +86,7 @@ public class GameView extends JFrame {
 
         System.out.println("Window size: " + frame.getWidth());
 
-        int[] customers1 = ls.CustomerLogic();
+        int[] customers1 = ls.CustomerLogic(ls);
         int customers = 0;
 
 
@@ -181,7 +181,7 @@ public class GameView extends JFrame {
         gameText.setFont(new Font("Georgia", Font.BOLD, 20));
 
         weatherText.setText("<html>Temperature: " + wf.getTemperature() + "&#8457<br />Weather: " + wf.getWeather() + "</html>"); //add variables
-        weatherText.setBounds(400, 440, 200, 50);
+        weatherText.setBounds(400, 440, 205, 50);
         weatherText.setFont(new Font("Georgia", Font.BOLD, 20));
 
         inventory.setText("<html><pre> Cups: " + (int)ls.getCups() + "  Ice: " + (int)ls.getIce() + "  Lemons: " + (int)ls.getLemons() + "  Sugar: " + (int)ls.getSugar() + " </pre></html>");
