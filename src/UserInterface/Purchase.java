@@ -148,7 +148,7 @@ public class Purchase {
         lemonAction(ls, wf);
         sugarAction(ls, wf);
         iceAction(ls, wf);
-        bankruptAction(ls);
+        bankruptAction(ls, wf);
         startAction(ls, wf);
         instructAction(ls, wf);
 
@@ -419,13 +419,13 @@ public class Purchase {
     }
 
     //action to bankrupt and end the game
-    public void bankruptAction(LemonadeStandModel temp){
+    public void bankruptAction(LemonadeStandModel temp, WeatherForecast wfTemp){
         buttonBankrupt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
                 double asset = (temp.getCups() * .0067 + temp.getLemons() * .0129 + temp.getSugar() * .0151 + temp.getIce() * .00216);
                 temp.setLiquidate(temp.getLiquidate() + asset);
-                new gameover(temp);
+                new gameover(temp, wfTemp);
                 inventoryFrame.dispose();
             }
         });
@@ -436,7 +436,7 @@ public class Purchase {
         buttonStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                temp.setPricePer(25);
+                temp.setPricePer(75);
                 new pricing(temp, wfTemp);
                 inventoryFrame.dispose();
             }

@@ -182,19 +182,25 @@ public class Report {
         //add utilities to panels
         panel.add(lossLabel);
         if(ls.getLemons() >= 3){
-            l++;
-            ls.setLemons(ls.getLemons() - (ls.getLemons() / 3));
-            panel.add(lemonLabel);
+            int rand = (Math.random() <= 0.5) ? 1 : 2;
+            if(rand == 1){
+                l++;
+                ls.setLemons(ls.getLemons() - (ls.getLemons() / 3));
+                panel.add(lemonLabel);
+            }
+            else if(rand == 2){
+                l = 0;
+            }
         }
 
         if(ls.getSugar() > 0){
-            int rand = (Math.random() <= 0.5) ? 1 : 2;
+            int rand = (int) (Math.random() * (3 - 1 + 1) + 1);
             if(rand == 1){
                 s++;
                 ls.setSugar(0);
                 panel.add(sugarLabel);
             }
-            else if(rand == 2){
+            else if(rand == 2 || rand == 3){
                 s = 0;
             }
         }
@@ -246,10 +252,13 @@ public class Report {
                 if(temp.getLemons() < 3 && temp.getSugar() == 0 && temp.getIce() == 0){
                     if(temp.getCurrentDay() > temp.getTotalDay()){
                         temp.setCurrentDay(temp.getCurrentDay() - 1);
-                        new gameover(temp);
+                        double asset = (temp.getCups() * .0067 + temp.getLemons() * .0129 + temp.getSugar() * .0151 + temp.getIce() * .00216);
+                        temp.setLiquidate(temp.getLiquidate() + asset);
+                        new gameover(temp, wfTemp);
                     }
                     else{
                         WeatherForecast wfNext = new WeatherForecast();
+                        temp.setWeatherForecast(wfNext);
                         temp.setSoldCups(0);
                         new Purchase(temp, wfNext);
                     }
@@ -269,10 +278,13 @@ public class Report {
             public void actionPerformed(ActionEvent e){
                 if(temp.getCurrentDay() > temp.getTotalDay()){
                     temp.setCurrentDay(temp.getCurrentDay() - 1);
-                    new gameover(temp);
+                    double asset = (temp.getCups() * .0067 + temp.getLemons() * .0129 + temp.getSugar() * .0151 + temp.getIce() * .00216);
+                    temp.setLiquidate(temp.getLiquidate() + asset);
+                    new gameover(temp, wfTemp);
                 }
                 else{
                     WeatherForecast wfNext = new WeatherForecast();
+                    temp.setWeatherForecast(wfNext);
                     temp.setSoldCups(0);
                     new Purchase(temp, wfNext);
                 }
