@@ -87,7 +87,7 @@ public class LemonadeStandModel {
 
     public String getMoneyFormatted(){
         String temp = Double.toString(money);
-        return String.format("%.2f", temp);
+        return (String)String.format("%.2f", temp);
     }
 
     public double getIcePer(){
